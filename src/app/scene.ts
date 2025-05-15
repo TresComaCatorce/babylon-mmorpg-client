@@ -6,15 +6,15 @@ import {
 	HemisphericLight,
 	ArcRotateCamera,
 } from '@babylonjs/core';
-import '@babylonjs/inspector';
 
 export function createScene(engine: Engine, canvas: HTMLCanvasElement): Scene {
 	const scene = new Scene(engine);
 
 	// Only in development mode, load and start the inspector
 	if (process.env.NODE_ENV === 'development') {
-		import('@babylonjs/inspector').then();
-		scene.debugLayer.show();
+		import('@babylonjs/inspector').then(() => {
+			scene.debugLayer.show();
+		});
 	}
 
 	// Add camera
