@@ -1,3 +1,3 @@
-import GameController from './controllers/GameController';
+import GameController from '@mmorpg/controllers/GameController';
 
 GameController.getInstance().startGame();

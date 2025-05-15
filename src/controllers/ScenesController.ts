@@ -1,8 +1,8 @@
 import { Nullable } from '@babylonjs/core';
 
-import GameController from './GameController';
-import BaseScene from '../scenes/BaseScene';
-import BaseController from './BaseController';
+import GameController from '@mmorpg/controllers/GameController';
+import BaseController from '@mmorpg/controllers/BaseController';
+import BaseScene from '@mmorpg/scenes/BaseScene';
 
 /**
  * @class ScenesController

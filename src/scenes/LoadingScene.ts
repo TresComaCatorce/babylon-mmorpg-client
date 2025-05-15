@@ -1,9 +1,9 @@
 import { Vector3, ArcRotateCamera, HemisphericLight } from '@babylonjs/core';
 
-import ScenesController from '../controllers/ScenesController';
-import SCENE_NAMES from '../utils/constants/SCENE_NAMES';
-import VirtualScene from './VirtualScene';
-import LoginScene from './LoginScene';
+import ScenesController from '@mmorpg/controllers/ScenesController';
+import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
+import VirtualScene from '@mmorpg/scenes/VirtualScene';
+import LoginScene from '@mmorpg/scenes/LoginScene';
 
 /**
  * @class LoadingScene

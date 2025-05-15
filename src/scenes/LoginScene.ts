@@ -5,9 +5,9 @@ import {
 	MeshBuilder,
 } from '@babylonjs/core';
 
-import SCENE_NAMES from '../utils/constants/SCENE_NAMES';
-import VirtualScene from './VirtualScene';
-import GameController from '../controllers/GameController';
+import GameController from '@mmorpg/controllers/GameController';
+import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
+import VirtualScene from '@mmorpg/scenes/VirtualScene';
 
 /**
  * @class LoginScene

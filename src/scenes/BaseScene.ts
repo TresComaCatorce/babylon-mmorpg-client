@@ -1,7 +1,7 @@
 import { Scene } from '@babylonjs/core';
 
-import { IBaseSceneConstructorParams } from '../interfaces/scenes/IBaseScene';
-import GameController from '../controllers/GameController';
+import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
+import GameController from '@mmorpg/controllers/GameController';
 
 /**
  * @abstract

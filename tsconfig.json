@@ -8,7 +8,15 @@
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"outDir": "./dist",
-		"rootDir": "./src"
+		"rootDir": "./src",
+		"baseUrl": "./src",
+		"paths": {
+			"@mmorpg/assets/*": ["assets/*"],
+			"@mmorpg/controllers/*": ["controllers/*"],
+			"@mmorpg/interfaces/*": ["interfaces/*"],
+			"@mmorpg/scenes/*": ["scenes/*"],
+			"@mmorpg/utils/*": ["utils/*"]
+		}
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules"]

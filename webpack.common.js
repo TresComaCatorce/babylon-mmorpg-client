@@ -11,6 +11,13 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.ts', '.js'],
+		alias: {
+			'@mmorpg/assets': path.resolve(__dirname, 'src/assets'),
+			'@mmorpg/controllers': path.resolve(__dirname, 'src/controllers'),
+			'@mmorpg/interfaces': path.resolve(__dirname, 'src/interfaces'),
+			'@mmorpg/scenes': path.resolve(__dirname, 'src/scenes'),
+			'@mmorpg/utils': path.resolve(__dirname, 'src/utils'),
+		},
 	},
 	module: {
 		rules: [

@@ -1,8 +1,8 @@
 import { AppendSceneAsync } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
-import BaseScene from './BaseScene';
-import { IBaseSceneConstructorParams } from '../interfaces/scenes/IBaseScene';
+import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
+import BaseScene from '@mmorpg/scenes/BaseScene';
 
 /**
  * @class MapScene

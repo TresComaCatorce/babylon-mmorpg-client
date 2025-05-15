@@ -1,5 +1,5 @@
-import { IBaseSceneConstructorParams } from '../interfaces/scenes/IBaseScene';
-import BaseScene from './BaseScene';
+import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
+import BaseScene from '@mmorpg/scenes/BaseScene';
 
 /**
  * @class VirtualScene
