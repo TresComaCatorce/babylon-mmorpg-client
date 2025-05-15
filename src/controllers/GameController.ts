@@ -11,6 +11,14 @@ import BaseController from './BaseController';
  */
 class GameController extends BaseController {
 	/**
+	 * @description The Babylon.js Engine instance used for rendering.
+	 * @access private
+	 */
+	private _engine: Engine;
+
+	private _canvasElement: HTMLCanvasElement;
+
+	/**
 	 * @static
 	 * @description Singleton instance of GameController.
 	 * @access private
@@ -23,6 +31,7 @@ class GameController extends BaseController {
 	 */
 	private constructor() {
 		super();
+		this._canvasElement = this._getCanvasHtmlElement();
 		this._engine = this._createEngineInstance();
 		this._addBrowserResizeHandler();
 	}
@@ -39,12 +48,6 @@ class GameController extends BaseController {
 		}
 		return GameController._instance;
 	}
-
-	/**
-	 * @description The Babylon.js Engine instance used for rendering.
-	 * @access private
-	 */
-	private _engine: Engine;
 
 	/**
 	 * @description Flag indicating whether the game has started.
@@ -101,8 +104,7 @@ class GameController extends BaseController {
 	 * @returns {Engine} The created engine instance.
 	 */
 	private _createEngineInstance(): Engine {
-		const canvasElement = this._getCanvasHtmlElement();
-		return new Engine(canvasElement, true);
+		return new Engine(this._canvasElement, true);
 	}
 
 	/**
@@ -114,6 +116,15 @@ class GameController extends BaseController {
 		window.addEventListener('resize', () => {
 			this._engine.resize();
 		});
+	}
+
+	/**
+	 * @description Gets the canvas element.
+	 * @access public
+	 * @returns {HTMLCanvasElement} The canvas element.
+	 */
+	get canvasElement(): HTMLCanvasElement {
+		return this._canvasElement;
 	}
 
 	/**
