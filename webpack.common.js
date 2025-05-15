@@ -1,13 +1,13 @@
-// webpack.common.js
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
 module.exports = {
-	entry: './src/index.ts', // punto de entrada
+	entry: './src/index.ts',
 	output: {
 		filename: 'bundle.js',
 		path: path.resolve(__dirname, 'dist'),
-		clean: true, // limpia dist antes de build (webpack 5+)
+		clean: true,
 	},
 	resolve: {
 		extensions: ['.ts', '.js'],
@@ -24,6 +24,9 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
+		}),
+		new CopyPlugin({
+			patterns: [{ from: 'src/assets', to: 'assets' }],
 		}),
 	],
 };
