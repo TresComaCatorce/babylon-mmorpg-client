@@ -1,13 +1,17 @@
 import {
+	PointerEventTypes,
 	ArcRotateCamera,
 	Vector3,
 	HemisphericLight,
 	MeshBuilder,
+	PointerInfo,
 } from '@babylonjs/core';
 
 import GameController from '@mmorpg/controllers/GameController';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
 import VirtualScene from '@mmorpg/scenes/VirtualScene';
+import ScenesController from '@mmorpg/controllers/ScenesController';
+import TestMapScene from '@mmorpg/scenes/TestMapScene';
 
 /**
  * @class LoginScene
@@ -46,16 +50,26 @@ class LoginScene extends VirtualScene {
 		// Add light
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 
-		// Create sphere
-		const sphere = MeshBuilder.CreateSphere(
-			'sphere',
-			{ diameter: 2 },
+		// Create ground
+		const ground = MeshBuilder.CreateGround(
+			'ground',
+			{ width: 6, height: 6 },
 			this,
 		);
-		sphere.position.y = 1;
 
-		// Create ground
-		MeshBuilder.CreateGround('ground', { width: 6, height: 6 }, this);
+		this.onPointerObservable.add((pointerInfo: PointerInfo) => {
+			switch (pointerInfo.type) {
+				case PointerEventTypes.POINTERDOWN:
+					if (pointerInfo?.pickInfo?.hit) {
+						if (pointerInfo.pickInfo.pickedMesh === ground) {
+							ScenesController.getInstance().switchToScene(
+								new TestMapScene(),
+							);
+						}
+					}
+					break;
+			}
+		});
 	}
 }
 
