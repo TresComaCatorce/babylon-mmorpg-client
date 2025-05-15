@@ -34,6 +34,7 @@ abstract class BaseScene extends Scene {
 	 * @returns {void}
 	 */
 	public disposeScene(): void {
+		this.debugLayer.hide();
 		this.dispose();
 	}
 
