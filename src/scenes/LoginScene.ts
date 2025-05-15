@@ -12,15 +12,14 @@ class LoginScene extends VirtualScene {
 	 */
 	constructor() {
 		super();
-		this.create();
 	}
 
 	/**
 	 * @description Creates the login scene. Intended to be extended with login UI and logic.
-	 * @access public
+	 * @access protected
 	 * @returns {void}
 	 */
-	public create(): void {}
+	public _preload(): void {}
 }
 
 export default LoginScene;

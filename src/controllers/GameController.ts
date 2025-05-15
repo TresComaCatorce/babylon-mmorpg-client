@@ -61,7 +61,7 @@ class GameController extends BaseController {
 	 */
 	public startGame(): void {
 		if (!this._gameStarted) {
-			ScenesController.getInstance().changeScene(new LoadingScene());
+			ScenesController.getInstance().switchToScene(new LoadingScene());
 			console.log('Game started');
 			this._gameStarted = true;
 		} else {

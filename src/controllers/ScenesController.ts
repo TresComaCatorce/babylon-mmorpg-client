@@ -50,7 +50,7 @@ class ScenesController extends BaseController {
 	 * @param {BaseScene} newScene - The new scene to switch to.
 	 * @returns {void}
 	 */
-	public changeScene(newScene: BaseScene): void {
+	public switchToScene(newScene: BaseScene): void {
 		if (this.currentScene) {
 			this.currentScene.disposeScene();
 		}

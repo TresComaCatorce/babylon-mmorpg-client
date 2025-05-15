@@ -14,23 +14,18 @@ abstract class BaseScene extends Scene {
 	 */
 	constructor() {
 		super(GameController.getInstance().engine);
+		// this.metadata = {'asd';
+		this._preload();
 		this._showInspectorInDevelopmentMode();
 	}
 
 	/**
-	 * @description Optional asynchronous preload hook for loading assets or performing setup before scene creation.
-	 * @access public
-	 * @returns {Promise<void>}
-	 */
-	public async preload(): Promise<void> {}
-
-	/**
-	 * @description Abstract method to create and initialize the scene. Must be implemented by subclasses.
-	 * @access public
-	 * @abstract
+	 * @description
+	 * @access protected
 	 * @returns {void}
+	 * @abstract
 	 */
-	public abstract create(): void;
+	protected abstract _preload(): void;
 
 	/**
 	 * @description Disposes of the scene and cleans up resources.

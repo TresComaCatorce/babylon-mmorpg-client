@@ -1,6 +1,8 @@
 import { Vector3, ArcRotateCamera, HemisphericLight } from '@babylonjs/core';
 
 import VirtualScene from './VirtualScene';
+import ScenesController from '../controllers/ScenesController';
+import LoginScene from './LoginScene';
 
 /**
  * @class LoadingScene
@@ -14,15 +16,14 @@ class LoadingScene extends VirtualScene {
 	 */
 	constructor() {
 		super();
-		this.create();
 	}
 
 	/**
 	 * @description Creates the loading scene by setting up the camera and lighting.
-	 * @access public
+	 * @access protected
 	 * @returns {void}
 	 */
-	public create(): void {
+	protected _preload(): void {
 		const camera = new ArcRotateCamera(
 			'camera',
 			Math.PI / 2,
@@ -33,6 +34,10 @@ class LoadingScene extends VirtualScene {
 		);
 		camera.attachControl(true);
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
+	}
+
+	private _switchToLoginScene(): void {
+		ScenesController.getInstance().switchToScene(new LoginScene());
 	}
 }
 
