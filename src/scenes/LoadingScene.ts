@@ -17,6 +17,7 @@ class LoadingScene extends VirtualScene {
 	 */
 	constructor() {
 		super({ sceneName: SCENE_NAMES.LOADING });
+		this._switchToLoginScene();
 	}
 
 	/**
