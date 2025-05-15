@@ -34,6 +34,7 @@ class GameController extends BaseController {
 		this._canvasElement = this._getCanvasHtmlElement();
 		this._engine = this._createEngineInstance();
 		this._addBrowserResizeHandler();
+		this._addRunRenderLoop();
 	}
 
 	/**
@@ -115,6 +116,16 @@ class GameController extends BaseController {
 	private _addBrowserResizeHandler() {
 		window.addEventListener('resize', () => {
 			this._engine.resize();
+		});
+	}
+
+	private _addRunRenderLoop() {
+		this._engine.runRenderLoop(() => {
+			const currentSceneInstance =
+				ScenesController.getInstance().currentSceneInstance;
+			if (currentSceneInstance && !currentSceneInstance.isDisposed) {
+				currentSceneInstance.render();
+			}
 		});
 	}
 

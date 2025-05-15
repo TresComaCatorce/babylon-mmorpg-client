@@ -15,7 +15,7 @@ class ScenesController extends BaseController {
 	 * @description Singleton instance of ScenesController.
 	 * @access private
 	 */
-	private static instance: ScenesController;
+	private static _instance: ScenesController;
 
 	/**
 	 * @static
@@ -24,10 +24,10 @@ class ScenesController extends BaseController {
 	 * @returns {ScenesController} The singleton instance.
 	 */
 	public static getInstance(): ScenesController {
-		if (!ScenesController.instance) {
-			ScenesController.instance = new ScenesController();
+		if (!ScenesController._instance) {
+			ScenesController._instance = new ScenesController();
 		}
-		return ScenesController.instance;
+		return ScenesController._instance;
 	}
 
 	/**
@@ -42,7 +42,7 @@ class ScenesController extends BaseController {
 	 * @description The currently active scene, or null if no scene is active.
 	 * @access private
 	 */
-	private currentScene: Nullable<BaseScene> = null;
+	private _currentScene: Nullable<BaseScene> = null;
 
 	/**
 	 * @description Changes the current scene to a new scene, disposing of the previous one if it exists, and starts the render loop for the new scene.
@@ -51,16 +51,10 @@ class ScenesController extends BaseController {
 	 * @returns {void}
 	 */
 	public switchToScene(newScene: BaseScene): void {
-		if (this.currentScene) {
-			this.currentScene.disposeScene();
+		if (this._currentScene) {
+			this._currentScene.disposeScene();
 		}
-		this.currentScene = newScene;
-
-		GameController.getInstance().engine.runRenderLoop(() => {
-			if (this.currentScene && !this.currentScene.isDisposed) {
-				this.currentScene.render();
-			}
-		});
+		this._currentScene = newScene;
 	}
 
 	/**
@@ -76,11 +70,15 @@ class ScenesController extends BaseController {
 	 * @returns {void}
 	 */
 	public dispose(): void {
-		if (this.currentScene) {
-			this.currentScene.disposeScene();
-			this.currentScene = null;
+		if (this._currentScene) {
+			this._currentScene.disposeScene();
+			this._currentScene = null;
 		}
 		GameController.getInstance().engine.stopRenderLoop();
+	}
+
+	get currentSceneInstance(): Nullable<BaseScene> {
+		return this._currentScene;
 	}
 }
 
