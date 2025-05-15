@@ -39,7 +39,9 @@ class LoadingScene extends VirtualScene {
 	}
 
 	private _switchToLoginScene(): void {
-		ScenesController.getInstance().switchToScene(new LoginScene());
+		setTimeout(() => {
+			ScenesController.getInstance().switchToScene(new LoginScene());
+		}, 5000);
 	}
 }
 
