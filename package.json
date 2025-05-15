@@ -17,7 +17,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"@babylonjs/core": "^8.7.1",
-		"@babylonjs/inspector": "^8.7.1"
+		"@babylonjs/inspector": "^8.7.1",
+		"@babylonjs/loaders": "^8.7.1"
 	},
 	"devDependencies": {
 		"@types/node": "^22.15.18",
