@@ -1,0 +1,6 @@
+enum SCENE_NAMES {
+	'LOADING' = 'LOADING_SCENE',
+	'LOGIN' = 'LOGIN_SCENE',
+}
+
+export default SCENE_NAMES;

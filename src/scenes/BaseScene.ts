@@ -1,5 +1,6 @@
 import { Scene } from '@babylonjs/core';
 
+import { IBaseSceneConstructorParams } from '../interfaces/scenes/IBaseScene';
 import GameController from '../controllers/GameController';
 
 /**
@@ -12,9 +13,9 @@ abstract class BaseScene extends Scene {
 	 * @description Constructs a new BaseScene and attaches it to the current game engine. Shows the Babylon.js inspector in development mode.
 	 * @access public
 	 */
-	constructor() {
+	constructor(params: IBaseSceneConstructorParams) {
 		super(GameController.getInstance().engine);
-		// this.metadata = {'asd';
+		this.metadata = { sceneName: params.sceneName };
 		this._preload();
 		this._showInspectorInDevelopmentMode();
 	}

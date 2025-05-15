@@ -1,3 +1,4 @@
+import SCENE_NAMES from '../utils/constants/SCENE_NAMES';
 import VirtualScene from './VirtualScene';
 
 /**
@@ -11,7 +12,7 @@ class LoginScene extends VirtualScene {
 	 * @access public
 	 */
 	constructor() {
-		super();
+		super({ sceneName: SCENE_NAMES.LOGIN });
 	}
 
 	/**

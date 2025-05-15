@@ -2,6 +2,7 @@ import { AppendSceneAsync } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
 import BaseScene from './BaseScene';
+import { IBaseSceneConstructorParams } from '../interfaces/scenes/IBaseScene';
 
 /**
  * @class MapScene
@@ -14,8 +15,8 @@ abstract class MapScene extends BaseScene {
 	 * @description Constructs a new MapScene and initializes the base scene.
 	 * @access public
 	 */
-	constructor() {
-		super();
+	constructor(params: IBaseSceneConstructorParams) {
+		super(params);
 	}
 
 	/**

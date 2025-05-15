@@ -1,7 +1,8 @@
 import { Vector3, ArcRotateCamera, HemisphericLight } from '@babylonjs/core';
 
-import VirtualScene from './VirtualScene';
 import ScenesController from '../controllers/ScenesController';
+import SCENE_NAMES from '../utils/constants/SCENE_NAMES';
+import VirtualScene from './VirtualScene';
 import LoginScene from './LoginScene';
 
 /**
@@ -15,7 +16,7 @@ class LoadingScene extends VirtualScene {
 	 * @access public
 	 */
 	constructor() {
-		super();
+		super({ sceneName: SCENE_NAMES.LOADING });
 	}
 
 	/**

@@ -1,3 +1,4 @@
+import { IBaseSceneConstructorParams } from '../interfaces/scenes/IBaseScene';
 import BaseScene from './BaseScene';
 
 /**
@@ -11,8 +12,8 @@ abstract class VirtualScene extends BaseScene {
 	 * @description Constructs a new VirtualScene and initializes the base scene.
 	 * @access public
 	 */
-	constructor() {
-		super();
+	constructor(params: IBaseSceneConstructorParams) {
+		super(params);
 	}
 }
 
