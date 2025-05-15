@@ -1,6 +1,7 @@
 enum SCENE_NAMES {
 	'LOADING' = 'LOADING_SCENE',
 	'LOGIN' = 'LOGIN_SCENE',
+	'TEST_MAP' = 'TEST_MAP_SCENE',
 }
 
 export default SCENE_NAMES;
