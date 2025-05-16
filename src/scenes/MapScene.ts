@@ -1,6 +1,3 @@
-import { AppendSceneAsync } from '@babylonjs/core';
-import '@babylonjs/loaders/glTF';
-
 import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
 import BaseScene from '@mmorpg/scenes/BaseScene';
 
@@ -17,16 +14,6 @@ abstract class MapScene extends BaseScene {
 	 */
 	constructor(params: IBaseSceneConstructorParams) {
 		super(params);
-	}
-
-	/**
-	 * @description Loads map assets from the specified path into the scene using Babylon.js's AppendSceneAsync.
-	 * @access protected
-	 * @param {string} path - The path to the map asset or scene file to load.
-	 * @returns {void}
-	 */
-	protected loadMapAssets(path: string): void {
-		AppendSceneAsync(path, this);
 	}
 }
 
