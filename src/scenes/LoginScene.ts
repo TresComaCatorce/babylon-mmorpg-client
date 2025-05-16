@@ -41,7 +41,7 @@ class LoginScene extends VirtualScene {
 		console.log(`LoginScene.ts | "loaded" method execution`);
 	}
 	public update() {
-		console.log(`LoginScene.ts | "update" method execution`);
+		// console.log(`LoginScene.ts | "update" method execution`);
 	}
 
 	private _createLoginSceneContent() {

@@ -18,6 +18,7 @@ abstract class Entity {
 		this._createMesh(params.modelPath).then(() => this._onMeshLoaded());
 	}
 
+	public abstract update(): void;
 	protected abstract _onMeshLoaded(): void;
 
 	private async _createMesh(modelPath: string): Promise<void> {

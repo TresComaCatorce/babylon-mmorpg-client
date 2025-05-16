@@ -5,6 +5,7 @@ import {
 	StandardMaterial,
 	Texture,
 	FreeCamera,
+	Nullable,
 } from '@babylonjs/core';
 
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
@@ -12,6 +13,8 @@ import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
 import MapScene from '@mmorpg/scenes/MapScene';
 
 class TestMapScene extends MapScene {
+	private _playerCharacter: Nullable<PlayerCharacter> = null;
+
 	constructor() {
 		super({ sceneName: SCENE_NAMES.TEST_MAP });
 	}
@@ -26,7 +29,8 @@ class TestMapScene extends MapScene {
 		this._createTestMapSceneContent();
 	}
 	public update() {
-		console.log(`TestMapScene.ts | "update" method execution`);
+		// console.log(`TestMapScene.ts | "update" method execution`);
+		this._playerCharacter?.update();
 	}
 
 	private _createTestMapSceneContent() {
@@ -48,7 +52,7 @@ class TestMapScene extends MapScene {
 		// Asignar el material al mesh
 		ground.material = groundMaterial;
 
-		new PlayerCharacter({
+		this._playerCharacter = new PlayerCharacter({
 			name: 'KriZ',
 		});
 	}

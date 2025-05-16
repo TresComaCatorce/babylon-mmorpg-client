@@ -39,7 +39,7 @@ class LoadingScene extends VirtualScene {
 	}
 
 	public update() {
-		console.log(`LoadingScene.ts | "update" method execution`);
+		// console.log(`LoadingScene.ts | "update" method execution`);
 	}
 
 	private _switchToLoginScene(): void {
