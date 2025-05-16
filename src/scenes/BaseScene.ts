@@ -1,4 +1,4 @@
-import { Scene } from '@babylonjs/core';
+import { Scene, Camera } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
 import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
@@ -31,6 +31,17 @@ abstract class BaseScene extends Scene {
 	public disposeScene(): void {
 		this.debugLayer.hide();
 		this.dispose();
+	}
+
+	public setActiveCamera(newCamera: Camera): void {
+		if (newCamera) {
+			if (this.activeCamera) {
+				this.activeCamera.dispose();
+				this.removeCamera(this.activeCamera);
+			}
+			this.activeCamera = newCamera;
+			this.activeCamera?.attachControl(true);
+		}
 	}
 
 	/**

@@ -4,6 +4,7 @@ import {
 	MeshBuilder,
 	StandardMaterial,
 	Texture,
+	FreeCamera,
 } from '@babylonjs/core';
 
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
@@ -18,6 +19,7 @@ class TestMapScene extends MapScene {
 	public _preload(): void {}
 
 	public create() {
+		this._createTempCamera();
 		this._createTestContent();
 	}
 
@@ -50,6 +52,16 @@ class TestMapScene extends MapScene {
 		new PlayerCharacter({
 			name: 'KriZ',
 		});
+	}
+
+	private _createTempCamera(): void {
+		const tempCamera = new FreeCamera(
+			'tempCamera',
+			new Vector3(0, 5, -10),
+			this,
+		);
+		tempCamera.setTarget(Vector3.Zero());
+		this.setActiveCamera(tempCamera);
 	}
 }
 

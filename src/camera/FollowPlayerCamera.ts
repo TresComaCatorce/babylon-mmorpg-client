@@ -1,43 +1,29 @@
 import { FollowCamera, Scene, AbstractMesh, Vector3 } from '@babylonjs/core';
 
-class FollowPlayerCamera {
-	private camera: FollowCamera;
-
+class FollowPlayerCamera extends FollowCamera {
 	constructor(scene: Scene, target: AbstractMesh) {
-		// Create Babylon camera
-		this.camera = new FollowCamera(
-			'PlayerFollowCamera',
-			new Vector3(0, 5, -10),
-			scene,
-		);
+		super('PlayerFollowCamera', new Vector3(0, 5, -10), scene);
+		console.log('FollowPlayerCamera constructor: ', target);
 
 		// Configure camera
-		this.camera.lockedTarget = target;
-		this.camera.radius = 10;
-		this.camera.heightOffset = 4;
-		this.camera.rotationOffset = 180;
-		this.camera.cameraAcceleration = 0.05;
-		this.camera.maxCameraSpeed = 10;
-
-		// Active camera
-		scene.activeCamera = this.camera;
-		this.camera.attachControl(true);
+		this.lockedTarget = target;
+		this.radius = 10;
+		this.heightOffset = 4;
+		this.rotationOffset = 180;
+		this.cameraAcceleration = 0.05;
+		this.maxCameraSpeed = 10;
 	}
 
 	setRadius(value: number) {
-		this.camera.radius = value;
+		this.radius = value;
 	}
 
 	setHeightOffset(value: number) {
-		this.camera.heightOffset = value;
+		this.heightOffset = value;
 	}
 
 	setRotationOffset(value: number) {
-		this.camera.rotationOffset = value;
-	}
-
-	setTarget(mesh: AbstractMesh) {
-		this.camera.lockedTarget = mesh;
+		this.rotationOffset = value;
 	}
 }
 

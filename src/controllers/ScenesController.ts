@@ -10,12 +10,8 @@ import BaseScene from '@mmorpg/scenes/BaseScene';
  * @extends BaseController
  */
 class ScenesController extends BaseController {
-	/**
-	 * @static
-	 * @description Singleton instance of ScenesController.
-	 * @access private
-	 */
 	private static _instance: ScenesController;
+	private _currentScene: Nullable<BaseScene> = null;
 
 	/**
 	 * @static
@@ -39,10 +35,17 @@ class ScenesController extends BaseController {
 	}
 
 	/**
-	 * @description The currently active scene, or null if no scene is active.
-	 * @access private
+	 * @description Disposes of the current scene and stops the render loop.
+	 * @access public
+	 * @returns {void}
 	 */
-	private _currentScene: Nullable<BaseScene> = null;
+	public dispose(): void {
+		if (this._currentScene) {
+			this._currentScene.disposeScene();
+			this._currentScene = null;
+		}
+		GameController.getInstance().engine.stopRenderLoop();
+	}
 
 	/**
 	 * @description Changes the current scene to a new scene, disposing of the previous one if it exists, and starts the render loop for the new scene.
@@ -64,19 +67,6 @@ class ScenesController extends BaseController {
 	 * @returns {void}
 	 */
 	protected _init(): void {}
-
-	/**
-	 * @description Disposes of the current scene and stops the render loop.
-	 * @access public
-	 * @returns {void}
-	 */
-	public dispose(): void {
-		if (this._currentScene) {
-			this._currentScene.disposeScene();
-			this._currentScene = null;
-		}
-		GameController.getInstance().engine.stopRenderLoop();
-	}
 
 	get currentSceneInstance(): Nullable<BaseScene> {
 		return this._currentScene;
