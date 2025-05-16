@@ -25,7 +25,6 @@ class LoginScene extends VirtualScene {
 	 */
 	constructor() {
 		super({ sceneName: SCENE_NAMES.LOGIN });
-		this._createTestContent();
 	}
 
 	/**
@@ -33,11 +32,19 @@ class LoginScene extends VirtualScene {
 	 * @access protected
 	 * @returns {void}
 	 */
-	protected _preload(): void {}
+	public preload(): void {
+		console.log(`LoginScene.ts | "preload" method execution`);
+		this._createLoginSceneContent();
+	}
 
-	public create() {}
+	public loaded() {
+		console.log(`LoginScene.ts | "loaded" method execution`);
+	}
+	public update() {
+		console.log(`LoginScene.ts | "update" method execution`);
+	}
 
-	private _createTestContent() {
+	private _createLoginSceneContent() {
 		const canvasElement = GameController.getInstance().canvasElement;
 		const camera = new ArcRotateCamera(
 			'camera',

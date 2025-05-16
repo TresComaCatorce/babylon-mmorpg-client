@@ -17,11 +17,13 @@ abstract class BaseScene extends Scene {
 	constructor(params: IBaseSceneConstructorParams) {
 		super(GameController.getInstance().engine);
 		this.metadata = { sceneName: params.sceneName };
-		this._preload();
+		this.preload();
 		this._showInspectorInDevelopmentMode();
 	}
 
-	public abstract create(): void;
+	public abstract preload(): void; // Executed first when the scene is being created
+	public abstract loaded(): void; // Executed when the scene is loaded and runing
+	public abstract update(): void; // Executed on each frame
 
 	/**
 	 * @description Disposes of the scene and cleans up resources.
@@ -45,14 +47,6 @@ abstract class BaseScene extends Scene {
 	}
 
 	/**
-	 * @description
-	 * @access protected
-	 * @returns {void}
-	 * @abstract
-	 */
-	protected abstract _preload(): void;
-
-	/**
 	 * @description Shows the Babylon.js inspector if running in development mode.
 	 * @access private
 	 * @returns {void}
@@ -63,6 +57,10 @@ abstract class BaseScene extends Scene {
 				this.debugLayer.show();
 			});
 		}
+	}
+
+	get sceneName(): string {
+		return this.metadata.sceneName;
 	}
 }
 

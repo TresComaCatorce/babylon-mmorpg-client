@@ -16,14 +16,20 @@ class TestMapScene extends MapScene {
 		super({ sceneName: SCENE_NAMES.TEST_MAP });
 	}
 
-	public _preload(): void {}
-
-	public create() {
+	public preload(): void {
+		console.log(`TestMapScene.ts | "preload" method execution`);
 		this._createTempCamera();
-		this._createTestContent();
 	}
 
-	private _createTestContent() {
+	public loaded() {
+		console.log(`TestMapScene.ts | "loaded" method execution`);
+		this._createTestMapSceneContent();
+	}
+	public update() {
+		console.log(`TestMapScene.ts | "update" method execution`);
+	}
+
+	private _createTestMapSceneContent() {
 		// Add light
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 

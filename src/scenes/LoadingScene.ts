@@ -20,14 +20,8 @@ class LoadingScene extends VirtualScene {
 		this._switchToLoginScene();
 	}
 
-	public create() {}
-
-	/**
-	 * @description Creates the loading scene by setting up the camera and lighting.
-	 * @access protected
-	 * @returns {void}
-	 */
-	protected _preload(): void {
+	public preload(): void {
+		console.log(`LoadingScene.ts | "preload" method execution`);
 		const camera = new ArcRotateCamera(
 			'camera',
 			Math.PI / 2,
@@ -38,6 +32,14 @@ class LoadingScene extends VirtualScene {
 		);
 		camera.attachControl(true);
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
+	}
+
+	public loaded() {
+		console.log(`LoadingScene.ts | "loaded" method execution`);
+	}
+
+	public update() {
+		console.log(`LoadingScene.ts | "update" method execution`);
 	}
 
 	private _switchToLoginScene(): void {

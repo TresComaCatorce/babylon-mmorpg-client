@@ -74,13 +74,6 @@ class GameController extends BaseController {
 	}
 
 	/**
-	 * @description Initialization method.
-	 * @access protected
-	 * @returns {void}
-	 */
-	protected _init(): void {}
-
-	/**
 	 * @description Disposes of the current scene and the Babylon.js engine, cleaning up resources.
 	 * @access public
 	 * @returns {void}
@@ -123,6 +116,7 @@ class GameController extends BaseController {
 		this._engine.runRenderLoop(() => {
 			const currentSceneInstance = ScenesController.getInstance().currentSceneInstance;
 			if (currentSceneInstance && !currentSceneInstance.isDisposed) {
+				currentSceneInstance.update();
 				currentSceneInstance.render();
 			}
 		});

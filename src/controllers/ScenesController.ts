@@ -58,15 +58,8 @@ class ScenesController extends BaseController {
 			this._currentScene.disposeScene();
 		}
 		this._currentScene = newScene;
-		this._currentScene.create();
+		this._currentScene.loaded();
 	}
-
-	/**
-	 * @description Initialization method.
-	 * @access protected
-	 * @returns {void}
-	 */
-	protected _init(): void {}
 
 	get currentSceneInstance(): Nullable<BaseScene> {
 		return this._currentScene;
