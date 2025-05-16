@@ -121,8 +121,7 @@ class GameController extends BaseController {
 
 	private _addRunRenderLoop() {
 		this._engine.runRenderLoop(() => {
-			const currentSceneInstance =
-				ScenesController.getInstance().currentSceneInstance;
+			const currentSceneInstance = ScenesController.getInstance().currentSceneInstance;
 			if (currentSceneInstance && !currentSceneInstance.isDisposed) {
 				currentSceneInstance.render();
 			}

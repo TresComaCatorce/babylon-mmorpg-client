@@ -28,19 +28,12 @@ class TestMapScene extends MapScene {
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 
 		// Create ground
-		const ground = MeshBuilder.CreateGround(
-			'ground',
-			{ width: 600, height: 600 },
-			this,
-		);
+		const ground = MeshBuilder.CreateGround('ground', { width: 600, height: 600 }, this);
 		// Crear el material
 		const groundMaterial = new StandardMaterial('groundMat', this);
 
 		// Cargar la textura
-		groundMaterial.diffuseTexture = new Texture(
-			'assets/textures/grass.png',
-			this,
-		);
+		groundMaterial.diffuseTexture = new Texture('assets/textures/grass.png', this);
 
 		// (Opcional) Repetir la textura si se ve estirada
 		(groundMaterial.diffuseTexture as Texture).uScale = 150;
@@ -55,11 +48,7 @@ class TestMapScene extends MapScene {
 	}
 
 	private _createTempCamera(): void {
-		const tempCamera = new FreeCamera(
-			'tempCamera',
-			new Vector3(0, 5, -10),
-			this,
-		);
+		const tempCamera = new FreeCamera('tempCamera', new Vector3(0, 5, -10), this);
 		tempCamera.setTarget(Vector3.Zero());
 		this.setActiveCamera(tempCamera);
 	}

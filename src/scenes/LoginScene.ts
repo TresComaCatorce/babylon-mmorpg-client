@@ -53,20 +53,14 @@ class LoginScene extends VirtualScene {
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 
 		// Create ground
-		const ground = MeshBuilder.CreateGround(
-			'ground',
-			{ width: 6, height: 6 },
-			this,
-		);
+		const ground = MeshBuilder.CreateGround('ground', { width: 6, height: 6 }, this);
 
 		this.onPointerObservable.add((pointerInfo: PointerInfo) => {
 			switch (pointerInfo.type) {
 				case PointerEventTypes.POINTERDOWN:
 					if (pointerInfo?.pickInfo?.hit) {
 						if (pointerInfo.pickInfo.pickedMesh === ground) {
-							ScenesController.getInstance().switchToScene(
-								new TestMapScene(),
-							);
+							ScenesController.getInstance().switchToScene(new TestMapScene());
 						}
 					}
 					break;

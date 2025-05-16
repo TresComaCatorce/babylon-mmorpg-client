@@ -1,10 +1,4 @@
-import {
-	ImportMeshAsync,
-	AbstractMesh,
-	Vector3,
-	TransformNode,
-	Mesh,
-} from '@babylonjs/core';
+import { ImportMeshAsync, AbstractMesh, Vector3, TransformNode, Mesh } from '@babylonjs/core';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 
 import { IEntityConstructorParams } from '@mmorpg/interfaces/entities/IEntity';
@@ -27,8 +21,7 @@ abstract class Entity {
 	protected abstract _onMeshLoaded(): void;
 
 	private async _createMesh(modelPath: string): Promise<void> {
-		const currentScene =
-			ScenesController.getInstance().currentSceneInstance;
+		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		if (!currentScene) return;
 
 		const result = await ImportMeshAsync(modelPath, currentScene);
@@ -36,23 +29,16 @@ abstract class Entity {
 		// 1. Buscar nodo raíz con hijos (suele ser el node correcto para target de cámara)
 		const rootNode = result.meshes.find(
 			(m) =>
-				m.getChildMeshes().length > 0 &&
-				m instanceof TransformNode &&
-				!(m instanceof Mesh),
+				m.getChildMeshes().length > 0 && m instanceof TransformNode && !(m instanceof Mesh),
 		);
 
 		// 2. Buscar mesh visible
-		const visibleMesh = result.meshes.find(
-			(m) => m instanceof Mesh && m.isVisible,
-		);
+		const visibleMesh = result.meshes.find((m) => m instanceof Mesh && m.isVisible);
 
 		// 3. Fallback: primer mesh
 		this._mesh = rootNode ?? visibleMesh ?? result.meshes[0];
 
-		console.log(
-			'Entity.ts | Assigned mesh for camera target: ',
-			this._mesh?.name,
-		);
+		console.log('Entity.ts | Assigned mesh for camera target: ', this._mesh?.name);
 	}
 
 	get id(): string {
