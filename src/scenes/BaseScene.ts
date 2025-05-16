@@ -1,4 +1,4 @@
-import { Scene, AppendSceneAsync } from '@babylonjs/core';
+import { Scene } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
 import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
@@ -21,13 +21,7 @@ abstract class BaseScene extends Scene {
 		this._showInspectorInDevelopmentMode();
 	}
 
-	/**
-	 * @description
-	 * @access protected
-	 * @returns {void}
-	 * @abstract
-	 */
-	protected abstract _preload(): void;
+	public abstract create(): void;
 
 	/**
 	 * @description Disposes of the scene and cleans up resources.
@@ -40,14 +34,12 @@ abstract class BaseScene extends Scene {
 	}
 
 	/**
-	 * @description Loads assets from the specified path into the scene using Babylon.js's AppendSceneAsync.
+	 * @description
 	 * @access protected
-	 * @param {string} path - The path to the asset or scene file to load.
 	 * @returns {void}
+	 * @abstract
 	 */
-	protected loadAssets(path: string): Promise<void> {
-		return AppendSceneAsync(path, this);
-	}
+	protected abstract _preload(): void;
 
 	/**
 	 * @description Shows the Babylon.js inspector if running in development mode.

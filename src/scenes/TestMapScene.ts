@@ -1,46 +1,54 @@
 import {
-	ArcRotateCamera,
 	Vector3,
 	HemisphericLight,
 	MeshBuilder,
+	StandardMaterial,
+	Texture,
 } from '@babylonjs/core';
 
-import GameController from '@mmorpg/controllers/GameController';
+import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
-import MapScene from './MapScene';
+import MapScene from '@mmorpg/scenes/MapScene';
 
 class TestMapScene extends MapScene {
 	constructor() {
 		super({ sceneName: SCENE_NAMES.TEST_MAP });
-		this._createTestContent();
 	}
 
 	public _preload(): void {}
 
-	private _createTestContent() {
-		const canvasElement = GameController.getInstance().canvasElement;
-		const camera = new ArcRotateCamera(
-			'camera',
-			Math.PI / 2,
-			Math.PI / 3,
-			10,
-			Vector3.Zero(),
-			this,
-		);
-		camera.attachControl(canvasElement, true);
+	public create() {
+		this._createTestContent();
+	}
 
+	private _createTestContent() {
 		// Add light
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 
 		// Create ground
-		MeshBuilder.CreateGround('ground', { width: 600, height: 600 }, this);
+		const ground = MeshBuilder.CreateGround(
+			'ground',
+			{ width: 600, height: 600 },
+			this,
+		);
+		// Crear el material
+		const groundMaterial = new StandardMaterial('groundMat', this);
 
-		// Create character
-		this.loadAssets('assets/models/warrior.glb').then(() => {
-			console.log('Anims groups...');
-			this.animationGroups.forEach((group) => {
-				console.log(`Anim Group: ${group.name}`);
-			});
+		// Cargar la textura
+		groundMaterial.diffuseTexture = new Texture(
+			'assets/textures/grass.png',
+			this,
+		);
+
+		// (Opcional) Repetir la textura si se ve estirada
+		(groundMaterial.diffuseTexture as Texture).uScale = 150;
+		(groundMaterial.diffuseTexture as Texture).vScale = 150;
+
+		// Asignar el material al mesh
+		ground.material = groundMaterial;
+
+		new PlayerCharacter({
+			name: 'KriZ',
 		});
 	}
 }

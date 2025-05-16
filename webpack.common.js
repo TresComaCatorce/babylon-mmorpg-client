@@ -17,6 +17,8 @@ module.exports = {
 			'@mmorpg/interfaces': path.resolve(__dirname, 'src/interfaces'),
 			'@mmorpg/scenes': path.resolve(__dirname, 'src/scenes'),
 			'@mmorpg/utils': path.resolve(__dirname, 'src/utils'),
+			'@mmorpg/entities': path.resolve(__dirname, 'src/entities'),
+			'@mmorpg/camera': path.resolve(__dirname, 'src/camera'),
 		},
 	},
 	module: {

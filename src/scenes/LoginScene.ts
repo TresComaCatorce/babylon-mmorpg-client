@@ -33,7 +33,9 @@ class LoginScene extends VirtualScene {
 	 * @access protected
 	 * @returns {void}
 	 */
-	public _preload(): void {}
+	protected _preload(): void {}
+
+	public create() {}
 
 	private _createTestContent() {
 		const canvasElement = GameController.getInstance().canvasElement;

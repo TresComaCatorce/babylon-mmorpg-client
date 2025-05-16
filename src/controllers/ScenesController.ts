@@ -55,6 +55,7 @@ class ScenesController extends BaseController {
 			this._currentScene.disposeScene();
 		}
 		this._currentScene = newScene;
+		this._currentScene.create();
 	}
 
 	/**

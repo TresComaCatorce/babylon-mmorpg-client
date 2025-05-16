@@ -15,7 +15,9 @@
 			"@mmorpg/controllers/*": ["controllers/*"],
 			"@mmorpg/interfaces/*": ["interfaces/*"],
 			"@mmorpg/scenes/*": ["scenes/*"],
-			"@mmorpg/utils/*": ["utils/*"]
+			"@mmorpg/utils/*": ["utils/*"],
+			"@mmorpg/entities/*": ["entities/*"],
+			"@mmorpg/camera/*": ["camera/*"]
 		}
 	},
 	"include": ["src/**/*"],

@@ -20,6 +20,8 @@ class LoadingScene extends VirtualScene {
 		this._switchToLoginScene();
 	}
 
+	public create() {}
+
 	/**
 	 * @description Creates the loading scene by setting up the camera and lighting.
 	 * @access protected
