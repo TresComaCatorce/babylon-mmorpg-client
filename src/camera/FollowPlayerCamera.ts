@@ -1,29 +1,129 @@
-import { FollowCamera, Scene, AbstractMesh, Vector3 } from '@babylonjs/core';
+import {
+	FollowCamera,
+	Scene,
+	AbstractMesh,
+	Vector3,
+	TransformNode,
+	FollowCameraPointersInput,
+} from '@babylonjs/core';
 
 class FollowPlayerCamera extends FollowCamera {
-	constructor(scene: Scene, target: AbstractMesh) {
-		super('PlayerFollowCamera', new Vector3(0, 5, -10), scene);
-		console.log('FollowPlayerCamera constructor: ', target);
+	private _oldRadiusValue: number = 0;
 
-		// Configure camera
-		this.lockedTarget = target;
+	constructor(scene: Scene, targetMesh: AbstractMesh) {
+		super('PlayerFollowCamera', new Vector3(0, 5, -10), scene);
+
+		this._setTargetToFollow(targetMesh);
+		this._setInitialRadiusValues();
+		this._setInitialHeightValues();
+		this._setInitialRotationValues();
+		this._setInitialAcelerationAndSpeed();
+		this._setMouseButtonsToMoveCamera();
+		this._addDebugButtons();
+	}
+
+	private _setTargetToFollow(target: AbstractMesh) {
+		const cameraTarget = new TransformNode('cameraTarget');
+		cameraTarget.parent = target;
+		cameraTarget.position.y = 1;
+		this.lockedTarget = <AbstractMesh>cameraTarget;
+	}
+
+	private _setInitialRadiusValues() {
 		this.radius = 10;
-		this.heightOffset = 4;
+		this._oldRadiusValue = this.radius;
+		this.lowerRadiusLimit = 3;
+		this.upperRadiusLimit = 15;
+	}
+
+	private _setInitialHeightValues() {
+		this.heightOffset = 5;
+		this.lowerHeightOffsetLimit = 3;
+		this.upperHeightOffsetLimit = 7;
+	}
+
+	private _setInitialRotationValues() {
 		this.rotationOffset = 180;
-		this.cameraAcceleration = 0.05;
+	}
+
+	private _setInitialAcelerationAndSpeed() {
+		this.cameraAcceleration = 0.2;
 		this.maxCameraSpeed = 10;
 	}
 
-	setRadius(value: number) {
-		this.radius = value;
+	private _setMouseButtonsToMoveCamera() {
+		const cameraPointersInput = <FollowCameraPointersInput>this.inputs.attached.pointers;
+		cameraPointersInput.buttons = [2];
 	}
 
-	setHeightOffset(value: number) {
-		this.heightOffset = value;
+	private _addDebugButtons() {
+		if (process.env.NODE_ENV === 'development') {
+			const buttonHeightPlus1 = document.createElement('button');
+			buttonHeightPlus1.innerText = 'Height +=1';
+			buttonHeightPlus1.style.position = 'absolute';
+			buttonHeightPlus1.style.top = '92%';
+			buttonHeightPlus1.style.left = '95%';
+			buttonHeightPlus1.style.transform = 'translate(-50%, -50%)';
+			buttonHeightPlus1.onclick = () => {
+				this.heightOffset += 0.1;
+				console.log('FollowPlayerCamera.ts | +0.1 |heightOffset: ', this.heightOffset);
+			};
+			document.body.appendChild(buttonHeightPlus1);
+
+			const buttonHeightMinus1 = document.createElement('button');
+			buttonHeightMinus1.innerText = 'Height -=1';
+			buttonHeightMinus1.style.position = 'absolute';
+			buttonHeightMinus1.style.top = '95%';
+			buttonHeightMinus1.style.left = '95%';
+			buttonHeightMinus1.style.transform = 'translate(-50%, -50%)';
+			buttonHeightMinus1.onclick = () => {
+				this.heightOffset -= 0.1;
+				console.log('FollowPlayerCamera.ts | -0.1 | heightOffset: ', this.heightOffset);
+			};
+			document.body.appendChild(buttonHeightMinus1);
+
+			const buttonRadiusPlus1 = document.createElement('button');
+			buttonRadiusPlus1.innerText = 'Radius +=1';
+			buttonRadiusPlus1.style.position = 'absolute';
+			buttonRadiusPlus1.style.top = '92%';
+			buttonRadiusPlus1.style.left = '90%';
+			buttonRadiusPlus1.style.transform = 'translate(-50%, -50%)';
+			buttonRadiusPlus1.onclick = () => {
+				this.radius += 1;
+				console.log('FollowPlayerCamera.ts | +1 | radius: ', this.radius);
+			};
+			document.body.appendChild(buttonRadiusPlus1);
+
+			const buttonRadiusMinus1 = document.createElement('button');
+			buttonRadiusMinus1.innerText = 'Radius -=1';
+			buttonRadiusMinus1.style.position = 'absolute';
+			buttonRadiusMinus1.style.top = '95%';
+			buttonRadiusMinus1.style.left = '90%';
+			buttonRadiusMinus1.style.transform = 'translate(-50%, -50%)';
+			buttonRadiusMinus1.onclick = () => {
+				this.radius -= 1;
+				console.log('FollowPlayerCamera.ts | -1 | radius: ', this.radius);
+			};
+			document.body.appendChild(buttonRadiusMinus1);
+		}
 	}
 
-	setRotationOffset(value: number) {
-		this.rotationOffset = value;
+	public update() {
+		super.update();
+
+		// Executed if "radius" change
+		if (this.radius !== this._oldRadiusValue) {
+			this._oldRadiusValue = this.radius;
+			const [newMin, newMax] = this._getMinMaxHeightFromRadius(this.radius);
+			this.lowerHeightOffsetLimit = newMin;
+			this.upperHeightOffsetLimit = newMax;
+		}
+	}
+
+	private _getMinMaxHeightFromRadius(radius: number): [number, number] {
+		const min = radius <= 4 ? 0 : Math.min(3, Math.floor((radius - 5) / 2.5) + 1);
+		const max = radius <= 4 ? 2 : 2 + (radius - 5) * 0.7;
+		return [Math.min(min, 3), Math.min(max, 10)];
 	}
 }
 

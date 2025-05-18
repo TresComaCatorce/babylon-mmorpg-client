@@ -5,8 +5,8 @@ import IMovementController from '@mmorpg/interfaces/controllers/movement/IMoveme
 import BasicMovementController from '@mmorpg/controllers/movement/BasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
-import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 import ScenesController from '@mmorpg/controllers/ScenesController';
+import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 import BaseScene from '@mmorpg/scenes/BaseScene';
 
 class PlayerCharacter extends BaseCharacter {
