@@ -1,4 +1,4 @@
-import { AbstractMesh, Nullable } from '@babylonjs/core';
+import { AbstractMesh, Camera, Nullable } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
 import IMovementController from '@mmorpg/interfaces/controllers/movement/IMovementController';
@@ -45,9 +45,11 @@ class PlayerCharacter extends BaseCharacter {
 
 	private _createMovementController() {
 		if (this.mesh && this._kbInputController) {
+			const currentScene = ScenesController.getInstance().currentSceneInstance;
 			this._movementController = new BasicMovementController({
 				mesh: this.mesh,
 				kbInputController: this._kbInputController,
+				camera: <Camera>currentScene?.activeCamera,
 			});
 		}
 	}

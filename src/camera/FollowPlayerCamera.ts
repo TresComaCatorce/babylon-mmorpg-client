@@ -9,9 +9,11 @@ import {
 
 class FollowPlayerCamera extends FollowCamera {
 	private _oldRadiusValue: number = 0;
+	private _cameraPointersInput: FollowCameraPointersInput;
 
 	constructor(scene: Scene, targetMesh: AbstractMesh) {
 		super('PlayerFollowCamera', new Vector3(0, 5, -10), scene);
+		this._cameraPointersInput = <FollowCameraPointersInput>this.inputs.attached.pointers;
 
 		this._setTargetToFollow(targetMesh);
 		this._setInitialRadiusValues();
@@ -19,6 +21,7 @@ class FollowPlayerCamera extends FollowCamera {
 		this._setInitialRotationValues();
 		this._setInitialAcelerationAndSpeed();
 		this._setMouseButtonsToMoveCamera();
+		this._setCameraSensitivity();
 		this._addDebugButtons();
 	}
 
@@ -52,8 +55,12 @@ class FollowPlayerCamera extends FollowCamera {
 	}
 
 	private _setMouseButtonsToMoveCamera() {
-		const cameraPointersInput = <FollowCameraPointersInput>this.inputs.attached.pointers;
-		cameraPointersInput.buttons = [2];
+		this._cameraPointersInput.buttons = [0]; // 0=LeftClick 1=MiddleClick 2=RightClick
+	}
+
+	private _setCameraSensitivity() {
+		this._cameraPointersInput.angularSensibilityX = 2.7;
+		this._cameraPointersInput.angularSensibilityY = 5;
 	}
 
 	private _addDebugButtons() {
