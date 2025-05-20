@@ -20,7 +20,9 @@ class PlayerCharacter extends BaseCharacter {
 	}
 
 	public update() {
+		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		this._movementController?.update();
+		currentScene?.activeCamera?.update();
 	}
 
 	protected _onMeshLoaded() {

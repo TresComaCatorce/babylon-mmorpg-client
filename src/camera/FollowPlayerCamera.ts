@@ -12,10 +12,12 @@ import {
 import { IFollowPlayerCameraConstructorParams } from '@mmorpg/interfaces/camera/IFollowPlayerCamera';
 
 class FollowPlayerCamera extends ArcRotateCamera {
-	private _minZoom = 3;
-	private _maxZoom = 15;
-	private _minY = 1;
-	private _maxY = 1.2;
+	private _minZoom: number = 3;
+	private _maxZoom: number = 15;
+	private _minY: number = 1;
+	private _maxY: number = 1.2;
+	private _targetRadius: number = 10;
+	private _zoomSmoothSpeed: number = 0.15;
 
 	private _playerMesh: AbstractMesh;
 	private _pointerObserver: Nullable<Observer<PointerInfo>> = null;
@@ -33,10 +35,22 @@ class FollowPlayerCamera extends ArcRotateCamera {
 
 		super('FollowPlayerCamera', alpha, beta, radius, target, params.scene);
 		this._playerMesh = params.playerMesh;
+		this._targetRadius = this.radius;
 
 		this._configureCamera();
 		this._createFakeTargetToFollow();
 		this._setupPointerControls();
+	}
+
+	public update(): void {
+		this.radius = Scalar.Lerp(this.radius, this._targetRadius, this._zoomSmoothSpeed);
+	}
+
+	public dispose(): void {
+		if (this._pointerObserver) {
+			this.getScene().onPointerObservable.remove(this._pointerObserver);
+		}
+		super.dispose();
 	}
 
 	private _configureCamera() {
@@ -98,18 +112,15 @@ class FollowPlayerCamera extends ArcRotateCamera {
 				}
 				case PointerEventTypes.POINTERWHEEL: {
 					const delta = (event as WheelEvent).deltaY > 0 ? 1 : -1;
-					this.radius = Scalar.Clamp(this.radius + delta, this._minZoom, this._maxZoom);
+					this._targetRadius = Scalar.Clamp(
+						this._targetRadius + delta,
+						this._minZoom,
+						this._maxZoom,
+					);
 					break;
 				}
 			}
 		});
-	}
-
-	public dispose(): void {
-		if (this._pointerObserver) {
-			this.getScene().onPointerObservable.remove(this._pointerObserver);
-		}
-		super.dispose();
 	}
 }
 
