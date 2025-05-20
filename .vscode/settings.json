@@ -1,5 +1,4 @@
 {
-	"workbench.colorTheme": "Aura Dark",
 	"eslint.validate": ["typescript", "javascript"],
 	"editor.formatOnSave": true,
 	"editor.insertSpaces": false,
@@ -7,6 +6,8 @@
 	"editor.detectIndentation": false,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": false,
 	"[json]": {
 		"editor.insertSpaces": false,
 		"editor.tabSize": 4

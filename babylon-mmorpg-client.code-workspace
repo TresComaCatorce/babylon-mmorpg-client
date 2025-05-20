@@ -1,10 +1,11 @@
 {
 	"folders": [
 		{
-			"path": "."
-		}
+			"path": ".",
+		},
 	],
 	"settings": {
-		"workbench.colorTheme": "Aura Dark"
-	}
+		// "workbench.colorTheme": "Aura Dark",
+		"workbench.colorTheme": "Bearded Theme OLED (Experimental)",
+	},
 }

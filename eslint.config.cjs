@@ -79,6 +79,7 @@ module.exports = defineConfig([
 		rules: {
 			indent: ['error', 'tab'],
 			'no-tabs': 'off',
+			"eol-last": ["error", "always"]
 		},
 	},
 ]);
