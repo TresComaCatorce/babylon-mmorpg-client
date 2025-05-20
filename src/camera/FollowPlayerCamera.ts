@@ -111,7 +111,8 @@ class FollowPlayerCamera extends ArcRotateCamera {
 					break;
 				}
 				case PointerEventTypes.POINTERWHEEL: {
-					const delta = (event as WheelEvent).deltaY > 0 ? 1 : -1;
+					const wheelEvent = event as WheelEvent;
+					const delta = Scalar.Clamp(wheelEvent.deltaY * 0.01, -1, 1);
 					this._targetRadius = Scalar.Clamp(
 						this._targetRadius + delta,
 						this._minZoom,
