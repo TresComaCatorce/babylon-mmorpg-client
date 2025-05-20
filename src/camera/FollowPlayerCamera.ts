@@ -1,155 +1,115 @@
 import {
-	FollowCamera,
-	Scene,
+	ArcRotateCamera,
 	AbstractMesh,
-	Vector3,
+	Scalar,
+	PointerEventTypes,
 	TransformNode,
-	FollowCameraPointersInput,
-	Tools,
+	Observer,
+	PointerInfo,
+	Nullable,
 } from '@babylonjs/core';
 
-class FollowPlayerCamera extends FollowCamera {
-	private _oldRadiusValue: number = 0;
-	private _oldRotationVal!: Vector3;
-	private _cameraPointersInput: FollowCameraPointersInput;
-	private _targetMesh: AbstractMesh;
-	private _visualMesh: AbstractMesh;
+import { IFollowPlayerCameraConstructorParams } from '@mmorpg/interfaces/camera/IFollowPlayerCamera';
 
-	constructor(scene: Scene, targetMesh: AbstractMesh, visualMesh: AbstractMesh) {
-		super('PlayerFollowCamera', new Vector3(0, 5, -10), scene);
-		this._cameraPointersInput = <FollowCameraPointersInput>this.inputs.attached.pointers;
-		this._targetMesh = targetMesh;
-		this._visualMesh = visualMesh;
+class FollowPlayerCamera extends ArcRotateCamera {
+	private _minZoom = 3;
+	private _maxZoom = 15;
+	private _minY = 1;
+	private _maxY = 1.2;
 
-		this._setTargetToFollow(targetMesh);
-		this._setInitialRadiusValues();
-		this._setInitialHeightValues();
-		this._setInitialRotationValues();
-		this._setInitialAcelerationAndSpeed();
-		this._setMouseButtonsToMoveCamera();
-		this._setCameraSensitivity();
-		this._addDebugButtons();
+	private _playerMesh: AbstractMesh;
+	private _pointerObserver: Nullable<Observer<PointerInfo>> = null;
+	private _fakeTarget!: TransformNode;
+
+	private _isRotating = false;
+	private _lastPointerX = 0;
+	private _lastPointerY = 0;
+
+	constructor(params: IFollowPlayerCameraConstructorParams) {
+		const alpha = 0;
+		const beta = 1.2;
+		const radius = 10;
+		const target = params.playerMesh.position.clone();
+
+		super('FollowPlayerCamera', alpha, beta, radius, target, params.scene);
+		this._playerMesh = params.playerMesh;
+
+		this._configureCamera();
+		this._createFakeTargetToFollow();
+		this._setupPointerControls();
 	}
 
-	private _setTargetToFollow(target: AbstractMesh) {
-		const cameraTarget = new TransformNode('cameraTarget');
-		cameraTarget.parent = target;
-		cameraTarget.position.y = 1;
-		this.lockedTarget = <AbstractMesh>cameraTarget;
+	private _configureCamera() {
+		// Remove default inputs
+		this.inputs.clear();
+
+		// Avoid camera revertion
+		this.allowUpsideDown = false;
+
+		// Setup limits
+		this.lowerRadiusLimit = this._minZoom;
+		this.upperRadiusLimit = this._maxZoom;
+		this.lowerBetaLimit = this._minY;
+		this.upperBetaLimit = this._maxY;
 	}
 
-	private _setInitialRadiusValues() {
-		this.radius = 10;
-		this._oldRadiusValue = this.radius;
-		this.lowerRadiusLimit = 3;
-		this.upperRadiusLimit = 15;
+	private _createFakeTargetToFollow() {
+		this._fakeTarget = new TransformNode('cameraTarget');
+		this._fakeTarget.parent = this._playerMesh;
+		this._fakeTarget.position.y = 1;
+		this.setTarget(this._fakeTarget);
 	}
 
-	private _setInitialHeightValues() {
-		this.heightOffset = 5;
-		this.lowerHeightOffsetLimit = 3;
-		this.upperHeightOffsetLimit = 7;
+	private _setupPointerControls() {
+		this._pointerObserver = this._scene.onPointerObservable.add((pointerInfo) => {
+			const event = pointerInfo.event;
+
+			switch (pointerInfo.type) {
+				case PointerEventTypes.POINTERDOWN: {
+					if (event.button === 1) {
+						// botón del medio
+						this._isRotating = true;
+						this._lastPointerX = event.clientX;
+						this._lastPointerY = event.clientY;
+					}
+					break;
+				}
+				case PointerEventTypes.POINTERUP: {
+					if (event.button === 1) {
+						this._isRotating = false;
+					}
+					break;
+				}
+				case PointerEventTypes.POINTERMOVE: {
+					if (this._isRotating) {
+						const offsetX = event.clientX - this._lastPointerX;
+						const offsetY = event.clientY - this._lastPointerY;
+
+						this.alpha -= offsetX * 0.005;
+						this.beta -= offsetY * 0.005;
+
+						// Limitar el ángulo vertical (beta)
+						this.beta = Scalar.Clamp(this.beta, this._minY, this._maxY);
+
+						this._lastPointerX = event.clientX;
+						this._lastPointerY = event.clientY;
+					}
+					break;
+				}
+				case PointerEventTypes.POINTERWHEEL: {
+					const delta = (event as WheelEvent).deltaY > 0 ? 1 : -1;
+					this.radius = Scalar.Clamp(this.radius + delta, this._minZoom, this._maxZoom);
+					break;
+				}
+			}
+		});
 	}
 
-	private _setInitialRotationValues() {
-		// this.rotationOffset = 180;
-		this._oldRotationVal = this.rotation.clone();
-	}
-
-	private _setInitialAcelerationAndSpeed() {
-		this.cameraAcceleration = 0.2;
-		this.maxCameraSpeed = 10;
-	}
-
-	private _setMouseButtonsToMoveCamera() {
-		this._cameraPointersInput.buttons = [0]; // 0=LeftClick 1=MiddleClick 2=RightClick
-	}
-
-	private _setCameraSensitivity() {
-		this._cameraPointersInput.angularSensibilityX = 2.7;
-		this._cameraPointersInput.angularSensibilityY = 5;
-	}
-
-	private _addDebugButtons() {
-		if (process.env.NODE_ENV === 'development') {
-			const buttonHeightPlus1 = document.createElement('button');
-			buttonHeightPlus1.innerText = 'Height +=1';
-			buttonHeightPlus1.style.position = 'absolute';
-			buttonHeightPlus1.style.top = '92%';
-			buttonHeightPlus1.style.left = '95%';
-			buttonHeightPlus1.style.transform = 'translate(-50%, -50%)';
-			buttonHeightPlus1.onclick = () => {
-				this.heightOffset += 0.1;
-				console.log('FollowPlayerCamera.ts | +0.1 |heightOffset: ', this.heightOffset);
-			};
-			document.body.appendChild(buttonHeightPlus1);
-
-			const buttonHeightMinus1 = document.createElement('button');
-			buttonHeightMinus1.innerText = 'Height -=1';
-			buttonHeightMinus1.style.position = 'absolute';
-			buttonHeightMinus1.style.top = '95%';
-			buttonHeightMinus1.style.left = '95%';
-			buttonHeightMinus1.style.transform = 'translate(-50%, -50%)';
-			buttonHeightMinus1.onclick = () => {
-				this.heightOffset -= 0.1;
-				console.log('FollowPlayerCamera.ts | -0.1 | heightOffset: ', this.heightOffset);
-			};
-			document.body.appendChild(buttonHeightMinus1);
-
-			const buttonRadiusPlus1 = document.createElement('button');
-			buttonRadiusPlus1.innerText = 'Radius +=1';
-			buttonRadiusPlus1.style.position = 'absolute';
-			buttonRadiusPlus1.style.top = '92%';
-			buttonRadiusPlus1.style.left = '90%';
-			buttonRadiusPlus1.style.transform = 'translate(-50%, -50%)';
-			buttonRadiusPlus1.onclick = () => {
-				this.radius += 1;
-				console.log('FollowPlayerCamera.ts | +1 | radius: ', this.radius);
-			};
-			document.body.appendChild(buttonRadiusPlus1);
-
-			const buttonRadiusMinus1 = document.createElement('button');
-			buttonRadiusMinus1.innerText = 'Radius -=1';
-			buttonRadiusMinus1.style.position = 'absolute';
-			buttonRadiusMinus1.style.top = '95%';
-			buttonRadiusMinus1.style.left = '90%';
-			buttonRadiusMinus1.style.transform = 'translate(-50%, -50%)';
-			buttonRadiusMinus1.onclick = () => {
-				this.radius -= 1;
-				console.log('FollowPlayerCamera.ts | -1 | radius: ', this.radius);
-			};
-			document.body.appendChild(buttonRadiusMinus1);
-
-			const buttonRotationMeshPlus1 = document.createElement('button');
-			buttonRotationMeshPlus1.innerText = 'Model rotation +=1';
-			buttonRotationMeshPlus1.style.position = 'absolute';
-			buttonRotationMeshPlus1.style.top = '92%';
-			buttonRotationMeshPlus1.style.left = '85%';
-			buttonRotationMeshPlus1.style.transform = 'translate(-50%, -50%)';
-			buttonRotationMeshPlus1.onclick = () => {
-				console.log('FollowPlayerCamera.ts | +1 | : ', this.radius);
-				this._targetMesh.rotate(Vector3.Up(), Tools.ToRadians(5));
-			};
-			document.body.appendChild(buttonRotationMeshPlus1);
+	public dispose(): void {
+		if (this._pointerObserver) {
+			this.getScene().onPointerObservable.remove(this._pointerObserver);
 		}
-	}
-
-	public update() {
-		super.update();
-
-		// Executed if "radius" change
-		if (this.radius !== this._oldRadiusValue) {
-			this._oldRadiusValue = this.radius;
-			const [newMin, newMax] = this._getMinMaxHeightFromRadius(this.radius);
-			this.lowerHeightOffsetLimit = newMin;
-			this.upperHeightOffsetLimit = newMax;
-		}
-	}
-
-	private _getMinMaxHeightFromRadius(radius: number): [number, number] {
-		const min = radius <= 4 ? 0 : Math.min(3, Math.floor((radius - 5) / 2.5) + 1);
-		const max = radius <= 4 ? 2 : 2 + (radius - 5) * 0.7;
-		return [Math.min(min, 3), Math.min(max, 10)];
+		super.dispose();
 	}
 }
 
