@@ -4,6 +4,7 @@ import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputCont
 
 interface IBasicMovementControllerConstructorParams {
 	mesh: AbstractMesh;
+	visualMesh: AbstractMesh;
 	kbInputController: KeyboardInputController;
 	camera: Camera;
 }

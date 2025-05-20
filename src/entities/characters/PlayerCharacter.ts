@@ -32,7 +32,11 @@ class PlayerCharacter extends BaseCharacter {
 	private _createPlayerCamera() {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		currentScene?.setActiveCamera(
-			new FollowPlayerCamera(<BaseScene>currentScene, <AbstractMesh>this.mesh),
+			new FollowPlayerCamera(
+				<BaseScene>currentScene,
+				<AbstractMesh>this.mesh,
+				<AbstractMesh>this.visualMesh,
+			),
 		);
 	}
 
@@ -44,10 +48,11 @@ class PlayerCharacter extends BaseCharacter {
 	}
 
 	private _createMovementController() {
-		if (this.mesh && this._kbInputController) {
+		if (this.mesh && this.visualMesh && this._kbInputController) {
 			const currentScene = ScenesController.getInstance().currentSceneInstance;
 			this._movementController = new BasicMovementController({
 				mesh: this.mesh,
+				visualMesh: this.visualMesh,
 				kbInputController: this._kbInputController,
 				camera: <Camera>currentScene?.activeCamera,
 			});
