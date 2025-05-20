@@ -5,15 +5,21 @@ import {
 	Vector3,
 	TransformNode,
 	FollowCameraPointersInput,
+	Tools,
 } from '@babylonjs/core';
 
 class FollowPlayerCamera extends FollowCamera {
 	private _oldRadiusValue: number = 0;
+	private _oldRotationVal!: Vector3;
 	private _cameraPointersInput: FollowCameraPointersInput;
+	private _targetMesh: AbstractMesh;
+	private _visualMesh: AbstractMesh;
 
-	constructor(scene: Scene, targetMesh: AbstractMesh) {
+	constructor(scene: Scene, targetMesh: AbstractMesh, visualMesh: AbstractMesh) {
 		super('PlayerFollowCamera', new Vector3(0, 5, -10), scene);
 		this._cameraPointersInput = <FollowCameraPointersInput>this.inputs.attached.pointers;
+		this._targetMesh = targetMesh;
+		this._visualMesh = visualMesh;
 
 		this._setTargetToFollow(targetMesh);
 		this._setInitialRadiusValues();
@@ -46,7 +52,8 @@ class FollowPlayerCamera extends FollowCamera {
 	}
 
 	private _setInitialRotationValues() {
-		this.rotationOffset = 180;
+		// this.rotationOffset = 180;
+		this._oldRotationVal = this.rotation.clone();
 	}
 
 	private _setInitialAcelerationAndSpeed() {
@@ -112,6 +119,18 @@ class FollowPlayerCamera extends FollowCamera {
 				console.log('FollowPlayerCamera.ts | -1 | radius: ', this.radius);
 			};
 			document.body.appendChild(buttonRadiusMinus1);
+
+			const buttonRotationMeshPlus1 = document.createElement('button');
+			buttonRotationMeshPlus1.innerText = 'Model rotation +=1';
+			buttonRotationMeshPlus1.style.position = 'absolute';
+			buttonRotationMeshPlus1.style.top = '92%';
+			buttonRotationMeshPlus1.style.left = '85%';
+			buttonRotationMeshPlus1.style.transform = 'translate(-50%, -50%)';
+			buttonRotationMeshPlus1.onclick = () => {
+				console.log('FollowPlayerCamera.ts | +1 | : ', this.radius);
+				this._targetMesh.rotate(Vector3.Up(), Tools.ToRadians(5));
+			};
+			document.body.appendChild(buttonRotationMeshPlus1);
 		}
 	}
 
