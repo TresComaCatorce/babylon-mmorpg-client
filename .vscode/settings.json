@@ -1,0 +1,34 @@
+{
+	"workbench.colorTheme": "Aura Dark",
+	"eslint.validate": ["typescript", "javascript"],
+	"editor.formatOnSave": true,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"editor.detectIndentation": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"files.eol": "\n",
+	"[json]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[jsonc]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[javascript]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[typescript]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[markdown]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[yaml]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	}
+}
