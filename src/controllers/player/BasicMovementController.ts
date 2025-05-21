@@ -30,7 +30,6 @@ class BasicMovementController {
 
 		let moveDirection = Vector3.Zero();
 
-		// Calcula movimiento como antes
 		if (forward || backward || left || right) {
 			// Forward direction of the camera, projected to the XZ plane
 			const cameraForward = this._camera?.getForwardRay().direction;

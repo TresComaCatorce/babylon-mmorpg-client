@@ -27,16 +27,16 @@ abstract class Entity {
 
 		const result = await ImportMeshAsync(modelPath, currentScene);
 
-		// 1. Buscar nodo raíz con hijos (suele ser el node correcto para target de cámara)
+		// Find root node with children (usually the correct node for the camera target)
 		const rootNode = result.meshes.find(
 			(m) =>
 				m.getChildMeshes().length > 0 && m instanceof TransformNode && !(m instanceof Mesh),
 		);
 
-		// 2. Buscar mesh visible
+		// Search for visible mesh
 		const visibleMesh = result.meshes.find((m) => m instanceof Mesh && m.isVisible);
 
-		// 3. Fallback: primer mesh
+		// Fallback: first mesh
 		this._mesh = rootNode ?? visibleMesh ?? result.meshes[0];
 
 		console.log('Entity.ts | Assigned mesh for camera target: ', this._mesh?.name);
