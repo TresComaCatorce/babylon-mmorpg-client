@@ -23,13 +23,13 @@ class BasicMovementController {
 		this._movementState = MOVEMENT_STATES.IDLE;
 		this._setKeyboardInputController();
 		this._setCamera();
+		this._addGlowSwitch();
 	}
 
 	public update() {
 		this._setMovingVariables();
 		this._calculateMoveDirection();
 		this._setMovementState();
-		this._readGlowSwitch();
 	}
 
 	private _setKeyboardInputController() {
@@ -79,23 +79,11 @@ class BasicMovementController {
 		}
 	}
 
-	private _glowEnabled: boolean = false;
-	private _wasGlowKeySwitchPressed: boolean | undefined;
-	private _readGlowSwitch() {
-		const isGPressed = this._kbInputController?.isKeyPressed('g');
-
-		if (isGPressed && !this._wasGlowKeySwitchPressed) {
-			// Esto se ejecuta una sola vez al presionar "g"
-			this._glowEnabled = !this._glowEnabled;
-
-			if (this._glowEnabled) {
-				this._playerCharacterInstance.addGlow();
-			} else {
-				this._playerCharacterInstance.removeGlow();
-			}
-		}
-
-		this._wasGlowKeySwitchPressed = isGPressed;
+	private _addGlowSwitch() {
+		this._kbInputController?.addToggleKey('g', {
+			onSwitchON: () => this._playerCharacterInstance.addGlow(),
+			onSwitchOFF: () => this._playerCharacterInstance.removeGlow(),
+		});
 	}
 
 	get movementState(): string {

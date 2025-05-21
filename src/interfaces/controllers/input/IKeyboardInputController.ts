@@ -4,4 +4,9 @@ interface IKeyboardInputControllerConstructorParams {
 	scene: BaseScene;
 }
 
-export { IKeyboardInputControllerConstructorParams };
+interface IToggleCallbacks {
+	onSwitchON: () => void;
+	onSwitchOFF: () => void;
+}
+
+export { IKeyboardInputControllerConstructorParams, IToggleCallbacks };
