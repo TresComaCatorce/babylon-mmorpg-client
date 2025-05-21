@@ -1,4 +1,4 @@
-import { Scene, Camera } from '@babylonjs/core';
+import { Scene, Camera, GlowLayer } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
 import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
@@ -10,6 +10,8 @@ import GameController from '@mmorpg/controllers/GameController';
  * @description Abstract base class for all game scenes, providing lifecycle hooks and utility methods for scene management.
  */
 abstract class BaseScene extends Scene {
+	private _glowLayer!: GlowLayer;
+
 	/**
 	 * @description Constructs a new BaseScene and attaches it to the current game engine. Shows the Babylon.js inspector in development mode.
 	 * @access public
@@ -19,6 +21,7 @@ abstract class BaseScene extends Scene {
 		this.metadata = { sceneName: params.sceneName };
 		this.preload();
 		this._showInspectorInDevelopmentMode();
+		this._createGlowLayer();
 	}
 
 	public abstract preload(): void; // Executed first when the scene is being created
@@ -44,6 +47,10 @@ abstract class BaseScene extends Scene {
 			this.activeCamera = newCamera;
 			this.activeCamera?.attachControl(true);
 		}
+	}
+
+	private _createGlowLayer() {
+		this._glowLayer = new GlowLayer('glow', this);
 	}
 
 	/**
