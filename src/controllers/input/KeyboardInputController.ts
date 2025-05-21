@@ -30,7 +30,7 @@ class KeyboardInputController extends BaseController {
 
 	private _onKeyPressedCallback(kbInfo: KeyboardInfo) {
 		const key = kbInfo.event.key.toLowerCase();
-		console.log(`KeyboardInputController.ts | Key "${key}" pressed`);
+		// console.log(`KeyboardInputController.ts | Key "${key}" pressed`);
 
 		if (KEYS_TO_PREVENT_DEFAULT.includes(key)) {
 			kbInfo.event.preventDefault();
