@@ -52,11 +52,9 @@ class PlayerCharacter extends BaseCharacter {
 	}
 
 	private _createMovementController() {
-		if (this.mesh && this.visualMesh && this._kbInputController) {
-			this._movementController = new BasicMovementController({
-				playerCharacter: this,
-			});
-		}
+		this._movementController = new BasicMovementController({
+			playerCharacter: this,
+		});
 	}
 
 	private _createAnimationController() {

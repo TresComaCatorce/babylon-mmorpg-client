@@ -12,7 +12,6 @@ abstract class Entity {
 
 	private _id: string;
 	private _mesh: AbstractMesh | undefined;
-	private _visualMesh: AbstractMesh | undefined;
 
 	constructor(params: IEntityConstructorParams) {
 		this._id = Entity._getEntityId();
@@ -39,7 +38,6 @@ abstract class Entity {
 
 		// 3. Fallback: primer mesh
 		this._mesh = rootNode ?? visibleMesh ?? result.meshes[0];
-		this._visualMesh = visibleMesh ?? result.meshes[0];
 
 		console.log('Entity.ts | Assigned mesh for camera target: ', this._mesh?.name);
 	}
@@ -50,10 +48,6 @@ abstract class Entity {
 
 	get mesh(): AbstractMesh | undefined {
 		return this._mesh;
-	}
-
-	get visualMesh(): AbstractMesh | undefined {
-		return this._visualMesh;
 	}
 
 	get position(): Vector3 | undefined {

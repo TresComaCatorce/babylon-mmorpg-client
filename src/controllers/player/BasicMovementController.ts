@@ -9,7 +9,6 @@ import ScenesController from '../ScenesController';
 class BasicMovementController {
 	private _playerCharacterInstance: PlayerCharacter;
 	private _characterMesh: Nullable<AbstractMesh> = null;
-	private _characterVisualMesh: Nullable<AbstractMesh> = null;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _camera: Nullable<Camera> = null;
 	private _speed = 0.1;
@@ -18,7 +17,7 @@ class BasicMovementController {
 	constructor(params: IBasicMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
 		this._movementState = MOVEMENT_STATES.IDLE;
-		this._setMeshes();
+		this._setCharacterMesh();
 		this._setKeyboardInputController();
 		this._setCamera();
 	}
@@ -52,15 +51,11 @@ class BasicMovementController {
 
 		if (isCurrentlyMoving) {
 			this._movementState = MOVEMENT_STATES.WALKING;
-			if (this._characterVisualMesh && this._characterMesh) {
+			if (this._characterMesh) {
 				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
 
-				// Rotate the visualMesh in the direction of movement
-				this._characterVisualMesh.rotationQuaternion = Quaternion.FromEulerAngles(
-					0,
-					angleY,
-					0,
-				);
+				// Rotate the character mesh in the direction of the movement
+				this._characterMesh.rotationQuaternion = Quaternion.FromEulerAngles(0, angleY, 0);
 				this._characterMesh.moveWithCollisions(moveDirection.scale(this._speed));
 			}
 		} else {
@@ -68,13 +63,9 @@ class BasicMovementController {
 		}
 	}
 
-	private _setMeshes() {
+	private _setCharacterMesh() {
 		if (this._playerCharacterInstance.mesh) {
 			this._characterMesh = this._playerCharacterInstance.mesh;
-		}
-
-		if (this._playerCharacterInstance.visualMesh) {
-			this._characterVisualMesh = this._playerCharacterInstance.visualMesh;
 		}
 	}
 
