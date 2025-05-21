@@ -2,7 +2,7 @@ import { AbstractMesh, Camera, Nullable } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
 import IMovementController from '@mmorpg/interfaces/controllers/movement/IMovementController';
-import BasicMovementController from '@mmorpg/controllers/movement/BasicMovementController';
+import BasicMovementController from '@mmorpg/controllers/player/BasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
