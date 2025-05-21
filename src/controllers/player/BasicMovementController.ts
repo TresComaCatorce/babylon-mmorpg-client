@@ -1,38 +1,44 @@
-import { AbstractMesh, Camera, Quaternion, Vector3 } from '@babylonjs/core';
+import { AbstractMesh, Camera, Nullable, Quaternion, Vector3 } from '@babylonjs/core';
 
-import IBasicMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/movement/IBasicMovementController';
+import IBasicMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IBasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
-import IMovementController from '@mmorpg/interfaces/controllers/movement/IMovementController';
+import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
+import ScenesController from '../ScenesController';
 
-export class BasicMovementController implements IMovementController {
-	private _mesh: AbstractMesh;
-	private _visualMesh: AbstractMesh;
-	private _kbInputController: KeyboardInputController;
-	private _camera: Camera;
+class BasicMovementController {
+	private _playerCharacterInstance: PlayerCharacter;
+	private _characterMesh: Nullable<AbstractMesh> = null;
+	private _characterVisualMesh: Nullable<AbstractMesh> = null;
+	private _kbInputController: Nullable<KeyboardInputController> = null;
+	private _camera: Nullable<Camera> = null;
 	private _speed = 0.1;
+	private _movementState: string;
 
 	constructor(params: IBasicMovementControllerConstructorParams) {
-		this._mesh = params.mesh;
-		this._visualMesh = params.visualMesh;
-		this._kbInputController = params.kbInputController;
-		this._camera = params.camera;
+		this._playerCharacterInstance = params.playerCharacter;
+		this._movementState = MOVEMENT_STATES.IDLE;
+		this._setMeshes();
+		this._setKeyboardInputController();
+		this._setCamera();
 	}
 
 	public update() {
-		const forward = this._kbInputController.isKeyPressed('w');
-		const backward = this._kbInputController.isKeyPressed('s');
-		const left = this._kbInputController.isKeyPressed('a');
-		const right = this._kbInputController.isKeyPressed('d');
+		const forward = this._kbInputController?.isKeyPressed('w');
+		const backward = this._kbInputController?.isKeyPressed('s');
+		const left = this._kbInputController?.isKeyPressed('a');
+		const right = this._kbInputController?.isKeyPressed('d');
 
+		let moveDirection = Vector3.Zero();
+
+		// Calcula movimiento como antes
 		if (forward || backward || left || right) {
 			// Forward direction of the camera, projected to the XZ plane
-			const cameraForward = this._camera.getForwardRay().direction;
-			const forwardXZ = new Vector3(cameraForward.x, 0, cameraForward.z).normalize();
+			const cameraForward = this._camera?.getForwardRay().direction;
+			const forwardXZ = new Vector3(cameraForward?.x, 0, cameraForward?.z).normalize();
 
 			// Base rotated on the Y axis
 			const cameraRight = Vector3.Cross(forwardXZ, Vector3.Up()).normalize();
-
-			let moveDirection = Vector3.Zero();
 
 			if (forward) moveDirection = moveDirection.add(forwardXZ);
 			if (backward) moveDirection = moveDirection.subtract(forwardXZ);
@@ -40,15 +46,51 @@ export class BasicMovementController implements IMovementController {
 			if (right) moveDirection = moveDirection.subtract(cameraRight);
 
 			moveDirection.normalize();
-
-			// Rotate the visualMesh in the direction of movement
-			if (!moveDirection.equals(Vector3.Zero())) {
-				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
-				this._visualMesh.rotationQuaternion = Quaternion.FromEulerAngles(0, angleY, 0);
-
-				this._mesh.moveWithCollisions(moveDirection.scale(this._speed));
-			}
 		}
+
+		const isCurrentlyMoving = !moveDirection.equals(Vector3.Zero());
+
+		if (isCurrentlyMoving) {
+			this._movementState = MOVEMENT_STATES.WALKING;
+			if (this._characterVisualMesh && this._characterMesh) {
+				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
+
+				// Rotate the visualMesh in the direction of movement
+				this._characterVisualMesh.rotationQuaternion = Quaternion.FromEulerAngles(
+					0,
+					angleY,
+					0,
+				);
+				this._characterMesh.moveWithCollisions(moveDirection.scale(this._speed));
+			}
+		} else {
+			this._movementState = MOVEMENT_STATES.IDLE;
+		}
+	}
+
+	private _setMeshes() {
+		if (this._playerCharacterInstance.mesh) {
+			this._characterMesh = this._playerCharacterInstance.mesh;
+		}
+
+		if (this._playerCharacterInstance.visualMesh) {
+			this._characterVisualMesh = this._playerCharacterInstance.visualMesh;
+		}
+	}
+
+	private _setKeyboardInputController() {
+		this._kbInputController = this._playerCharacterInstance.keyboardInputController;
+	}
+
+	private _setCamera() {
+		const currentScene = ScenesController.getInstance().currentSceneInstance;
+		if (currentScene?.activeCamera) {
+			this._camera = currentScene?.activeCamera;
+		}
+	}
+
+	get movementState(): string {
+		return this._movementState;
 	}
 }
 

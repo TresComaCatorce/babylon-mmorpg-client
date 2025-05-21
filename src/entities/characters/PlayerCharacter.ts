@@ -1,18 +1,19 @@
-import { AbstractMesh, Camera, Nullable } from '@babylonjs/core';
+import { AbstractMesh, Nullable } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
-import IMovementController from '@mmorpg/interfaces/controllers/movement/IMovementController';
 import BasicMovementController from '@mmorpg/controllers/player/BasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 import BaseScene from '@mmorpg/scenes/BaseScene';
+import AnimationController from '@mmorpg/controllers/player/AnimationController';
 
 class PlayerCharacter extends BaseCharacter {
 	private _name: string;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
-	private _movementController: Nullable<IMovementController> = null;
+	private _movementController: Nullable<BasicMovementController> = null;
+	private _animationController: Nullable<AnimationController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
 		super({ modelPath: 'assets/models/warrior.glb' });
@@ -23,12 +24,14 @@ class PlayerCharacter extends BaseCharacter {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		this._movementController?.update();
 		currentScene?.activeCamera?.update();
+		this._animationController?.update();
 	}
 
 	protected _onMeshLoaded() {
 		this._createPlayerCamera();
 		this._createKbInputController();
 		this._createMovementController();
+		this._createAnimationController();
 	}
 
 	private _createPlayerCamera() {
@@ -50,14 +53,24 @@ class PlayerCharacter extends BaseCharacter {
 
 	private _createMovementController() {
 		if (this.mesh && this.visualMesh && this._kbInputController) {
-			const currentScene = ScenesController.getInstance().currentSceneInstance;
 			this._movementController = new BasicMovementController({
-				mesh: this.mesh,
-				visualMesh: this.visualMesh,
-				kbInputController: this._kbInputController,
-				camera: <Camera>currentScene?.activeCamera,
+				playerCharacter: this,
 			});
 		}
+	}
+
+	private _createAnimationController() {
+		this._animationController = new AnimationController({
+			playerCharacter: this,
+		});
+	}
+
+	get keyboardInputController(): Nullable<KeyboardInputController> {
+		return this._kbInputController;
+	}
+
+	get movementController(): Nullable<BasicMovementController> {
+		return this._movementController;
 	}
 }
 
