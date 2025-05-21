@@ -29,6 +29,7 @@ class BasicMovementController {
 		this._setMovingVariables();
 		this._calculateMoveDirection();
 		this._setMovementState();
+		this._readGlowSwitch();
 	}
 
 	private _setKeyboardInputController() {
@@ -76,6 +77,25 @@ class BasicMovementController {
 		} else {
 			this._movementState = MOVEMENT_STATES.IDLE;
 		}
+	}
+
+	private _glowEnabled: boolean = false;
+	private _wasGlowKeySwitchPressed: boolean | undefined;
+	private _readGlowSwitch() {
+		const isGPressed = this._kbInputController?.isKeyPressed('g');
+
+		if (isGPressed && !this._wasGlowKeySwitchPressed) {
+			// Esto se ejecuta una sola vez al presionar "g"
+			this._glowEnabled = !this._glowEnabled;
+
+			if (this._glowEnabled) {
+				this._playerCharacterInstance.addGlow();
+			} else {
+				this._playerCharacterInstance.removeGlow();
+			}
+		}
+
+		this._wasGlowKeySwitchPressed = isGPressed;
 	}
 
 	get movementState(): string {

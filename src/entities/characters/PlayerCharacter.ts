@@ -1,4 +1,4 @@
-import { AbstractMesh, Nullable } from '@babylonjs/core';
+import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
 import BasicMovementController from '@mmorpg/controllers/player/BasicMovementController';
@@ -63,6 +63,30 @@ class PlayerCharacter extends BaseCharacter {
 	private _createAnimationController() {
 		this._animationController = new AnimationController({
 			playerCharacter: this,
+		});
+	}
+
+	public addGlow() {
+		ScenesController.getInstance().currentSceneInstance?.meshes.forEach((item) => {
+			console.log('meshes: ', item, item.material instanceof PBRMaterial, item.material);
+			if (item.id === 'warrior_material' && item && item.material && item.material instanceof PBRMaterial) {
+				const tex = item.material.albedoTexture;
+
+				item.material.emissiveTexture = tex;
+				item.material.emissiveColor = new Color3(1.0, 0.8, 0.2).scale(0.75);
+			}
+		});
+	}
+
+	public removeGlow() {
+		const scene = ScenesController.getInstance().currentSceneInstance;
+		if (!scene) return;
+
+		scene.meshes.forEach((item) => {
+			if (item.id === 'warrior_material' && item && item.material && item.material instanceof PBRMaterial) {
+				item.material.emissiveTexture = null;
+				item.material.emissiveColor = Color3.Black();
+			}
 		});
 	}
 
