@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { AbstractMesh, Camera, Nullable, Quaternion, Vector3 } from '@babylonjs/core';
+import { Camera, Nullable, Vector3 } from '@babylonjs/core';
 
 import IBasicMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IBasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
