@@ -28,46 +28,36 @@ export class BasicMovementController implements IMovementController {
 	}
 
 	public update() {
-		let direction = Vector3.Zero();
+		const forward = this._kbInputController.isKeyPressed('w');
+		const backward = this._kbInputController.isKeyPressed('s');
+		const left = this._kbInputController.isKeyPressed('a');
+		const right = this._kbInputController.isKeyPressed('d');
 
-		if (this._kbInputController.isKeyPressed('w')) {
-			direction = direction.add(Vector3.Forward());
+		if (forward || backward || left || right) {
+			// Forward direction of the camera, projected to the XZ plane
+			const cameraForward = this._camera.getForwardRay().direction;
+			const forwardXZ = new Vector3(cameraForward.x, 0, cameraForward.z).normalize();
+
+			// Base rotated on the Y axis
+			const cameraRight = Vector3.Cross(forwardXZ, Vector3.Up()).normalize();
+
+			let moveDirection = Vector3.Zero();
+
+			if (forward) moveDirection = moveDirection.add(forwardXZ);
+			if (backward) moveDirection = moveDirection.subtract(forwardXZ);
+			if (left) moveDirection = moveDirection.add(cameraRight);
+			if (right) moveDirection = moveDirection.subtract(cameraRight);
+
+			moveDirection.normalize();
+
+			// Rotate the visualMesh in the direction of movement
+			if (!moveDirection.equals(Vector3.Zero())) {
+				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
+				this._visualMesh.rotationQuaternion = Quaternion.FromEulerAngles(0, angleY, 0);
+
+				this._mesh.moveWithCollisions(moveDirection.scale(this._speed));
+			}
 		}
-		if (this._kbInputController.isKeyPressed('s')) {
-			direction = direction.add(Vector3.Backward());
-		}
-		if (this._kbInputController.isKeyPressed('a')) {
-			direction = direction.add(Vector3.Left());
-		}
-		if (this._kbInputController.isKeyPressed('d')) {
-			direction = direction.add(Vector3.Right());
-		}
-
-		if (!direction.equals(Vector3.Zero())) {
-			const yRotation = (<FollowCamera>this._camera).rotation.y;
-			const rotatedDirection = Vector3.TransformCoordinates(
-				direction,
-				Matrix.RotationY(yRotation),
-			).normalize();
-
-			this._mesh.moveWithCollisions(rotatedDirection.scale(this._speed));
-		}
-	}
-
-	private _rotateMeshToCameraDirection() {
-		const cameraForward = this._camera.getForwardRay().direction;
-
-		// const cameraDirectionXZ = new Vector3(cameraForward.x, 0, cameraForward.z).normalize();
-		// drawVector3(cameraForward);
-
-		// if () {
-
-		// }
-		// if (cameraDirectionXZ.lengthSquared() > 0.001) {
-		// 	const angleY = Math.atan2(cameraDirectionXZ.x, cameraDirectionXZ.z);
-		// 	const targetRotation = Quaternion.FromEulerAngles(0, angleY, 0);
-		// 	this._mesh.rotationQuaternion = targetRotation;
-		// }
 	}
 }
 

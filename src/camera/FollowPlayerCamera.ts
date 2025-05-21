@@ -20,6 +20,7 @@ class FollowPlayerCamera extends ArcRotateCamera {
 	private _maxY: number = 1.2;
 	private _targetRadius: number = 10;
 	private _zoomSmoothSpeed: number = 0.15;
+	private _clickToMoveCamera: number = 0; // 0=LeftClick | 1=MiddleClick | 2=RightClick
 
 	private _playerMesh: AbstractMesh;
 	private _pointerObserver: Nullable<Observer<PointerInfo>> = null;
@@ -83,8 +84,7 @@ class FollowPlayerCamera extends ArcRotateCamera {
 
 			switch (pointerInfo.type) {
 				case PointerEventTypes.POINTERDOWN: {
-					if (event.button === 1) {
-						// botón del medio
+					if (event.button === this._clickToMoveCamera) {
 						this._isRotating = true;
 						this._lastPointerX = event.clientX;
 						this._lastPointerY = event.clientY;
@@ -92,7 +92,7 @@ class FollowPlayerCamera extends ArcRotateCamera {
 					break;
 				}
 				case PointerEventTypes.POINTERUP: {
-					if (event.button === 1) {
+					if (event.button === this._clickToMoveCamera) {
 						this._isRotating = false;
 					}
 					break;
@@ -105,7 +105,7 @@ class FollowPlayerCamera extends ArcRotateCamera {
 						this.alpha -= offsetX * 0.005;
 						this.beta -= offsetY * 0.005;
 
-						// Limitar el ángulo vertical (beta)
+						// Limit the vertical angle (beta)
 						this.beta = Scalar.Clamp(this.beta, this._minY, this._maxY);
 
 						this._lastPointerX = event.clientX;
