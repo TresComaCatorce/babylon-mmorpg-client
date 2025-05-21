@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AbstractMesh, Camera, Nullable, Quaternion, Vector3 } from '@babylonjs/core';
 
 import IBasicMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IBasicMovementController';
@@ -8,76 +9,27 @@ import ScenesController from '../ScenesController';
 
 class BasicMovementController {
 	private _playerCharacterInstance: PlayerCharacter;
-	private _characterMesh: Nullable<AbstractMesh> = null;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _camera: Nullable<Camera> = null;
-	private _speed = 0.1;
 	private _movementState: string;
+	private _movementDirection: Vector3 = Vector3.Zero();
+	private _isMovingForward: boolean = false;
+	private _isMovingBackward: boolean = false;
+	private _isMovingLeft: boolean = false;
+	private _isMovingRight: boolean = false;
+	private _isMoving: boolean = false;
 
 	constructor(params: IBasicMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
 		this._movementState = MOVEMENT_STATES.IDLE;
-		this._setCharacterMesh();
 		this._setKeyboardInputController();
 		this._setCamera();
 	}
 
 	public update() {
-		const forward = this._kbInputController?.isKeyPressed('w');
-		const backward = this._kbInputController?.isKeyPressed('s');
-		const left = this._kbInputController?.isKeyPressed('a');
-		const right = this._kbInputController?.isKeyPressed('d');
-
-		let moveDirection = Vector3.Zero();
-
-		if (forward || backward || left || right) {
-			// Forward direction of the camera, projected to the XZ plane
-			const cameraForward = this._camera?.getForwardRay().direction;
-			const forwardXZ = new Vector3(cameraForward?.x, 0, cameraForward?.z).normalize();
-
-			// Base rotated on the Y axis
-			const cameraRight = Vector3.Cross(forwardXZ, Vector3.Up()).normalize();
-
-			if (forward) moveDirection = moveDirection.add(forwardXZ);
-			if (backward) moveDirection = moveDirection.subtract(forwardXZ);
-			if (left) moveDirection = moveDirection.add(cameraRight);
-			if (right) moveDirection = moveDirection.subtract(cameraRight);
-
-			moveDirection.normalize();
-		}
-
-		const isCurrentlyMoving = !moveDirection.equals(Vector3.Zero());
-
-		if (isCurrentlyMoving) {
-			this._movementState = MOVEMENT_STATES.WALKING;
-			if (this._characterMesh) {
-				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
-				const targetRotation = Quaternion.FromEulerAngles(0, angleY, 0);
-
-				// Rotate the character mesh in the direction of the movement
-				if (!this._characterMesh.rotationQuaternion) {
-					this._characterMesh.rotationQuaternion = targetRotation.clone();
-				} else {
-					// Smooth interpolation between current and desired rotation
-					Quaternion.SlerpToRef(
-						this._characterMesh.rotationQuaternion,
-						targetRotation,
-						0.3, // <-- interpolation speed (0 to 1)
-						this._characterMesh.rotationQuaternion,
-					);
-				}
-
-				this._characterMesh.moveWithCollisions(moveDirection.scale(this._speed));
-			}
-		} else {
-			this._movementState = MOVEMENT_STATES.IDLE;
-		}
-	}
-
-	private _setCharacterMesh() {
-		if (this._playerCharacterInstance.mesh) {
-			this._characterMesh = this._playerCharacterInstance.mesh;
-		}
+		this._setMovingVariables();
+		this._calculateMoveDirection();
+		this._setMovementState();
 	}
 
 	private _setKeyboardInputController() {
@@ -91,8 +43,56 @@ class BasicMovementController {
 		}
 	}
 
+	private _setMovingVariables() {
+		this._isMovingForward = this._kbInputController?.isKeyPressed('w') ?? false;
+		this._isMovingBackward = this._kbInputController?.isKeyPressed('s') ?? false;
+		this._isMovingLeft = this._kbInputController?.isKeyPressed('a') ?? false;
+		this._isMovingRight = this._kbInputController?.isKeyPressed('d') ?? false;
+		this._isMoving =
+			this._isMovingForward ||
+			this._isMovingBackward ||
+			this._isMovingLeft ||
+			this._isMovingRight;
+	}
+
+	private _calculateMoveDirection() {
+		if (this._isMoving) {
+			// Forward direction of the camera, projected to the XZ plane
+			const cameraForward = this._camera?.getForwardRay().direction;
+			const forwardXZ = new Vector3(cameraForward?.x, 0, cameraForward?.z).normalize();
+
+			// Base rotated on the Y axis
+			const cameraRight = Vector3.Cross(forwardXZ, Vector3.Up()).normalize();
+
+			if (this._isMovingForward)
+				this._movementDirection = this._movementDirection.add(forwardXZ);
+			if (this._isMovingBackward)
+				this._movementDirection = this._movementDirection.subtract(forwardXZ);
+			if (this._isMovingLeft)
+				this._movementDirection = this._movementDirection.add(cameraRight);
+			if (this._isMovingRight)
+				this._movementDirection = this._movementDirection.subtract(cameraRight);
+
+			this._movementDirection.normalize();
+		} else {
+			this._movementDirection = Vector3.Zero();
+		}
+	}
+
+	private _setMovementState() {
+		if (this._isMoving) {
+			this._movementState = MOVEMENT_STATES.WALKING;
+		} else {
+			this._movementState = MOVEMENT_STATES.IDLE;
+		}
+	}
+
 	get movementState(): string {
 		return this._movementState;
+	}
+
+	get movementDirection(): Vector3 {
+		return this._movementDirection;
 	}
 }
 

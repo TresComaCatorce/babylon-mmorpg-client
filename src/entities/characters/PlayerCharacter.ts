@@ -15,6 +15,9 @@ class PlayerCharacter extends BaseCharacter {
 	private _movementController: Nullable<BasicMovementController> = null;
 	private _animationController: Nullable<AnimationController> = null;
 
+	private _walkSpeed: number = 0.1;
+	private _runSpeed: number = 0.2;
+
 	constructor(params: IPlayerCharacterConstructorParams) {
 		super({ modelPath: 'assets/models/warrior.glb' });
 		this._name = params.name;
@@ -69,6 +72,14 @@ class PlayerCharacter extends BaseCharacter {
 
 	get movementController(): Nullable<BasicMovementController> {
 		return this._movementController;
+	}
+
+	get walkSpeed(): number {
+		return this._walkSpeed;
+	}
+
+	get runSpeed(): number {
+		return this._runSpeed;
 	}
 }
 
