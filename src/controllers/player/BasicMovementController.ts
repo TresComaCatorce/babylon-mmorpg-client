@@ -52,9 +52,21 @@ class BasicMovementController {
 			this._movementState = MOVEMENT_STATES.WALKING;
 			if (this._characterMesh) {
 				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
+				const targetRotation = Quaternion.FromEulerAngles(0, angleY, 0);
 
 				// Rotate the character mesh in the direction of the movement
-				this._characterMesh.rotationQuaternion = Quaternion.FromEulerAngles(0, angleY, 0);
+				if (!this._characterMesh.rotationQuaternion) {
+					this._characterMesh.rotationQuaternion = targetRotation.clone();
+				} else {
+					// Smooth interpolation between current and desired rotation
+					Quaternion.SlerpToRef(
+						this._characterMesh.rotationQuaternion,
+						targetRotation,
+						0.3, // <-- interpolation speed (0 to 1)
+						this._characterMesh.rotationQuaternion,
+					);
+				}
+
 				this._characterMesh.moveWithCollisions(moveDirection.scale(this._speed));
 			}
 		} else {
