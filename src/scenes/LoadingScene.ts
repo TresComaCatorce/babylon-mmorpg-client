@@ -22,14 +22,7 @@ class LoadingScene extends VirtualScene {
 
 	public preload(): void {
 		console.log(`LoadingScene.ts | "preload" method execution`);
-		const camera = new ArcRotateCamera(
-			'camera',
-			Math.PI / 2,
-			Math.PI / 3,
-			10,
-			Vector3.Zero(),
-			this,
-		);
+		const camera = new ArcRotateCamera('camera', Math.PI / 2, Math.PI / 3, 10, Vector3.Zero(), this);
 		camera.attachControl(true);
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 	}

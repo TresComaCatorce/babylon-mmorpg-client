@@ -48,11 +48,7 @@ class BasicMovementController {
 		this._isMovingBackward = this._kbInputController?.isKeyPressed('s') ?? false;
 		this._isMovingLeft = this._kbInputController?.isKeyPressed('a') ?? false;
 		this._isMovingRight = this._kbInputController?.isKeyPressed('d') ?? false;
-		this._isMoving =
-			this._isMovingForward ||
-			this._isMovingBackward ||
-			this._isMovingLeft ||
-			this._isMovingRight;
+		this._isMoving = this._isMovingForward || this._isMovingBackward || this._isMovingLeft || this._isMovingRight;
 	}
 
 	private _calculateMoveDirection() {
@@ -64,14 +60,10 @@ class BasicMovementController {
 			// Base rotated on the Y axis
 			const cameraRight = Vector3.Cross(forwardXZ, Vector3.Up()).normalize();
 
-			if (this._isMovingForward)
-				this._movementDirection = this._movementDirection.add(forwardXZ);
-			if (this._isMovingBackward)
-				this._movementDirection = this._movementDirection.subtract(forwardXZ);
-			if (this._isMovingLeft)
-				this._movementDirection = this._movementDirection.add(cameraRight);
-			if (this._isMovingRight)
-				this._movementDirection = this._movementDirection.subtract(cameraRight);
+			if (this._isMovingForward) this._movementDirection = this._movementDirection.add(forwardXZ);
+			if (this._isMovingBackward) this._movementDirection = this._movementDirection.subtract(forwardXZ);
+			if (this._isMovingLeft) this._movementDirection = this._movementDirection.add(cameraRight);
+			if (this._isMovingRight) this._movementDirection = this._movementDirection.subtract(cameraRight);
 
 			this._movementDirection.normalize();
 		} else {

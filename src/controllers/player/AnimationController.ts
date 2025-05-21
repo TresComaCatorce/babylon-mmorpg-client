@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AbstractMesh, AnimationGroup, Nullable, Quaternion } from '@babylonjs/core';
 
 import { IAnimationControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IAnimationController';
@@ -34,9 +33,7 @@ class AnimationController {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		const animationGroups = currentScene?.animationGroups;
 		ANIMATION_NAMES_ARRAY.forEach((animationName: string) => {
-			const animationGroupInstance = animationGroups?.find(
-				(animationGroup: AnimationGroup) => animationGroup.name === animationName,
-			);
+			const animationGroupInstance = animationGroups?.find((animationGroup: AnimationGroup) => animationGroup.name === animationName);
 			if (animationGroupInstance) {
 				this._animationGroupsInstances.set(animationName, animationGroupInstance);
 			}
@@ -56,9 +53,7 @@ class AnimationController {
 					break;
 				}
 				default: {
-					console.log(
-						`AnimationController.ts | Unknown movement state '${currentMovementState}'`,
-					);
+					console.log(`AnimationController.ts | Unknown movement state '${currentMovementState}'`);
 					this._playAnimation(ANIMATION_NAMES.IDLE);
 					break;
 				}
@@ -86,9 +81,7 @@ class AnimationController {
 					);
 				}
 
-				this._playerCharacterMesh.moveWithCollisions(
-					moveDirection.scale(this._playerCharacterInstance.walkSpeed),
-				);
+				this._playerCharacterMesh.moveWithCollisions(moveDirection.scale(this._playerCharacterInstance.walkSpeed));
 			}
 		}
 	}

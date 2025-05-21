@@ -1,12 +1,4 @@
-import {
-	Vector3,
-	HemisphericLight,
-	MeshBuilder,
-	StandardMaterial,
-	Texture,
-	FreeCamera,
-	Nullable,
-} from '@babylonjs/core';
+import { Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Texture, FreeCamera, Nullable } from '@babylonjs/core';
 
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';

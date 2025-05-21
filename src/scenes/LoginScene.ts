@@ -55,27 +55,14 @@ class LoginScene extends VirtualScene {
 
 		const textureWidth = 1024;
 		const textureHeight = 512;
-		const texture = new DynamicTexture(
-			'dynamic texture',
-			{ width: textureWidth, height: textureHeight },
-			this,
-			false,
-		);
+		const texture = new DynamicTexture('dynamic texture', { width: textureWidth, height: textureHeight }, this, false);
 		texture.hasAlpha = false;
 
 		const ctx = texture.getContext();
 		ctx.fillStyle = '#696969';
 		ctx.fillRect(0, 0, textureWidth, textureHeight);
 
-		texture.drawText(
-			'Click here to start',
-			null,
-			textureHeight / 2,
-			'bold 110px Arial',
-			'black',
-			'#f8f8ff',
-			true,
-		);
+		texture.drawText('Click here to start', null, textureHeight / 2, 'bold 110px Arial', 'black', '#f8f8ff', true);
 
 		const mat = new StandardMaterial('textMat', this);
 		mat.diffuseTexture = texture;

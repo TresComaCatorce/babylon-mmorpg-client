@@ -28,10 +28,7 @@ abstract class Entity {
 		const result = await ImportMeshAsync(modelPath, currentScene);
 
 		// Find root node with children (usually the correct node for the camera target)
-		const rootNode = result.meshes.find(
-			(m) =>
-				m.getChildMeshes().length > 0 && m instanceof TransformNode && !(m instanceof Mesh),
-		);
+		const rootNode = result.meshes.find((m) => m.getChildMeshes().length > 0 && m instanceof TransformNode && !(m instanceof Mesh));
 
 		// Search for visible mesh
 		const visibleMesh = result.meshes.find((m) => m instanceof Mesh && m.isVisible);
