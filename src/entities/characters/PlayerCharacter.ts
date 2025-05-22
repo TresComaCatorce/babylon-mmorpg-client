@@ -10,13 +10,15 @@ import BaseScene from '@mmorpg/scenes/BaseScene';
 import AnimationController from '@mmorpg/controllers/player/AnimationController';
 
 class PlayerCharacter extends BaseCharacter {
+	private _walkSpeed: number = 0.08;
+	private _walkAcceleration: number = 0.05;
+	private _runSpeed: number = 0.2;
+	private _runAcceleration: number = 0.05;
+
 	private _name: string;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _movementController: Nullable<BasicMovementController> = null;
 	private _animationController: Nullable<AnimationController> = null;
-
-	private _walkSpeed: number = 0.1;
-	private _runSpeed: number = 0.2;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
 		super({ modelPath: 'assets/models/warrior.glb' });
@@ -99,8 +101,16 @@ class PlayerCharacter extends BaseCharacter {
 		return this._walkSpeed;
 	}
 
+	get walkAcceleration(): number {
+		return this._walkAcceleration;
+	}
+
 	get runSpeed(): number {
 		return this._runSpeed;
+	}
+
+	get runAcceleration(): number {
+		return this._runAcceleration;
 	}
 }
 

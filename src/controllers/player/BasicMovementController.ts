@@ -1,4 +1,4 @@
-import { Camera, Nullable, Vector3 } from '@babylonjs/core';
+import { AbstractMesh, Camera, Nullable, Vector3 } from '@babylonjs/core';
 
 import IBasicMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IBasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
@@ -9,10 +9,13 @@ import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class BasicMovementController {
 	private _playerCharacterInstance: PlayerCharacter;
+	private _playerCharacterMesh: Nullable<AbstractMesh>;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _camera: Nullable<Camera> = null;
-	private _movementState: string;
+	private _movementState: string = MOVEMENT_STATES.IDLE;
 	private _movementDirection: Vector3 = Vector3.Zero();
+	private _currentSpeed: number = 0;
+	private _accelerationProgress: number = 0;
 	private _isMovingForward: boolean = false;
 	private _isMovingBackward: boolean = false;
 	private _isMovingLeft: boolean = false;
@@ -21,7 +24,7 @@ class BasicMovementController {
 
 	constructor(params: IBasicMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
-		this._movementState = MOVEMENT_STATES.IDLE;
+		this._playerCharacterMesh = params.playerCharacter.mesh ?? null;
 		this._setKeyboardInputController();
 		this._setCamera();
 		this._addGlowSwitch();
@@ -30,6 +33,7 @@ class BasicMovementController {
 	public update() {
 		this._setMovingVariables();
 		this._calculateMoveDirection();
+		this._calculateSpeedAndMoveCharacter();
 		this._setMovementState();
 	}
 
@@ -69,6 +73,24 @@ class BasicMovementController {
 			this._movementDirection.normalize();
 		} else {
 			this._movementDirection = Vector3.Zero();
+		}
+	}
+
+	private _calculateSpeedAndMoveCharacter() {
+		if (this._isMoving) {
+			this._accelerationProgress += this._playerCharacterInstance.walkAcceleration;
+			if (this._accelerationProgress > 1) {
+				this._accelerationProgress = 1;
+			}
+
+			const accelerationCurve = Math.pow(this._accelerationProgress, 2);
+			this._currentSpeed = accelerationCurve * this._playerCharacterInstance.walkSpeed;
+
+			const moveStep = this._movementDirection.scale(this._currentSpeed);
+			this._playerCharacterMesh?.moveWithCollisions(moveStep);
+		} else {
+			this._currentSpeed = 0;
+			this._accelerationProgress = 0;
 		}
 	}
 
