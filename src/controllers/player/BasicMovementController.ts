@@ -5,6 +5,7 @@ import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputCont
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 import ScenesController from '../ScenesController';
+import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class BasicMovementController {
 	private _playerCharacterInstance: PlayerCharacter;
@@ -44,10 +45,10 @@ class BasicMovementController {
 	}
 
 	private _setMovingVariables() {
-		this._isMovingForward = this._kbInputController?.isKeyPressed('w') ?? false;
-		this._isMovingBackward = this._kbInputController?.isKeyPressed('s') ?? false;
-		this._isMovingLeft = this._kbInputController?.isKeyPressed('a') ?? false;
-		this._isMovingRight = this._kbInputController?.isKeyPressed('d') ?? false;
+		this._isMovingForward = this._kbInputController?.isKeyPressed(KEY_CODES.W) ?? false;
+		this._isMovingBackward = this._kbInputController?.isKeyPressed(KEY_CODES.S) ?? false;
+		this._isMovingLeft = this._kbInputController?.isKeyPressed(KEY_CODES.A) ?? false;
+		this._isMovingRight = this._kbInputController?.isKeyPressed(KEY_CODES.D) ?? false;
 		this._isMoving = this._isMovingForward || this._isMovingBackward || this._isMovingLeft || this._isMovingRight;
 	}
 
@@ -80,10 +81,14 @@ class BasicMovementController {
 	}
 
 	private _addGlowSwitch() {
-		this._kbInputController?.addToggleKey('g', {
-			onSwitchON: () => this._playerCharacterInstance.addGlow(),
-			onSwitchOFF: () => this._playerCharacterInstance.removeGlow(),
-		});
+		this._kbInputController?.addToggleKey(
+			KEY_CODES.G,
+			{
+				onSwitchON: () => this._playerCharacterInstance.addGlow(),
+				onSwitchOFF: () => this._playerCharacterInstance.removeGlow(),
+			},
+			'Glow',
+		);
 	}
 
 	get movementState(): string {
