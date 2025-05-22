@@ -49,6 +49,13 @@ const createControlsInfoHelper = (scene: Scene) => {
 
 	closeButton.background = '#AA0000';
 	closeButton.isHitTestVisible = true;
+	closeButton.onPointerEnterObservable.add(() => {
+		document.body.style.cursor = 'pointer';
+	});
+
+	closeButton.onPointerOutObservable.add(() => {
+		document.body.style.cursor = 'default';
+	});
 
 	stackPanel.addControl(infoText);
 	infoBox.addControl(stackPanel);
