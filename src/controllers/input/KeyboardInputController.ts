@@ -63,7 +63,9 @@ class KeyboardInputController extends BaseController {
 
 	private _setToggleStatusDebugInspector(): void {
 		if (process.env.NODE_ENV === 'development') {
-			this._toggleStatusElement = document.getElementById('toggle-debug-status');
+			this._toggleStatusElement = document.createElement('div');
+			this._toggleStatusElement.id = 'toggle-debug-status';
+			document.body.appendChild(this._toggleStatusElement);
 			this._renderToggleDebugStatus();
 		}
 	}
