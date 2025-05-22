@@ -4,4 +4,9 @@ interface IAnimationControllerConstructorParams {
 	playerCharacter: PlayerCharacter;
 }
 
-export { IAnimationControllerConstructorParams };
+interface IPlayAnimationConfigParam {
+	playInLoop?: boolean;
+	speedRatio?: number;
+}
+
+export { IAnimationControllerConstructorParams, IPlayAnimationConfigParam };

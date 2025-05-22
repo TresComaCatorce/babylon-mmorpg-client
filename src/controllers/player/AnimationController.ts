@@ -1,6 +1,6 @@
 import { AbstractMesh, AnimationGroup, Nullable, Quaternion } from '@babylonjs/core';
 
-import { IAnimationControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IAnimationController';
+import { IAnimationControllerConstructorParams, IPlayAnimationConfigParam } from '@mmorpg/interfaces/controllers/player/IAnimationController';
 import ANIMATION_NAMES, { ANIMATION_NAMES_ARRAY } from '@mmorpg/utils/constants/ANIMATION_NAMES';
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
@@ -49,7 +49,7 @@ class AnimationController {
 					break;
 				}
 				case MOVEMENT_STATES.WALKING: {
-					this._playAnimation(ANIMATION_NAMES.WALKING);
+					this._playAnimation(ANIMATION_NAMES.WALKING, { speedRatio: 1.8 });
 					break;
 				}
 				default: {
@@ -80,20 +80,20 @@ class AnimationController {
 						this._playerCharacterMesh.rotationQuaternion,
 					);
 				}
-
-				this._playerCharacterMesh.moveWithCollisions(moveDirection.scale(this._playerCharacterInstance.walkSpeed));
 			}
 		}
 	}
 
-	private _playAnimation(animationGropName: string, playInLoop: boolean = true) {
+	private _playAnimation(animationGropName: string, config?: IPlayAnimationConfigParam) {
 		console.log(`playanimation: ${animationGropName}`);
 		const animationGropToAdd = this._animationGroupsInstances.get(animationGropName);
 		if (animationGropToAdd) {
 			this._stopAllAnimations();
+			const loop = config?.playInLoop === false ? false : true;
+			const speedRatio = config?.speedRatio ? config?.speedRatio : 1;
 			animationGropToAdd.enableBlending = true;
 			animationGropToAdd.blendingSpeed = 0.05;
-			animationGropToAdd.start(playInLoop);
+			animationGropToAdd.start(loop, speedRatio);
 			this._currentlyPlayingAnimationGroups.push(animationGropToAdd);
 		}
 	}
