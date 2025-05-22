@@ -21,6 +21,7 @@ class BasicMovementController {
 	private _isMovingLeft: boolean = false;
 	private _isMovingRight: boolean = false;
 	private _isMoving: boolean = false;
+	private _isRunning: boolean = false;
 
 	constructor(params: IBasicMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
@@ -28,6 +29,7 @@ class BasicMovementController {
 		this._setKeyboardInputController();
 		this._setCamera();
 		this._addGlowSwitch();
+		this._addRunningSwitch();
 	}
 
 	public update() {
@@ -54,6 +56,7 @@ class BasicMovementController {
 		this._isMovingLeft = this._kbInputController?.isKeyPressed(KEY_CODES.A) ?? false;
 		this._isMovingRight = this._kbInputController?.isKeyPressed(KEY_CODES.D) ?? false;
 		this._isMoving = this._isMovingForward || this._isMovingBackward || this._isMovingLeft || this._isMovingRight;
+		this._isRunning = this._kbInputController?.isKeyPressed(KEY_CODES.SHIFT) ?? false;
 	}
 
 	private _calculateMoveDirection() {
@@ -100,6 +103,21 @@ class BasicMovementController {
 		} else {
 			this._movementState = MOVEMENT_STATES.IDLE;
 		}
+	}
+
+	private _addRunningSwitch() {
+		this._kbInputController?.addToggleKey(
+			KEY_CODES.BLOCK_MAYUS,
+			{
+				onSwitchON: () => {
+					this._isRunning = true;
+				},
+				onSwitchOFF: () => {
+					this._isRunning = false;
+				},
+			},
+			'Running',
+		);
 	}
 
 	private _addGlowSwitch() {

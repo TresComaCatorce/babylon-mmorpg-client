@@ -29,6 +29,7 @@ const KEYS_TO_PREVENT_DEFAULT = [
 	'arrowdown',
 	'arrowleft',
 	'arrowright',
+	'capslock',
 	'shift',
 	' ',
 ];

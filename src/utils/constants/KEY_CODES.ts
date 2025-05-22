@@ -29,6 +29,7 @@ enum KEY_CODES {
 	ARROW_DOWN = 'arrowdown',
 	ARROW_LEFT = 'arrowleft',
 	ARROW_LIGHT = 'arrowright',
+	BLOCK_MAYUS = 'capslock',
 	SHIFT = 'shift',
 	SPACE = ' ',
 }
