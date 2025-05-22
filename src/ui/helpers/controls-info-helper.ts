@@ -52,8 +52,8 @@ const createControlsInfoHelper = (scene: Scene) => {
 
 	stackPanel.addControl(infoText);
 	infoBox.addControl(stackPanel);
-	guiTexture.addControl(infoBox);
 	infoBox.addControl(closeButton);
+	guiTexture.addControl(infoBox);
 
 	return infoBox;
 };
