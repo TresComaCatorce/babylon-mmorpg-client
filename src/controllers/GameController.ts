@@ -32,6 +32,7 @@ class GameController extends BaseController {
 	private constructor() {
 		super();
 		this._canvasElement = this._getCanvasHtmlElement();
+		this._fixCanvasSizeForDevelopmentMode();
 		this._engine = this._createEngineInstance();
 		this._addBrowserResizeHandler();
 		this._addRunRenderLoop();
@@ -120,6 +121,13 @@ class GameController extends BaseController {
 				currentSceneInstance.render();
 			}
 		});
+	}
+
+	private _fixCanvasSizeForDevelopmentMode() {
+		if (process.env.NODE_ENV === 'development') {
+			this._canvasElement.style.width = '100%';
+			this._canvasElement.style.height = '100%';
+		}
 	}
 
 	/**

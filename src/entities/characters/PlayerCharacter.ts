@@ -11,9 +11,9 @@ import AnimationController from '@mmorpg/controllers/player/AnimationController'
 
 class PlayerCharacter extends BaseCharacter {
 	private _walkSpeed: number = 0.08;
-	private _walkAcceleration: number = 0.05;
+	private _walkAcceleration: number = 0.1;
 	private _runSpeed: number = 0.16;
-	private _runAcceleration: number = 0.05;
+	private _runAcceleration: number = 0.1;
 
 	private _name: string;
 	private _kbInputController: Nullable<KeyboardInputController> = null;

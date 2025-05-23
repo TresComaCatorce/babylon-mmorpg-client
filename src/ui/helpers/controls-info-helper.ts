@@ -5,8 +5,8 @@ const createControlsInfoHelper = (scene: Scene) => {
 	const guiTexture = AdvancedDynamicTexture.CreateFullscreenUI('UI', true, scene);
 
 	const infoBox = new Rectangle();
-	infoBox.height = '28%';
-	infoBox.width = '28%';
+	infoBox.widthInPixels = 270;
+	infoBox.heightInPixels = 140;
 	infoBox.cornerRadius = 10;
 	infoBox.color = 'white';
 	infoBox.thickness = 1;
@@ -34,7 +34,8 @@ const createControlsInfoHelper = (scene: Scene) => {
 	infoText.fontSize = 13;
 	infoText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 	infoText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-	infoText.paddingLeft = '10px';
+	infoText.paddingLeftInPixels = 10;
+	infoText.paddingTopInPixels = 10;
 	infoText.textWrapping = true;
 
 	const closeButton = Button.CreateSimpleButton('close', '✕');
