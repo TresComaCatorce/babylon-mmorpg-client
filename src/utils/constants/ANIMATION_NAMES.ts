@@ -1,7 +1,7 @@
 const ANIMATION_NAMES = {
 	IDLE: 'Idle',
 	WALKING: 'Walking',
-	RUNING: 'Running',
+	RUNNING: 'Running',
 };
 
 const ANIMATION_NAMES_ARRAY: string[] = Object.values(ANIMATION_NAMES);

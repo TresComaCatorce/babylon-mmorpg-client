@@ -22,6 +22,7 @@ class BasicMovementController {
 	private _isMovingRight: boolean = false;
 	private _isMoving: boolean = false;
 	private _isRunning: boolean = false;
+	private _isRunningLocked: boolean = false;
 
 	constructor(params: IBasicMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
@@ -81,13 +82,19 @@ class BasicMovementController {
 
 	private _calculateSpeedAndMoveCharacter() {
 		if (this._isMoving) {
-			this._accelerationProgress += this._playerCharacterInstance.walkAcceleration;
+			let speedToUse = this._playerCharacterInstance.walkSpeed;
+			let accelerationToUse = this._playerCharacterInstance.walkAcceleration;
+			if (this._isRunning || this._isRunningLocked) {
+				speedToUse = this._playerCharacterInstance.runSpeed;
+				accelerationToUse = this._playerCharacterInstance.runAcceleration;
+			}
+			this._accelerationProgress += accelerationToUse;
 			if (this._accelerationProgress > 1) {
 				this._accelerationProgress = 1;
 			}
 
 			const accelerationCurve = Math.pow(this._accelerationProgress, 2);
-			this._currentSpeed = accelerationCurve * this._playerCharacterInstance.walkSpeed;
+			this._currentSpeed = accelerationCurve * speedToUse;
 
 			const moveStep = this._movementDirection.scale(this._currentSpeed);
 			this._playerCharacterMesh?.moveWithCollisions(moveStep);
@@ -100,6 +107,9 @@ class BasicMovementController {
 	private _setMovementState() {
 		if (this._isMoving) {
 			this._movementState = MOVEMENT_STATES.WALKING;
+			if (this._isRunning || this._isRunningLocked) {
+				this._movementState = MOVEMENT_STATES.RUNNING;
+			}
 		} else {
 			this._movementState = MOVEMENT_STATES.IDLE;
 		}
@@ -110,10 +120,10 @@ class BasicMovementController {
 			KEY_CODES.BLOCK_MAYUS,
 			{
 				onSwitchON: () => {
-					this._isRunning = true;
+					this._isRunningLocked = true;
 				},
 				onSwitchOFF: () => {
-					this._isRunning = false;
+					this._isRunningLocked = false;
 				},
 			},
 			'Running',
@@ -129,6 +139,10 @@ class BasicMovementController {
 			},
 			'Glow',
 		);
+	}
+
+	get isMoving(): boolean {
+		return this._isMoving;
 	}
 
 	get movementState(): string {

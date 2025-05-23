@@ -1,7 +1,7 @@
 const MOVEMENT_STATES = {
 	IDLE: 'Idle',
 	WALKING: 'Walking',
-	RUNING: 'Running',
+	RUNNING: 'Running',
 };
 
 const MOVEMENT_STATES_ARRAY: string[] = Object.values(MOVEMENT_STATES);

@@ -24,9 +24,8 @@ class AnimationController {
 	}
 
 	public update() {
-		const currentMovementState = this._playerMovementController?.movementState;
-		this._playMovementAnimations(currentMovementState);
-		this._moveAndRotateMesh(currentMovementState);
+		this._playMovementAnimations();
+		this._moveAndRotateMesh();
 	}
 
 	private _fillAnimationGroupsMap() {
@@ -40,7 +39,8 @@ class AnimationController {
 		});
 	}
 
-	private _playMovementAnimations(currentMovementState: string | undefined) {
+	private _playMovementAnimations() {
+		const currentMovementState = this._playerMovementController?.movementState;
 		if (currentMovementState && currentMovementState !== this._lastMovementState) {
 			this._lastMovementState = currentMovementState;
 			switch (currentMovementState) {
@@ -52,6 +52,10 @@ class AnimationController {
 					this._playAnimation(ANIMATION_NAMES.WALKING, { speedRatio: 1.8 });
 					break;
 				}
+				case MOVEMENT_STATES.RUNNING: {
+					this._playAnimation(ANIMATION_NAMES.RUNNING, { speedRatio: 2 });
+					break;
+				}
 				default: {
 					console.log(`AnimationController.ts | Unknown movement state '${currentMovementState}'`);
 					this._playAnimation(ANIMATION_NAMES.IDLE);
@@ -61,8 +65,8 @@ class AnimationController {
 		}
 	}
 
-	private _moveAndRotateMesh(currentMovementState: string | undefined) {
-		if (currentMovementState === MOVEMENT_STATES.WALKING && this._playerCharacterMesh) {
+	private _moveAndRotateMesh() {
+		if (this._playerMovementController?.isMoving && this._playerCharacterMesh) {
 			const moveDirection = this._playerMovementController?.movementDirection;
 			if (moveDirection) {
 				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
@@ -92,7 +96,7 @@ class AnimationController {
 			const loop = config?.playInLoop === false ? false : true;
 			const speedRatio = config?.speedRatio ? config?.speedRatio : 1;
 			animationGropToAdd.enableBlending = true;
-			animationGropToAdd.blendingSpeed = 0.05;
+			animationGropToAdd.blendingSpeed = animationGropName === ANIMATION_NAMES.WALKING ? 0.1 : 0.2;
 			animationGropToAdd.start(loop, speedRatio);
 			this._currentlyPlayingAnimationGroups.push(animationGropToAdd);
 		}
