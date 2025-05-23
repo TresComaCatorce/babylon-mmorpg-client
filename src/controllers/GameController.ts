@@ -127,6 +127,8 @@ class GameController extends BaseController {
 		if (process.env.NODE_ENV === 'development') {
 			this._canvasElement.style.width = '100%';
 			this._canvasElement.style.height = '100%';
+			document.body.style.alignItems = 'normal';
+			document.body.style.justifyContent = 'normal';
 		}
 	}
 

@@ -29,7 +29,8 @@ const createControlsInfoHelper = (scene: Scene) => {
 	infoTitle.paddingTopInPixels = 8;
 
 	const infoText = new TextBlock();
-	infoText.text = '\n• Movement: W-A-S-D\n• Rotate camera: Hold mouse left-click\n• Zoom: Mouse scroll\n• Run: Shift\n• Run lock/unlock: Caps Lock';
+	infoText.text =
+		'\n• Movement: W-A-S-D\n• Rotate camera: Hold mouse left-click\n• Zoom: Mouse scroll\n• Run: Shift\n• Run lock/unlock: Caps Lock\n• Glow: G';
 	infoText.color = 'white';
 	infoText.fontSize = 13;
 	infoText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;

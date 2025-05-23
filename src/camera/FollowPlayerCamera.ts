@@ -1,15 +1,4 @@
-import {
-	ArcRotateCamera,
-	AbstractMesh,
-	Scalar,
-	PointerEventTypes,
-	TransformNode,
-	Observer,
-	PointerInfo,
-	Nullable,
-	Vector3,
-	Tools,
-} from '@babylonjs/core';
+import { ArcRotateCamera, AbstractMesh, Scalar, PointerEventTypes, TransformNode, Observer, PointerInfo, Nullable } from '@babylonjs/core';
 
 import { IFollowPlayerCameraConstructorParams } from '@mmorpg/interfaces/camera/IFollowPlayerCamera';
 
@@ -125,17 +114,17 @@ class FollowPlayerCamera extends ArcRotateCamera {
 
 	private _addDebugButtons() {
 		if (process.env.NODE_ENV === 'development') {
-			const buttonRotationMeshPlus1 = document.createElement('button');
-			buttonRotationMeshPlus1.innerText = 'Model rotation +=1';
-			buttonRotationMeshPlus1.style.position = 'absolute';
-			buttonRotationMeshPlus1.style.top = '92%';
-			buttonRotationMeshPlus1.style.left = '85%';
-			buttonRotationMeshPlus1.style.transform = 'translate(-50%, -50%)';
-			buttonRotationMeshPlus1.onclick = () => {
-				console.log('FollowPlayerCamera.ts | +1 | : ', this.radius);
-				this._playerMesh.rotate(Vector3.Up(), Tools.ToRadians(5));
-			};
-			document.body.appendChild(buttonRotationMeshPlus1);
+			// const buttonRotationMeshPlus1 = document.createElement('button');
+			// buttonRotationMeshPlus1.innerText = 'Model rotation +=1';
+			// buttonRotationMeshPlus1.style.position = 'absolute';
+			// buttonRotationMeshPlus1.style.top = '92%';
+			// buttonRotationMeshPlus1.style.left = '85%';
+			// buttonRotationMeshPlus1.style.transform = 'translate(-50%, -50%)';
+			// buttonRotationMeshPlus1.onclick = () => {
+			// 	console.log('FollowPlayerCamera.ts | +1 | : ', this.radius);
+			// 	this._playerMesh.rotate(Vector3.Up(), Tools.ToRadians(5));
+			// };
+			// document.body.appendChild(buttonRotationMeshPlus1);
 		}
 	}
 }
