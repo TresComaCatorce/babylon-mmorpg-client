@@ -13,7 +13,7 @@ canvas {
 	width: calc(100vw - 10px);
 	height: calc(100vh - 10px);
 	display: block;
-	border: 1px solid gray;
+	border: 1px solid black;
 	border-radius: 10px;
 }
 
