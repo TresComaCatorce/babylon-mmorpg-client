@@ -90,15 +90,22 @@ class AnimationController {
 
 	private _playAnimation(animationGropName: string, config?: IPlayAnimationConfigParam) {
 		console.log(`playanimation: ${animationGropName}`);
-		const animationGropToAdd = this._animationGroupsInstances.get(animationGropName);
-		if (animationGropToAdd) {
+		// const animationGropToAdd = this._animationGroupsInstances.get(animationGropName);
+		const animationGropToAdd2 = this._playerCharacterInstance.modelGlb?.animationGroups.find((item) => item.name === animationGropName);
+		if (animationGropToAdd2) {
 			this._stopAllAnimations();
 			const loop = config?.playInLoop === false ? false : true;
 			const speedRatio = config?.speedRatio ? config?.speedRatio : 1;
-			animationGropToAdd.enableBlending = true;
-			animationGropToAdd.blendingSpeed = animationGropName === ANIMATION_NAMES.WALKING ? 0.1 : 0.2;
-			animationGropToAdd.start(loop, speedRatio);
-			this._currentlyPlayingAnimationGroups.push(animationGropToAdd);
+			// animationGropToAdd.enableBlending = true;
+			animationGropToAdd2.enableBlending = true;
+			// animationGropToAdd.blendingSpeed = animationGropName === ANIMATION_NAMES.WALKING ? 0.1 : 0.2;
+			animationGropToAdd2.blendingSpeed = animationGropName === ANIMATION_NAMES.WALKING ? 0.1 : 0.2;
+			// animationGropToAdd.start(loop, speedRatio);
+			animationGropToAdd2.start(loop, speedRatio);
+			// this._currentlyPlayingAnimationGroups.push(animationGropToAdd);
+			if (animationGropToAdd2) {
+				this._currentlyPlayingAnimationGroups.push(animationGropToAdd2);
+			}
 		}
 	}
 

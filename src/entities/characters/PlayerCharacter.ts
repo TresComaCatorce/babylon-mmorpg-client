@@ -21,7 +21,7 @@ class PlayerCharacter extends BaseCharacter {
 	private _animationController: Nullable<AnimationController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
-		super({ modelPath: 'assets/models/warrior.glb' });
+		super({ modelPath: 'assets/models/character_skeleton_v1.glb' });
 		this._name = params.name;
 	}
 
