@@ -1,32 +1,22 @@
-import { AbstractMesh, Camera, Nullable, Vector3 } from '@babylonjs/core';
+import { Camera, Nullable, Vector3 } from '@babylonjs/core';
 
 import IPlayerCharacterMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IPlayerCharacterMovementController';
+import CharacterMovementController from '@mmorpg/controllers/character/CharacterMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
-import ScenesController from '../ScenesController';
+import ScenesController from '@mmorpg/controllers/ScenesController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
-class PlayerCharacterMovementController {
-	private _playerCharacterInstance: PlayerCharacter;
-	private _playerCharacterMesh: Nullable<AbstractMesh>;
+class PlayerCharacterMovementController extends CharacterMovementController {
+	protected _characterInstance: PlayerCharacter;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _camera: Nullable<Camera> = null;
-	private _movementState: string = MOVEMENT_STATES.IDLE;
-	private _movementDirection: Vector3 = Vector3.Zero();
-	private _currentSpeed: number = 0;
-	private _accelerationProgress: number = 0;
-	private _isMovingForward: boolean = false;
-	private _isMovingBackward: boolean = false;
-	private _isMovingLeft: boolean = false;
-	private _isMovingRight: boolean = false;
-	private _isMoving: boolean = false;
-	private _isRunning: boolean = false;
-	private _isRunningLocked: boolean = false;
 
 	constructor(params: IPlayerCharacterMovementControllerConstructorParams) {
-		this._playerCharacterInstance = params.playerCharacter;
-		this._playerCharacterMesh = params.playerCharacter.rootNode ?? null;
+		super(params);
+		this._characterInstance = params.characterInstance;
+		this._characterMesh = params.characterInstance.rootNode ?? null;
 		this._setKeyboardInputController();
 		this._setCamera();
 		this._addGlowSwitch();
@@ -41,7 +31,7 @@ class PlayerCharacterMovementController {
 	}
 
 	private _setKeyboardInputController() {
-		this._kbInputController = this._playerCharacterInstance.keyboardInputController;
+		this._kbInputController = this._characterInstance.keyboardInputController;
 	}
 
 	private _setCamera() {
@@ -82,11 +72,11 @@ class PlayerCharacterMovementController {
 
 	private _calculateSpeedAndMoveCharacter() {
 		if (this._isMoving) {
-			let speedToUse = this._playerCharacterInstance.walkSpeed;
-			let accelerationToUse = this._playerCharacterInstance.walkAcceleration;
+			let speedToUse = this._characterInstance.walkSpeed;
+			let accelerationToUse = this._characterInstance.walkAcceleration;
 			if (this._isRunning || this._isRunningLocked) {
-				speedToUse = this._playerCharacterInstance.runSpeed;
-				accelerationToUse = this._playerCharacterInstance.runAcceleration;
+				speedToUse = this._characterInstance.runSpeed;
+				accelerationToUse = this._characterInstance.runAcceleration;
 			}
 			this._accelerationProgress += accelerationToUse;
 			if (this._accelerationProgress > 1) {
@@ -97,7 +87,7 @@ class PlayerCharacterMovementController {
 			this._currentSpeed = accelerationCurve * speedToUse;
 
 			const moveStep = this._movementDirection.scale(this._currentSpeed);
-			this._playerCharacterMesh?.moveWithCollisions(moveStep);
+			this._characterMesh?.moveWithCollisions(moveStep);
 		} else {
 			this._currentSpeed = 0;
 			this._accelerationProgress = 0;
@@ -134,8 +124,8 @@ class PlayerCharacterMovementController {
 		this._kbInputController?.addToggleKey(
 			KEY_CODES.G,
 			{
-				onSwitchON: () => this._playerCharacterInstance.addGlow(),
-				onSwitchOFF: () => this._playerCharacterInstance.removeGlow(),
+				onSwitchON: () => this._characterInstance.addGlow(),
+				onSwitchOFF: () => this._characterInstance.removeGlow(),
 			},
 			'Glow',
 		);

@@ -8,11 +8,10 @@ import {
 	EMPTY_BODY_PARTS_MODELS_INSTANCES,
 } from '@mmorpg/interfaces/controllers/character/ICharacterModelsController';
 import ScenesController from '@mmorpg/controllers/ScenesController';
-import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
+import BaseCharacterController from './BaseCharacterController';
 import BaseScene from '@mmorpg/scenes/BaseScene';
 
-class CharacterModelsController {
-	private _characterInstance: BaseCharacter;
+class CharacterModelsController extends BaseCharacterController {
 	private _onMeshLoadedCallback?: () => void;
 	private _animationsModelPath!: string;
 	private _animationsModelInstance: Nullable<ISceneLoaderAsyncResult> = null;
@@ -23,7 +22,7 @@ class CharacterModelsController {
 	private _rootNode: Nullable<AbstractMesh> = null;
 
 	constructor(params: ICharacterModelsControllerConstructorParams) {
-		this._characterInstance = params.characterInstance;
+		super(params);
 		this._onMeshLoadedCallback = params.onMeshLoadedCallback;
 		this._setAnimationsModelPath();
 		this._setDefaultBodyPartsModelsPaths();

@@ -1,4 +1,4 @@
-import { AbstractMesh, Color3, ISceneLoaderAsyncResult, Nullable, PBRMaterial } from '@babylonjs/core';
+import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
 import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
@@ -59,7 +59,7 @@ class PlayerCharacter extends BaseCharacter {
 
 	private _createMovementController() {
 		this._movementController = new PlayerCharacterMovementController({
-			playerCharacter: this,
+			characterInstance: this,
 		});
 	}
 
@@ -96,14 +96,6 @@ class PlayerCharacter extends BaseCharacter {
 
 	get movementController(): Nullable<PlayerCharacterMovementController> {
 		return this._movementController;
-	}
-
-	get rootModel(): Nullable<ISceneLoaderAsyncResult> {
-		return this.characterModelsController.rootModel;
-	}
-
-	get rootNode() {
-		return this.characterModelsController.rootNode;
 	}
 
 	get walkSpeed(): number {

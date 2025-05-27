@@ -10,10 +10,10 @@ import {
 	Color3,
 } from '@babylonjs/core';
 
+import ScenesController from '@mmorpg/controllers/ScenesController';
 import GameController from '@mmorpg/controllers/GameController';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
 import VirtualScene from '@mmorpg/scenes/VirtualScene';
-import ScenesController from '@mmorpg/controllers/ScenesController';
 import TestMapScene from '@mmorpg/scenes/TestMapScene';
 
 /**
