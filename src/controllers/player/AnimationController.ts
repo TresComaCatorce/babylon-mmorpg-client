@@ -5,12 +5,12 @@ import ANIMATION_NAMES, { ANIMATION_NAMES_ARRAY } from '@mmorpg/utils/constants/
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 import ScenesController from '@mmorpg/controllers/ScenesController';
-import BasicMovementController from './BasicMovementController';
+import PlayerCharacterMovementController from './PlayerCharacterMovementController';
 
 class AnimationController {
 	private _playerCharacterInstance: PlayerCharacter;
 	private _playerCharacterMesh: Nullable<AbstractMesh>;
-	private _playerMovementController: Nullable<BasicMovementController>;
+	private _playerMovementController: Nullable<PlayerCharacterMovementController>;
 	private _animationGroupsInstances: Map<string, AnimationGroup>;
 	private _currentlyPlayingAnimationGroups: AnimationGroup[] = [];
 	private _lastMovementState: string = '';

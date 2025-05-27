@@ -1,13 +1,13 @@
 import { AbstractMesh, Camera, Nullable, Vector3 } from '@babylonjs/core';
 
-import IBasicMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IBasicMovementController';
+import IPlayerCharacterMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IPlayerCharacterMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 import ScenesController from '../ScenesController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
-class BasicMovementController {
+class PlayerCharacterMovementController {
 	private _playerCharacterInstance: PlayerCharacter;
 	private _playerCharacterMesh: Nullable<AbstractMesh>;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
@@ -24,7 +24,7 @@ class BasicMovementController {
 	private _isRunning: boolean = false;
 	private _isRunningLocked: boolean = false;
 
-	constructor(params: IBasicMovementControllerConstructorParams) {
+	constructor(params: IPlayerCharacterMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
 		this._playerCharacterMesh = params.playerCharacter.rootNode ?? null;
 		this._setKeyboardInputController();
@@ -154,4 +154,4 @@ class BasicMovementController {
 	}
 }
 
-export default BasicMovementController;
+export default PlayerCharacterMovementController;

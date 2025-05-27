@@ -1,7 +1,7 @@
 import { AbstractMesh, Color3, ISceneLoaderAsyncResult, Nullable, PBRMaterial } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
-import BasicMovementController from '@mmorpg/controllers/player/BasicMovementController';
+import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import AnimationController from '@mmorpg/controllers/player/AnimationController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
@@ -16,7 +16,7 @@ class PlayerCharacter extends BaseCharacter {
 
 	private _name: string;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
-	private _movementController: Nullable<BasicMovementController> = null;
+	private _movementController: Nullable<PlayerCharacterMovementController> = null;
 	private _animationController: Nullable<AnimationController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
@@ -58,7 +58,7 @@ class PlayerCharacter extends BaseCharacter {
 	}
 
 	private _createMovementController() {
-		this._movementController = new BasicMovementController({
+		this._movementController = new PlayerCharacterMovementController({
 			playerCharacter: this,
 		});
 	}
@@ -94,7 +94,7 @@ class PlayerCharacter extends BaseCharacter {
 		return this._kbInputController;
 	}
 
-	get movementController(): Nullable<BasicMovementController> {
+	get movementController(): Nullable<PlayerCharacterMovementController> {
 		return this._movementController;
 	}
 
