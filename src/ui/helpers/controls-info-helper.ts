@@ -1,10 +1,10 @@
 import { Scene } from '@babylonjs/core';
-import { AdvancedDynamicTexture, Rectangle, TextBlock, Button, Control, StackPanel } from '@babylonjs/gui';
+import { AdvancedDynamicTexture, Rectangle, TextBlock, Button, Control, Container } from '@babylonjs/gui';
 
 const createControlsInfoHelper = (scene: Scene) => {
 	const guiTexture = AdvancedDynamicTexture.CreateFullscreenUI('UI', true, scene);
 
-	const infoBox = new Rectangle();
+	const infoBox = new Rectangle('InfoBox');
 	infoBox.widthInPixels = 270;
 	infoBox.heightInPixels = 140;
 	infoBox.cornerRadius = 10;
@@ -16,28 +16,16 @@ const createControlsInfoHelper = (scene: Scene) => {
 	infoBox.paddingTopInPixels = 5;
 	infoBox.paddingLeftInPixels = 5;
 
-	const stackPanel = new StackPanel();
-	stackPanel.isVertical = false;
-	stackPanel.width = '100%';
-	stackPanel.height = '100%';
+	const stackPanel = new Container('Panel');
 
-	const infoTitle = new TextBlock();
-	infoTitle.text = 'Controls';
-	infoTitle.fontSize = 18;
-	infoTitle.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-	infoTitle.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-	infoTitle.paddingTopInPixels = 8;
+	const titleContainer = new Container('TitleContainer');
 
-	const infoText = new TextBlock();
-	infoText.text =
-		'\n• Movement: W-A-S-D\n• Rotate camera: Hold mouse left-click\n• Zoom: Mouse scroll\n• Run: Shift\n• Run lock/unlock: Caps Lock\n• Glow: G';
-	infoText.color = 'white';
-	infoText.fontSize = 13;
-	infoText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-	infoText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-	infoText.paddingLeftInPixels = 10;
-	infoText.paddingTopInPixels = 10;
-	infoText.textWrapping = true;
+	const titleText = new TextBlock('Titulo');
+	titleText.text = 'Controls';
+	titleText.fontSize = 18;
+	titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+	titleText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+	titleText.paddingTopInPixels = 8;
 
 	const closeButton = Button.CreateSimpleButton('close', '✕');
 	closeButton.width = '30px';
@@ -52,26 +40,32 @@ const createControlsInfoHelper = (scene: Scene) => {
 	closeButton.onPointerUpObservable.add(() => {
 		infoBox.isVisible = false;
 	});
-
-	closeButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-	closeButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-	closeButton.paddingRight = '5px';
-	closeButton.paddingTop = '5px';
-
-	closeButton.background = '#AA0000';
 	closeButton.isHitTestVisible = true;
 	closeButton.onPointerEnterObservable.add(() => {
 		document.body.style.cursor = 'pointer';
 	});
-
 	closeButton.onPointerOutObservable.add(() => {
 		document.body.style.cursor = 'default';
 	});
 
-	infoBox.addControl(infoTitle);
-	stackPanel.addControl(infoText);
+	const textContainer = new Container('TextContainer');
+	const infoText = new TextBlock('Texto');
+	infoText.text =
+		'\n• Movement: W-A-S-D\n• Rotate camera: Hold mouse left-click\n• Zoom: Mouse scroll\n• Run: Shift\n• Run lock/unlock: Caps Lock\n• Glow: G';
+	infoText.color = 'white';
+	infoText.fontSize = 13;
+	infoText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+	infoText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+	infoText.paddingLeftInPixels = 10;
+	infoText.paddingTopInPixels = 10;
+	infoText.textWrapping = true;
+
+	titleContainer.addControl(titleText);
+	titleContainer.addControl(closeButton);
+	stackPanel.addControl(titleContainer);
+	textContainer.addControl(infoText);
+	stackPanel.addControl(textContainer);
 	infoBox.addControl(stackPanel);
-	infoBox.addControl(closeButton);
 	guiTexture.addControl(infoBox);
 
 	return infoBox;
