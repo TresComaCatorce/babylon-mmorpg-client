@@ -26,7 +26,7 @@ class BasicMovementController {
 
 	constructor(params: IBasicMovementControllerConstructorParams) {
 		this._playerCharacterInstance = params.playerCharacter;
-		this._playerCharacterMesh = params.playerCharacter.mesh ?? null;
+		this._playerCharacterMesh = params.playerCharacter.rootNode ?? null;
 		this._setKeyboardInputController();
 		this._setCamera();
 		this._addGlowSwitch();

@@ -1,9 +1,19 @@
-import { IEntityConstructorParams } from '@mmorpg/interfaces/entities/IEntity';
+import CharacterModelsController from '@mmorpg/controllers/character/CharacterModelsController';
 import Entity from '@mmorpg/entities/Entity';
 
 abstract class BaseCharacter extends Entity {
-	constructor(params: IEntityConstructorParams) {
-		super(params);
+	private _characterModelsControllerInstance: CharacterModelsController;
+
+	constructor() {
+		super();
+		this._characterModelsControllerInstance = new CharacterModelsController({
+			characterInstance: this,
+			onMeshLoadedCallback: this._onMeshLoaded.bind(this),
+		});
+	}
+
+	get characterModelsController(): CharacterModelsController {
+		return this._characterModelsControllerInstance;
 	}
 }
 

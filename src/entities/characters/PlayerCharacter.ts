@@ -1,13 +1,12 @@
-import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
+import { AbstractMesh, Color3, ISceneLoaderAsyncResult, Nullable, PBRMaterial } from '@babylonjs/core';
 
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
 import BasicMovementController from '@mmorpg/controllers/player/BasicMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
+import AnimationController from '@mmorpg/controllers/player/AnimationController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
-import BaseScene from '@mmorpg/scenes/BaseScene';
-import AnimationController from '@mmorpg/controllers/player/AnimationController';
 
 class PlayerCharacter extends BaseCharacter {
 	private _walkSpeed: number = 0.08;
@@ -21,7 +20,7 @@ class PlayerCharacter extends BaseCharacter {
 	private _animationController: Nullable<AnimationController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
-		super({ modelPath: 'assets/models/character_skeleton_v1.glb' });
+		super();
 		this._name = params.name;
 	}
 
@@ -41,12 +40,14 @@ class PlayerCharacter extends BaseCharacter {
 
 	private _createPlayerCamera() {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
-		currentScene?.setActiveCamera(
-			new FollowPlayerCamera({
-				scene: <BaseScene>currentScene,
-				playerMesh: <AbstractMesh>this.mesh,
-			}),
-		);
+		if (this.rootNode) {
+			currentScene?.setActiveCamera(
+				new FollowPlayerCamera({
+					scene: currentScene,
+					playerMesh: this.rootNode,
+				}),
+			);
+		}
 	}
 
 	private _createKbInputController() {
@@ -70,7 +71,7 @@ class PlayerCharacter extends BaseCharacter {
 
 	public addGlow() {
 		ScenesController.getInstance().currentSceneInstance?.meshes.forEach((mesh: AbstractMesh) => {
-			if (mesh.id === 'warrior_material' && mesh && mesh.material && mesh.material instanceof PBRMaterial) {
+			if (mesh && mesh.id === 'texture_class-warrior_v1.jpg' && mesh.material && mesh.material instanceof PBRMaterial) {
 				mesh.material.emissiveTexture = mesh.material.albedoTexture;
 				mesh.material.emissiveColor = new Color3(1.0, 0.8, 0.2).scale(0.75);
 			}
@@ -81,10 +82,10 @@ class PlayerCharacter extends BaseCharacter {
 		const scene = ScenesController.getInstance().currentSceneInstance;
 		if (!scene) return;
 
-		scene.meshes.forEach((item) => {
-			if (item.id === 'warrior_material' && item && item.material && item.material instanceof PBRMaterial) {
-				item.material.emissiveTexture = null;
-				item.material.emissiveColor = Color3.Black();
+		scene.meshes.forEach((mesh) => {
+			if (mesh && mesh.id === 'texture_class-warrior_v1.jpg' && mesh.material && mesh.material instanceof PBRMaterial) {
+				mesh.material.emissiveTexture = null;
+				mesh.material.emissiveColor = Color3.Black();
 			}
 		});
 	}
@@ -95,6 +96,14 @@ class PlayerCharacter extends BaseCharacter {
 
 	get movementController(): Nullable<BasicMovementController> {
 		return this._movementController;
+	}
+
+	get rootModel(): Nullable<ISceneLoaderAsyncResult> {
+		return this.characterModelsController.rootModel;
+	}
+
+	get rootNode() {
+		return this.characterModelsController.rootNode;
 	}
 
 	get walkSpeed(): number {
