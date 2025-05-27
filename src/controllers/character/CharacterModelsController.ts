@@ -49,8 +49,8 @@ class CharacterModelsController {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		if (currentScene) {
 			await this._createAnimationsModelInstance(currentScene);
-			await this._createDefault3DModelsInstances(currentScene);
-			await this._create3DModelsInstances();
+			await this._createDefaultBodyPartsModelsInstances(currentScene);
+			await this._createBodyPartsModelsInstances();
 		}
 	}
 
@@ -59,7 +59,7 @@ class CharacterModelsController {
 		this._rootNode = this._animationsModelInstance?.meshes[0];
 	}
 
-	private async _createDefault3DModelsInstances(currentScene: BaseScene) {
+	private async _createDefaultBodyPartsModelsInstances(currentScene: BaseScene) {
 		this._defaultBodyPartsModelsIntances.helm = await ImportMeshAsync(this._defaultBodyPartsModelsPaths.helm, currentScene);
 		this._defaultBodyPartsModelsIntances.armor = await ImportMeshAsync(this._defaultBodyPartsModelsPaths.armor, currentScene);
 		this._defaultBodyPartsModelsIntances.gloves = await ImportMeshAsync(this._defaultBodyPartsModelsPaths.gloves, currentScene);
@@ -67,16 +67,16 @@ class CharacterModelsController {
 		this._defaultBodyPartsModelsIntances.boots = await ImportMeshAsync(this._defaultBodyPartsModelsPaths.boots, currentScene);
 	}
 
-	private async _create3DModelsInstances() {
+	private async _createBodyPartsModelsInstances() {
 		// TODO CBF: Implement logic to change set parts
 	}
 
 	private _onMeshesLoaded() {
-		this._attach3DModelsToAnimationsModel();
+		this._attachBodyPartsModelsToAnimationsModel();
 		this._copyAnimationsForEachBodyPartModel();
 	}
 
-	private _attach3DModelsToAnimationsModel() {
+	private _attachBodyPartsModelsToAnimationsModel() {
 		if (this._rootNode) {
 			this._defaultBodyPartsModelsIntances.helm?.meshes[0].setParent(this._rootNode);
 			this._defaultBodyPartsModelsIntances.armor?.meshes[0].setParent(this._rootNode);
