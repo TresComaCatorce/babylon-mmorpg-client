@@ -1,24 +1,27 @@
-import { AbstractMesh, AnimationGroup, Nullable, Quaternion } from '@babylonjs/core';
+import { AnimationGroup, Nullable, Quaternion } from '@babylonjs/core';
 
-import { IAnimationControllerConstructorParams, IPlayAnimationConfigParam } from '@mmorpg/interfaces/controllers/player/IAnimationController';
+import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
+import CharacterAnimationController from '@mmorpg/controllers/character/CharacterAnimationsController';
 import ANIMATION_NAMES, { ANIMATION_NAMES_ARRAY } from '@mmorpg/utils/constants/ANIMATION_NAMES';
+import {
+	IPlayerCharacterAnimationsControllerConstructorParams,
+	IPlayAnimationConfigParam,
+} from '@mmorpg/interfaces/controllers/player/IPlayerCharacterAnimationsController';
 import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 import ScenesController from '@mmorpg/controllers/ScenesController';
-import PlayerCharacterMovementController from './PlayerCharacterMovementController';
 
-class AnimationController {
-	private _playerCharacterInstance: PlayerCharacter;
-	private _playerCharacterMesh: Nullable<AbstractMesh>;
+class PlayerCharacterAnimationsController extends CharacterAnimationController {
+	protected _characterInstance: PlayerCharacter;
 	private _playerMovementController: Nullable<PlayerCharacterMovementController>;
 	private _animationGroupsInstances: Map<string, AnimationGroup>;
 	private _currentlyPlayingAnimationGroups: AnimationGroup[] = [];
 	private _lastMovementState: string = '';
 
-	constructor(params: IAnimationControllerConstructorParams) {
-		this._playerCharacterInstance = params.playerCharacter;
-		this._playerCharacterMesh = params.playerCharacter.rootNode ?? null;
-		this._playerMovementController = params.playerCharacter.movementController;
+	constructor(params: IPlayerCharacterAnimationsControllerConstructorParams) {
+		super(params);
+		this._characterInstance = params.characterInstance;
+		this._playerMovementController = params.characterInstance.movementController;
 		this._animationGroupsInstances = new Map<string, AnimationGroup>();
 		this._fillAnimationGroupsMap();
 	}
@@ -66,30 +69,32 @@ class AnimationController {
 	}
 
 	private _moveAndRotateMesh() {
-		if (this._playerMovementController?.isMoving && this._playerCharacterMesh) {
+		if (this._playerMovementController?.isMoving && this._characterInstance) {
 			const moveDirection = this._playerMovementController?.movementDirection;
 			if (moveDirection) {
 				const angleY = Math.atan2(moveDirection.x, moveDirection.z) + Math.PI;
 				const targetRotation = Quaternion.FromEulerAngles(0, angleY, 0);
 
 				// Rotate the character mesh in the direction of the movement
-				if (!this._playerCharacterMesh.rotationQuaternion) {
-					this._playerCharacterMesh.rotationQuaternion = targetRotation.clone();
-				} else {
-					// Smooth interpolation between current and desired rotation
-					Quaternion.SlerpToRef(
-						this._playerCharacterMesh.rotationQuaternion,
-						targetRotation,
-						0.3, // <-- interpolation speed (0 to 1)
-						this._playerCharacterMesh.rotationQuaternion,
-					);
+				if (this._characterMesh) {
+					if (!this._characterMesh.rotationQuaternion) {
+						this._characterMesh.rotationQuaternion = targetRotation.clone();
+					} else {
+						// Smooth interpolation between current and desired rotation
+						Quaternion.SlerpToRef(
+							this._characterMesh.rotationQuaternion,
+							targetRotation,
+							0.3, // <-- interpolation speed (0 to 1)
+							this._characterMesh?.rotationQuaternion,
+						);
+					}
 				}
 			}
 		}
 	}
 
 	private _playAnimation(animationGropName: string, config?: IPlayAnimationConfigParam) {
-		const bodyPartsModels = this._playerCharacterInstance.characterModelsController.bodyPartsModels;
+		const bodyPartsModels = this._characterInstance.characterModelsController.bodyPartsModels;
 
 		if (bodyPartsModels) {
 			Object.values(bodyPartsModels).forEach((bodyPart) => {
@@ -120,4 +125,4 @@ class AnimationController {
 	}
 }
 
-export default AnimationController;
+export default PlayerCharacterAnimationsController;
