@@ -1,9 +1,9 @@
 import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
 
-import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
-import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
-import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import PlayerCharacterAnimationsController from '@mmorpg/controllers/player/PlayerCharacterAnimationsController';
+import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
+import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
+import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
@@ -14,14 +14,12 @@ class PlayerCharacter extends BaseCharacter {
 	private _runSpeed: number = 0.16;
 	private _runAcceleration: number = 0.1;
 
-	private _name: string;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _movementController: Nullable<PlayerCharacterMovementController> = null;
 	private _animationController: Nullable<PlayerCharacterAnimationsController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
-		super();
-		this._name = params.name;
+		super(params);
 	}
 
 	public update() {

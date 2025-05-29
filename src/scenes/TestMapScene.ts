@@ -47,7 +47,7 @@ class TestMapScene extends MapScene {
 		ground.material = groundMaterial;
 
 		this._playerCharacter = new PlayerCharacter({
-			name: 'KriZ',
+			characterName: 'KriZ',
 		});
 	}
 

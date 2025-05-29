@@ -37,11 +37,11 @@ class CharacterModelsController extends BaseCharacterController {
 	}
 
 	private _setDefaultBodyPartsModelsPaths() {
-		this._defaultBodyPartsModelsPaths.helm = 'assets/models/character/classes/warrior/helm_class-warrior_v1.gltf';
-		this._defaultBodyPartsModelsPaths.armor = 'assets/models/character/classes/warrior/armor_class-warrior_v1.gltf';
-		this._defaultBodyPartsModelsPaths.gloves = 'assets/models/character/classes/warrior/gloves_class-warrior_v1.gltf';
-		this._defaultBodyPartsModelsPaths.pants = 'assets/models/character/classes/warrior/pants_class-warrior_v1.gltf';
-		this._defaultBodyPartsModelsPaths.boots = 'assets/models/character/classes/warrior/boots_class-warrior_v1.gltf';
+		this._defaultBodyPartsModelsPaths.helm = 'assets/models/class-warrior_helm_v1.gltf';
+		this._defaultBodyPartsModelsPaths.armor = 'assets/models/class-warrior_armor_v1.gltf';
+		this._defaultBodyPartsModelsPaths.gloves = 'assets/models/class-warrior_gloves_v1.gltf';
+		this._defaultBodyPartsModelsPaths.pants = 'assets/models/class-warrior_pants_v1.gltf';
+		this._defaultBodyPartsModelsPaths.boots = 'assets/models/class-warrior_boots_v1.gltf';
 	}
 
 	private async _createAllModelsInstances() {

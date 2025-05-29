@@ -1,7 +1,7 @@
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
 
-interface IBaseCharacterConstructorParams {
+interface IBaseCharacterControllerConstructorParams {
 	characterInstance: BaseCharacter;
 }
 
-export { IBaseCharacterConstructorParams };
+export { IBaseCharacterControllerConstructorParams };
