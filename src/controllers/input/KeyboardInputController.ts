@@ -62,12 +62,12 @@ class KeyboardInputController extends BaseController {
 	}
 
 	private _setToggleStatusDebugInspector(): void {
-		if (process.env.NODE_ENV === 'development') {
-			this._toggleStatusElement = document.createElement('div');
-			this._toggleStatusElement.id = 'toggle-debug-status';
-			document.body.appendChild(this._toggleStatusElement);
-			this._renderToggleDebugStatus();
-		}
+		// if (process.env.NODE_ENV === 'development') {
+		this._toggleStatusElement = document.createElement('div');
+		this._toggleStatusElement.id = 'toggle-debug-status';
+		document.body.appendChild(this._toggleStatusElement);
+		this._renderToggleDebugStatus();
+		// }
 	}
 
 	private _subscribeToKeyPressed(): void {
@@ -88,6 +88,7 @@ class KeyboardInputController extends BaseController {
 		}
 
 		this._inputMap[eventKeyCode] = isKeyDownEventType;
+		console.log('this._inputMap: ', eventKeyCode);
 	}
 
 	private _onUpdateToggleLogic(eventKeyCode: string, isKeyDownEventType: boolean) {
@@ -111,17 +112,17 @@ class KeyboardInputController extends BaseController {
 	}
 
 	private _renderToggleDebugStatus(): void {
-		if (process.env.NODE_ENV === 'development') {
-			if (!this._toggleStatusElement) return;
+		// if (process.env.NODE_ENV === 'development') {
+		if (!this._toggleStatusElement) return;
 
-			const entries = Object.keys(this._toggleKeyValues).map((key) => {
-				const isOn = this._toggleKeyValues[key];
-				const label = this._toggleDisplayNames[key] || key.toUpperCase();
-				return `<div><span class="yellow-color">[${key.toUpperCase()}]</span> ${label}: ${isOn ? '<span class="green-color">ON</span>' : '<span class="red-color">OFF</span>'}</div>`;
-			});
+		const entries = Object.keys(this._toggleKeyValues).map((key) => {
+			const isOn = this._toggleKeyValues[key];
+			const label = this._toggleDisplayNames[key] || key.toUpperCase();
+			return `<div><span class="yellow-color">[${key.toUpperCase()}]</span> ${label}: ${isOn ? '<span class="green-color">ON</span>' : '<span class="red-color">OFF</span>'}</div>`;
+		});
 
-			this._toggleStatusElement.innerHTML = `<div><b>Toggle Values</b></div>` + entries.join('');
-		}
+		this._toggleStatusElement.innerHTML = `<div><b>Toggle Values</b></div>` + entries.join('');
+		// }
 	}
 }
 
