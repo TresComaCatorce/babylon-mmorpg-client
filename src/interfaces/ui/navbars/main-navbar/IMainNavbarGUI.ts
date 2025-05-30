@@ -1,5 +1,5 @@
-import { IBaseNavbarGUIConstructorParams } from '@mmorpg/interfaces/ui/navbars/IBaseNavbarGUI';
+import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 
-type IMainNavbarGUIConstructorParams = IBaseNavbarGUIConstructorParams;
+type IMainNavbarGUIConstructorParams = IPlayerCharacterRelated;
 
 export { IMainNavbarGUIConstructorParams };
