@@ -48,6 +48,17 @@ class CharacterModelsController extends BaseCharacterController {
 		});
 	}
 
+	public dispose() {
+		this._onMeshLoadedCallback = () => {};
+		this._rootNode = null;
+		this._animationsModelPath = '';
+		this._animationsModelInstance = null;
+		this._bodyPartsModelsPaths = { ...EMPTY_BODY_PARTS_MODELS_PATHS };
+		this._bodyPartsModelsInstances = { ...EMPTY_BODY_PARTS_MODELS_INSTANCES };
+		this._defaultBodyPartsModelsPaths = { ...EMPTY_BODY_PARTS_MODELS_PATHS };
+		this._defaultBodyPartsModelsInstances = { ...EMPTY_BODY_PARTS_MODELS_INSTANCES };
+	}
+
 	private _setAnimationsModelPath() {
 		this._animationsModelPath = 'assets/models/character/character_animations_v1.glb';
 	}
@@ -240,25 +251,6 @@ class CharacterModelsController extends BaseCharacterController {
 
 		bootsInstance.meshes.find((item) => item.id === '__root__')?.setEnabled(show);
 		bodyPartBoots.meshes.find((item) => item.id === '__root__')?.setEnabled(!show);
-	}
-
-	private _hsvToRgb(h: number, s: number, v: number): Color3 {
-		const c = v * s;
-		const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-		const m = v - c;
-
-		let r = 0,
-			g = 0,
-			b = 0;
-
-		if (h >= 0 && h < 60) [r, g, b] = [c, x, 0];
-		else if (h >= 60 && h < 120) [r, g, b] = [x, c, 0];
-		else if (h >= 120 && h < 180) [r, g, b] = [0, c, x];
-		else if (h >= 180 && h < 240) [r, g, b] = [0, x, c];
-		else if (h >= 240 && h < 300) [r, g, b] = [x, 0, c];
-		else if (h >= 300 && h < 360) [r, g, b] = [c, 0, x];
-
-		return new Color3(r + m, g + m, b + m);
 	}
 
 	private _applyExcellentEffect(meshesToApplyEffect?: AbstractMesh[]): void {

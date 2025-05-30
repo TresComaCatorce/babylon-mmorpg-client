@@ -30,6 +30,11 @@ class PlayerCharacterMovementController extends CharacterMovementController {
 		this._setMovementState();
 	}
 
+	public dispose() {
+		this._kbInputController = null;
+		this._camera = null;
+	}
+
 	private _setKeyboardInputController() {
 		this._kbInputController = this._characterInstance.keyboardInputController;
 	}

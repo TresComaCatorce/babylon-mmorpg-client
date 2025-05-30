@@ -31,6 +31,12 @@ class PlayerCharacterAnimationsController extends CharacterAnimationController {
 		this._moveAndRotateMesh();
 	}
 
+	public dispose() {
+		this._playerMovementController = null;
+		this._animationGroupsInstances.clear();
+		this._currentlyPlayingAnimationGroups = [];
+	}
+
 	private _fillAnimationGroupsMap() {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		const animationGroups = currentScene?.animationGroups;
