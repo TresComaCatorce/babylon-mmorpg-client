@@ -121,7 +121,7 @@ class KeyboardInputController extends BaseController {
 			return `<div><span class="yellow-color">[${key.toUpperCase()}]</span> ${label}: ${isOn ? '<span class="green-color">ON</span>' : '<span class="red-color">OFF</span>'}</div>`;
 		});
 
-		this._toggleStatusElement.innerHTML = `<div><b>Toggle Values</b></div>` + entries.join('');
+		this._toggleStatusElement.innerHTML = `<div><b>[DEBUG] Toggle Values</b></div>` + entries.join('');
 		// }
 	}
 }
