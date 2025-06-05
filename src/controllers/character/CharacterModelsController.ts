@@ -10,6 +10,8 @@ import {
 	Texture,
 	Tools,
 	TransformNode,
+	Effect,
+	ShaderMaterial,
 } from '@babylonjs/core';
 
 import {
@@ -19,12 +21,11 @@ import {
 	EMPTY_BODY_PARTS_MODELS_PATHS,
 	EMPTY_BODY_PARTS_MODELS_INSTANCES,
 } from '@mmorpg/interfaces/controllers/character/ICharacterModelsController';
+import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import BaseCharacterController from './BaseCharacterController';
-import BaseScene from '@mmorpg/scenes/BaseScene';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
-import GameController from '../GameController';
+import BaseScene from '@mmorpg/scenes/BaseScene';
 
 class CharacterModelsController extends BaseCharacterController {
 	private _onMeshLoadedCallback?: () => void;
@@ -257,40 +258,22 @@ class CharacterModelsController extends BaseCharacterController {
 		if (meshesToApplyEffect) {
 			for (const mesh of meshesToApplyEffect) {
 				const material = mesh.material as StandardMaterial;
-				if (!material) continue;
+				if (!material || material.id === 'hide.jpg' || material.id === 'hide_m.jpg' || material.id === 'texture_class-warrior_v1.jpg') {
+					continue;
+				}
 
 				// Creamos una textura de emisión (glow animado)
-				const emissiveTexture = new Texture('assets/textures/effect_excellent.png', mesh.getScene());
-				emissiveTexture.uScale = 1;
-				emissiveTexture.vScale = 1;
+				const emissiveTexture = new Texture('assets/textures/gradiente_256x256.png', mesh.getScene());
 				material.emissiveTexture = emissiveTexture;
-				material.emissiveTexture.hasAlpha = true;
-				material.emissiveColor.set(1, 1, 1);
-
-				const colorStops = [
-					{ color: new Color3(0.2, 0.4, 1.0), duration: 2000 }, // Azul
-					{ color: new Color3(1.0, 0.3, 0.7), duration: 1400 }, // Rosa
-					{ color: new Color3(1.0, 1.0, 0.2), duration: 600 }, // Amarillo
-				];
-
-				let currentIndex = 0;
-				let elapsed = 0;
+				material.emissiveTexture.level = 0.08;
+				material.emissiveTexture.scale(5);
+				material.emissiveColor = new Color3(1, 1, 1);
+				// material.emissiveTexture.hasAlpha = true;
 
 				mesh.getScene().onBeforeRenderObservable.add(() => {
-					const delta = GameController.getInstance().engine.getDeltaTime();
-					elapsed += delta;
-
-					const current = colorStops[currentIndex];
-					const next = colorStops[(currentIndex + 1) % colorStops.length];
-
-					const t = Math.min(elapsed / current.duration, 1);
-					const color = Color3.Lerp(current.color, next.color, t);
-					material.emissiveColor = color.scale(0.025); // brillo ajustado
-
-					if (t >= 1) {
-						currentIndex = (currentIndex + 1) % colorStops.length;
-						elapsed = 0;
-					}
+					emissiveTexture.uOffset += 0.005;
+					emissiveTexture.vOffset += 0.005;
+					emissiveTexture.wAng += 0.02;
 				});
 			}
 		}

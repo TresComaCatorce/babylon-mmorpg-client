@@ -4,7 +4,7 @@ import BaseController from '@mmorpg/controllers/BaseController';
 import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
 import { IAddUIElementParams, IRemoveUIElementParams } from '@mmorpg/interfaces/controllers/ui/IUIController';
 import CharacterNameUIElement from '@mmorpg/ui/CharacterNameUIElement';
-import UI_ELEMENTS_NAMES from '@mmorpg/utils/constants/UI_ELEMENTS_NAMES';
+import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 
 class UIController extends BaseController {
 	/**
@@ -39,7 +39,7 @@ class UIController extends BaseController {
 
 	public addCharacterNameUIElement(characterInstance: BaseCharacter) {
 		this._addUIElement({
-			uiElementName: UI_ELEMENTS_NAMES.CHARACTER_NAME,
+			uiElementName: GUI_ELEMENT_NAMES.CHARACTER_NAME,
 			uiElementInstance: new CharacterNameUIElement({ characterInstance: characterInstance }),
 		});
 	}
