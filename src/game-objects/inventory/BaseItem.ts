@@ -1,5 +1,5 @@
-import { IBaseItemConstructorParams } from '@mmorpg/interfaces/entities/items/IBaseItem';
-import Entity from '@mmorpg/entities/Entity';
+import { IBaseItemConstructorParams } from '@mmorpg/interfaces/game-objects/items/IBaseItem';
+import Entity from '@mmorpg/game-objects/Entity';
 
 abstract class BaseItem extends Entity {
 	private _name: string;

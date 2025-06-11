@@ -1,6 +1,6 @@
 import { ISceneLoaderAsyncResult, Nullable } from '@babylonjs/core';
 
-import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
+import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 
 interface ICharacterModelsControllerConstructorParams {
 	characterInstance: BaseCharacter;

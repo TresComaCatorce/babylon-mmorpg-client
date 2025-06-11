@@ -2,7 +2,7 @@ import { InventoryMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/pa
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import BaseMainPanelGUI from '@mmorpg/ui/panels/BaseMainPanelGUI';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 
 class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterRelated {
 	private _characterInstance: PlayerCharacter;

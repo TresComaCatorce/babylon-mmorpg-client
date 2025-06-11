@@ -1,7 +1,7 @@
 import { IMainNavbarGUIConstructorParams } from '@mmorpg/interfaces/ui/navbars/main-navbar/IMainNavbarGUI';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import BaseNavbarGUI from '@mmorpg/ui/navbars/BaseNavbarGUI';
 
 class MainNavbarGUI extends BaseNavbarGUI implements IPlayerCharacterRelated {

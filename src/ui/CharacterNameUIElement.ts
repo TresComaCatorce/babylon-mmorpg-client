@@ -3,7 +3,7 @@ import { Nullable } from '@babylonjs/core';
 
 import { ICharacterNameUIElementConstructorParams } from '@mmorpg/interfaces/ui/ICharacterNameUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
-import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
+import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 
 class CharacterNameUIElement extends Rectangle {
 	private _characterInstance: BaseCharacter;

@@ -1,4 +1,4 @@
-import Item from '@mmorpg/entities/inventory/BaseItem';
+import Item from '@mmorpg/game-objects/inventory/BaseItem';
 
 class InventorySlot {
 	constructor(

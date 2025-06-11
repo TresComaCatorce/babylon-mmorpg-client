@@ -1,5 +1,5 @@
-import { ICharacterAnimationsControllerConstructorParams } from '../character/ICharacterAnimationsController';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import { ICharacterAnimationsControllerConstructorParams } from '@mmorpg/interfaces/controllers/character/ICharacterAnimationsController';
+import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 
 interface IPlayerCharacterAnimationsControllerConstructorParams extends ICharacterAnimationsControllerConstructorParams {
 	characterInstance: PlayerCharacter;

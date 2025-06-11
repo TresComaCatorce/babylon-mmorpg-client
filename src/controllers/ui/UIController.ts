@@ -1,7 +1,7 @@
 import { AdvancedDynamicTexture, Control } from '@babylonjs/gui';
 
 import BaseController from '@mmorpg/controllers/BaseController';
-import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
+import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 import { IAddUIElementParams, IRemoveUIElementParams } from '@mmorpg/interfaces/controllers/ui/IUIController';
 import CharacterNameUIElement from '@mmorpg/ui/CharacterNameUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';

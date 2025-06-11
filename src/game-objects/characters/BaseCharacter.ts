@@ -1,8 +1,8 @@
 import { ISceneLoaderAsyncResult, Nullable } from '@babylonjs/core';
 
-import { IBaseCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IBaseCharacter';
+import { IBaseCharacterConstructorParams } from '@mmorpg/interfaces/game-objects/characters/IBaseCharacter';
 import CharacterModelsController from '@mmorpg/controllers/character/CharacterModelsController';
-import Entity from '@mmorpg/entities/Entity';
+import Entity from '@mmorpg/game-objects/Entity';
 
 abstract class BaseCharacter extends Entity {
 	private _name: string;

@@ -1,4 +1,4 @@
-import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
+import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 
 interface ICharacterNameUIElementConstructorParams {
 	characterInstance: BaseCharacter;

@@ -16,7 +16,7 @@
 			"@mmorpg/interfaces/*": ["interfaces/*"],
 			"@mmorpg/scenes/*": ["scenes/*"],
 			"@mmorpg/utils/*": ["utils/*"],
-			"@mmorpg/entities/*": ["entities/*"],
+			"@mmorpg/game-objects/*": ["game-objects/*"],
 			"@mmorpg/camera/*": ["camera/*"],
 			"@mmorpg/ui/*": ["ui/*"]
 		}

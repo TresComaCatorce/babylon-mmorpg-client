@@ -7,7 +7,7 @@ import {
 	IPlayerCharacterAnimationsControllerConstructorParams,
 	IPlayAnimationConfigParam,
 } from '@mmorpg/interfaces/controllers/player/IPlayerCharacterAnimationsController';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 

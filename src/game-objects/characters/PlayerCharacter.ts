@@ -2,9 +2,10 @@ import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
 
 import PlayerCharacterAnimationsController from '@mmorpg/controllers/player/PlayerCharacterAnimationsController';
 import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
-import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IPlayerCharacter';
+import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/game-objects/characters/IPlayerCharacter';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
-import BaseCharacter from '@mmorpg/entities/characters/BaseCharacter';
+import InventoryController from '@mmorpg/controllers/character/InventoryController';
+import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 
@@ -17,6 +18,7 @@ class PlayerCharacter extends BaseCharacter {
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _movementController: Nullable<PlayerCharacterMovementController> = null;
 	private _animationController: Nullable<PlayerCharacterAnimationsController> = null;
+	private _inventoryController: Nullable<InventoryController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
 		super(params);
@@ -34,6 +36,7 @@ class PlayerCharacter extends BaseCharacter {
 		this._createKbInputController();
 		this._createMovementController();
 		this._createAnimationsController();
+		this._createInventoryController();
 	}
 
 	private _createPlayerCamera() {
@@ -65,6 +68,10 @@ class PlayerCharacter extends BaseCharacter {
 		this._animationController = new PlayerCharacterAnimationsController({
 			characterInstance: this,
 		});
+	}
+
+	private _createInventoryController() {
+		// this._inventoryController = new InventoryController();
 	}
 
 	public addGlow() {

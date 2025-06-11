@@ -3,7 +3,7 @@ import { Camera, Nullable, Vector3 } from '@babylonjs/core';
 import IPlayerCharacterMovementControllerConstructorParams from '@mmorpg/interfaces/controllers/player/IPlayerCharacterMovementController';
 import CharacterMovementController from '@mmorpg/controllers/character/CharacterMovementController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';

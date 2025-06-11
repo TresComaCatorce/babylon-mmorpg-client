@@ -1,5 +1,5 @@
-import InventorySlot from '@mmorpg/entities/inventory/InventorySlot';
-import Item from '@mmorpg/entities/inventory/BaseItem';
+import InventorySlot from '@mmorpg/game-objects/inventory/InventorySlot';
+import Item from '@mmorpg/game-objects/inventory/BaseItem';
 
 class Inventory {
 	private _slots: InventorySlot[] = [];

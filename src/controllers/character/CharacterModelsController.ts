@@ -10,6 +10,7 @@ import {
 	PBRMaterial,
 } from '@babylonjs/core';
 
+import BaseCharacterController from '@mmorpg/controllers/character/BaseCharacterController';
 import {
 	ICharacterModelsControllerConstructorParams,
 	ICharacterBodyPartsModels,
@@ -17,9 +18,8 @@ import {
 	EMPTY_BODY_PARTS_MODELS_PATHS,
 	EMPTY_BODY_PARTS_MODELS_INSTANCES,
 } from '@mmorpg/interfaces/controllers/character/ICharacterModelsController';
-import PlayerCharacter from '@mmorpg/entities/characters/PlayerCharacter';
+import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
-import BaseCharacterController from './BaseCharacterController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 import BaseScene from '@mmorpg/scenes/BaseScene';
 

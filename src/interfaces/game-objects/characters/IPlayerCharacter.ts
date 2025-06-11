@@ -1,4 +1,4 @@
-import { IBaseCharacterConstructorParams } from '@mmorpg/interfaces/entities/characters/IBaseCharacter';
+import { IBaseCharacterConstructorParams } from '@mmorpg/interfaces/game-objects/characters/IBaseCharacter';
 
 type IPlayerCharacterConstructorParams = IBaseCharacterConstructorParams;
 
