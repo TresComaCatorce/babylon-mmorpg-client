@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
 	AbstractMesh,
 	AnimationGroup,
@@ -6,12 +5,9 @@ import {
 	ImportMeshAsync,
 	ISceneLoaderAsyncResult,
 	Nullable,
-	StandardMaterial,
 	Texture,
-	Tools,
 	TransformNode,
-	Effect,
-	ShaderMaterial,
+	PBRMaterial,
 } from '@babylonjs/core';
 
 import {
@@ -254,27 +250,33 @@ class CharacterModelsController extends BaseCharacterController {
 		bodyPartBoots.meshes.find((item) => item.id === '__root__')?.setEnabled(!show);
 	}
 
+	private _emissiveTextures: Texture[] = [];
+	private _materials: PBRMaterial[] = [];
+
 	private _applyExcellentEffect(meshesToApplyEffect?: AbstractMesh[]): void {
 		if (meshesToApplyEffect) {
 			for (const mesh of meshesToApplyEffect) {
-				const material = mesh.material as StandardMaterial;
+				const material = mesh.material as PBRMaterial;
 				if (!material || material.id === 'hide.jpg' || material.id === 'hide_m.jpg' || material.id === 'texture_class-warrior_v1.jpg') {
 					continue;
 				}
 
-				// Creamos una textura de emisión (glow animado)
-				const emissiveTexture = new Texture('assets/textures/gradiente_256x256.png', mesh.getScene());
+				// Excellent effect
+				const emissiveTexture = new Texture('assets/textures/gradiente_256x256_3.png', mesh.getScene());
 				material.emissiveTexture = emissiveTexture;
-				material.emissiveTexture.level = 0.08;
-				material.emissiveTexture.scale(5);
-				material.emissiveColor = new Color3(1, 1, 1);
-				// material.emissiveTexture.hasAlpha = true;
+				material.emissiveColor = new Color3(0.175, 0.175, 0.175);
+				material.emissiveIntensity = -0.2;
+				emissiveTexture.uScale = 0.2;
+				emissiveTexture.vScale = 0.2;
 
 				mesh.getScene().onBeforeRenderObservable.add(() => {
 					emissiveTexture.uOffset += 0.005;
 					emissiveTexture.vOffset += 0.005;
 					emissiveTexture.wAng += 0.02;
 				});
+
+				this._emissiveTextures.push(emissiveTexture);
+				this._materials.push(material);
 			}
 		}
 	}
