@@ -3,8 +3,9 @@ import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
 import PlayerCharacterAnimationsController from '@mmorpg/controllers/player/PlayerCharacterAnimationsController';
 import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/game-objects/characters/IPlayerCharacter';
+import PlayerCharacterInventoryController from '@mmorpg/controllers/player/PlayerCharacterInventoryController';
+import PlayerCharacterGUIController from '@mmorpg/controllers/player/PlayerCharacterGUIController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
-import InventoryController from '@mmorpg/controllers/character/InventoryController';
 import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
@@ -16,9 +17,10 @@ class PlayerCharacter extends BaseCharacter {
 	private _runAcceleration: number = 0.1;
 
 	private _kbInputController: Nullable<KeyboardInputController> = null;
+	private _uiController: Nullable<PlayerCharacterGUIController> = null;
 	private _movementController: Nullable<PlayerCharacterMovementController> = null;
 	private _animationController: Nullable<PlayerCharacterAnimationsController> = null;
-	private _inventoryController: Nullable<InventoryController> = null;
+	private _inventoryController: Nullable<PlayerCharacterInventoryController> = null;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
 		super(params);
@@ -37,6 +39,7 @@ class PlayerCharacter extends BaseCharacter {
 		this._createMovementController();
 		this._createAnimationsController();
 		this._createInventoryController();
+		this._createUiController();
 	}
 
 	private _createPlayerCamera() {
@@ -71,7 +74,11 @@ class PlayerCharacter extends BaseCharacter {
 	}
 
 	private _createInventoryController() {
-		// this._inventoryController = new InventoryController();
+		this._inventoryController = new PlayerCharacterInventoryController({ characterInstance: this });
+	}
+
+	private _createUiController() {
+		this._uiController = new PlayerCharacterGUIController({ characterInstance: this });
 	}
 
 	public addGlow() {

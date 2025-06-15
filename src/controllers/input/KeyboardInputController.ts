@@ -5,6 +5,9 @@ import KEYS_TO_PREVENT_DEFAULT from '@mmorpg/utils/constants/KEYS_TO_PREVENT_DEF
 import BaseController from '@mmorpg/controllers/BaseController';
 import BaseScene from '@mmorpg/scenes/BaseScene';
 
+/**
+ * TODO: Implement singleton on this controller.
+ */
 class KeyboardInputController extends BaseController {
 	private _scene: BaseScene;
 	private _inputMap: Record<string, boolean> = {};

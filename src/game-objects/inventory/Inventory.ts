@@ -5,8 +5,8 @@ class Inventory {
 	private _slots: InventorySlot[] = [];
 	private _capacity: number;
 
-	constructor(capacity: number = 20) {
-		this._capacity = capacity;
+	constructor() {
+		this._capacity = 30;
 	}
 
 	public addItem(item: Item, quantity: number = 1): boolean {

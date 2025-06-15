@@ -1,28 +1,26 @@
+import { IPlayerCharacterInventoryControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IPlayerCharacterInventoryController';
+import BasePlayerCharacterController from '@mmorpg/controllers/player/BasePlayerCharacterController';
 import Inventory from '@mmorpg/game-objects/inventory/Inventory';
-import Item from '@mmorpg/game-objects/inventory/BaseItem';
+import BaseItem from '@mmorpg/game-objects/inventory/BaseItem';
 
-interface IInventoryControllerParams {
-	playerName: string;
-	inventoryCapacity?: number;
-}
-
-class InventoryController {
+class PlayerCharacterInventoryController extends BasePlayerCharacterController {
 	private _inventory: Inventory;
-	private _playerName: string;
 
-	constructor(params: IInventoryControllerParams) {
-		this._playerName = params.playerName;
-		this._inventory = new Inventory(params.inventoryCapacity ?? 30);
+	constructor(params: IPlayerCharacterInventoryControllerConstructorParams) {
+		super(params);
+		this._inventory = new Inventory();
 	}
 
+	public dispose() {}
+
 	public openInventoryUI() {
-		console.log(`[${this._playerName}] Inventario:`);
+		console.log(`Inventario:`);
 		this._inventory.listItems().forEach((slot, index) => {
 			console.log(`Slot ${index + 1}: ${slot.item.name} x${slot.quantity}`);
 		});
 	}
 
-	public addItem(item: Item, quantity: number = 1): boolean {
+	public addItem(item: BaseItem, quantity: number = 1): boolean {
 		const result = this._inventory.addItem(item, quantity);
 		console.log(result ? `+ ${quantity}x ${item.name}` : `No hay espacio para ${item.name}`);
 		return result;
@@ -44,4 +42,4 @@ class InventoryController {
 	}
 }
 
-export default InventoryController;
+export default PlayerCharacterInventoryController;

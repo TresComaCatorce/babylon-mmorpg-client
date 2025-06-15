@@ -1,5 +1,5 @@
 import { IBasePlayerCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IBasePlayerCharacterController';
 
-type IPlayerCharacterGUIControllerConstructorParas = IBasePlayerCharacterControllerConstructorParams;
+type IPlayerCharacterGUIControllerConstructorParams = IBasePlayerCharacterControllerConstructorParams;
 
-export { IPlayerCharacterGUIControllerConstructorParas };
+export { IPlayerCharacterGUIControllerConstructorParams };
