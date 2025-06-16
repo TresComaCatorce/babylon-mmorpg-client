@@ -48,6 +48,10 @@ class TestMapScene extends MapScene {
 
 		this._playerCharacter = new PlayerCharacter({
 			characterName: 'KriZ',
+			currentHP: 7500,
+			maxHP: 10000,
+			currentMP: 8500,
+			maxMP: 10000,
 		});
 	}
 
