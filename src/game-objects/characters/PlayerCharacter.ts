@@ -31,6 +31,7 @@ class PlayerCharacter extends BaseCharacter {
 		this._movementController?.update();
 		currentScene?.activeCamera?.update();
 		this._animationController?.update();
+		this._uiController?.update();
 	}
 
 	protected _onMeshLoaded() {

@@ -35,6 +35,8 @@ enum KEY_CODES {
 	SEVEN = '7',
 	EIGHT = '8',
 	NINE = '9',
+	PLUS = '+',
+	MINUS = '-',
 	ARROW_UP = 'arrowup',
 	ARROW_DOWN = 'arrowdown',
 	ARROW_LEFT = 'arrowleft',

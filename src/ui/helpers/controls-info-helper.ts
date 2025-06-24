@@ -6,7 +6,7 @@ const createControlsInfoHelper = (scene: Scene) => {
 
 	const infoBox = new Rectangle('InfoBox');
 	infoBox.widthInPixels = 270;
-	infoBox.heightInPixels = 160;
+	infoBox.heightInPixels = 190;
 	infoBox.cornerRadius = 10;
 	infoBox.color = 'white';
 	infoBox.thickness = 1;
@@ -51,7 +51,7 @@ const createControlsInfoHelper = (scene: Scene) => {
 	const textContainer = new Container('TextContainer');
 	const infoText = new TextBlock('Texto');
 	infoText.text =
-		'\n• [W-A-S-D] Movement\n• [Hold mouse left-click] Rotate camera\n• [Mouse scroll] Zoom\n• [Shift] Run\n• [Caps Lock] Run lock/unlock\n• [G] Glow \n• [1-5] Equip/remove armor';
+		'\n• [W-A-S-D] Movement\n• [Hold mouse left-click] Rotate camera\n• [Mouse scroll] Zoom\n• [Shift] Run\n• [Caps Lock] Run lock/unlock\n• [G] Glow \n• [1-5] Equip/remove armor\n • [-] Decrease HP\n • [+] Add HP';
 	infoText.color = 'white';
 	infoText.fontSize = 13;
 	infoText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;

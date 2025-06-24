@@ -22,6 +22,10 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 		this._createMainNavBar();
 	}
 
+	public update() {
+		this._mainNavbarInstance?.update();
+	}
+
 	public dispose() {
 		this._kbInputController = null;
 	}

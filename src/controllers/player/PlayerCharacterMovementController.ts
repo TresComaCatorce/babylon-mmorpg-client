@@ -28,6 +28,8 @@ class PlayerCharacterMovementController extends CharacterMovementController {
 		this._calculateMoveDirection();
 		this._calculateSpeedAndMoveCharacter();
 		this._setMovementState();
+
+		this._debugInputs();
 	}
 
 	public dispose() {
@@ -107,6 +109,17 @@ class PlayerCharacterMovementController extends CharacterMovementController {
 			}
 		} else {
 			this._movementState = MOVEMENT_STATES.IDLE;
+		}
+	}
+
+	private _debugInputs() {
+		if (this._kbInputController?.isKeyPressed(KEY_CODES.PLUS)) {
+			console.log('Add 250HP');
+			this._characterInstance.addHP(250);
+		}
+		if (this._kbInputController?.isKeyPressed(KEY_CODES.MINUS)) {
+			console.log('Decrease 250HP');
+			this._characterInstance.decreaseHP(250);
 		}
 	}
 
