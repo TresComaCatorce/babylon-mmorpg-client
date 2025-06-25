@@ -1,17 +1,9 @@
-import { Container } from '@babylonjs/gui';
+import { IBaseContainerUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseContainerUIElement';
+import BaseControlUIElement from './BaseControlUIElement';
 
-import { IBaseContainerUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseContainerUIElements';
-
-abstract class BaseContainerUIElement extends Container {
-	private _elementName: string;
-
+abstract class BaseContainerUIElement extends BaseControlUIElement {
 	constructor(params: IBaseContainerUIElementConstructorParams) {
-		super(params.elementName);
-		this._elementName = params.elementName;
-	}
-
-	get elementName(): string {
-		return this._elementName;
+		super(params);
 	}
 }
 
