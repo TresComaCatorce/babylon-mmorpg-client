@@ -93,6 +93,12 @@ export class HealthPointsIndicator extends BaseContainerUIElement implements IPl
 		this._hpValuesText.fontFamily = 'Arial';
 		this._hpValuesText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
 		this._hpValuesText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+		this._hpValuesText.shadowColor = 'black';
+		this._hpValuesText.shadowOffsetX = 1;
+		this._hpValuesText.shadowOffsetY = 1;
+		this._hpValuesText.shadowBlur = 3;
+		this._hpValuesText.outlineWidth = 3;
+		this._hpValuesText.outlineColor = 'black';
 		this.addControl(this._hpValuesText);
 	}
 

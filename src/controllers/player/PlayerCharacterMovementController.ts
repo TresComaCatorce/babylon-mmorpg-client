@@ -113,14 +113,16 @@ class PlayerCharacterMovementController extends CharacterMovementController {
 	}
 
 	private _debugInputs() {
-		if (this._kbInputController?.isKeyPressed(KEY_CODES.PLUS)) {
-			console.log('Add 250HP');
-			this._characterInstance.addHP(250);
-		}
-		if (this._kbInputController?.isKeyPressed(KEY_CODES.MINUS)) {
-			console.log('Decrease 250HP');
-			this._characterInstance.decreaseHP(250);
-		}
+		this._kbInputController?.addKeyAction(KEY_CODES.PLUS, {
+			onKeyPressed: () => {
+				this._characterInstance.addHP(10000);
+			},
+		});
+		this._kbInputController?.addKeyAction(KEY_CODES.MINUS, {
+			onKeyPressed: () => {
+				this._characterInstance.decreaseHP(10000);
+			},
+		});
 	}
 
 	private _addRunningSwitch() {

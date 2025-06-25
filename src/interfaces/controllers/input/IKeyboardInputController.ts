@@ -9,4 +9,9 @@ interface IToggleCallbacks {
 	onSwitchOFF: () => void;
 }
 
-export { IKeyboardInputControllerConstructorParams, IToggleCallbacks };
+interface IActionCallbacks {
+	onKeyPressed: () => void;
+	onKeyReleased?: () => void;
+}
+
+export { IKeyboardInputControllerConstructorParams, IToggleCallbacks, IActionCallbacks };

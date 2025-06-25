@@ -1,7 +1,11 @@
 import { KeyboardEventTypes, Observer, KeyboardInfo, Nullable } from '@babylonjs/core';
 
-import { IKeyboardInputControllerConstructorParams, IToggleCallbacks } from '@mmorpg/interfaces/controllers/input/IKeyboardInputController';
 import KEYS_TO_PREVENT_DEFAULT from '@mmorpg/utils/constants/KEYS_TO_PREVENT_DEFAULT';
+import {
+	IKeyboardInputControllerConstructorParams,
+	IToggleCallbacks,
+	IActionCallbacks,
+} from '@mmorpg/interfaces/controllers/input/IKeyboardInputController';
 import BaseController from '@mmorpg/controllers/BaseController';
 import BaseScene from '@mmorpg/scenes/BaseScene';
 
@@ -13,12 +17,16 @@ class KeyboardInputController extends BaseController {
 	private _inputMap: Record<string, boolean> = {};
 	private _keyboardObserver?: Observer<KeyboardInfo>;
 
-	// Toggle system
+	// Toggle key system
 	private _toggleKeyStates: Record<string, boolean> = {};
 	private _toggleKeyCallbacks: Record<string, IToggleCallbacks> = {};
 	private _toggleKeyValues: Record<string, boolean> = {};
-	private _toggleStatusElement: Nullable<HTMLElement> = null;
 	private _toggleDisplayNames: Record<string, string> = {};
+	private _toggleStatusDebugInspectorElement: Nullable<HTMLElement> = null;
+
+	// Key action system
+	private _keyActionStates: Record<string, boolean> = {};
+	private _keyActionCallbacks: Record<string, IActionCallbacks> = {};
 
 	constructor(params: IKeyboardInputControllerConstructorParams) {
 		super();
@@ -46,6 +54,12 @@ class KeyboardInputController extends BaseController {
 		this._renderToggleDebugStatus();
 	}
 
+	public addKeyAction(key: string, callback: IActionCallbacks): void {
+		const k = key.toLowerCase();
+		this._keyActionCallbacks[k] = callback;
+		this._keyActionStates[k] = false;
+	}
+
 	public removeToggleKey(key: string): void {
 		const k = key.toLowerCase();
 		delete this._toggleKeyCallbacks[k];
@@ -66,9 +80,9 @@ class KeyboardInputController extends BaseController {
 
 	private _setToggleStatusDebugInspector(): void {
 		// if (process.env.NODE_ENV === 'development') {
-		this._toggleStatusElement = document.createElement('div');
-		this._toggleStatusElement.id = 'toggle-debug-status';
-		document.body.appendChild(this._toggleStatusElement);
+		this._toggleStatusDebugInspectorElement = document.createElement('div');
+		this._toggleStatusDebugInspectorElement.id = 'toggle-debug-status';
+		document.body.appendChild(this._toggleStatusDebugInspectorElement);
 		this._renderToggleDebugStatus();
 		// }
 	}
@@ -82,6 +96,7 @@ class KeyboardInputController extends BaseController {
 		const isKeyDownEventType = kbInfo.type === KeyboardEventTypes.KEYDOWN;
 		this._onUpdateKeyPressedLogic(kbInfo, eventKeyCode, isKeyDownEventType);
 		this._onUpdateToggleLogic(eventKeyCode, isKeyDownEventType);
+		this._onUpdateKeyActionLogic(eventKeyCode, kbInfo);
 		this._renderToggleDebugStatus();
 	}
 
@@ -91,7 +106,7 @@ class KeyboardInputController extends BaseController {
 		}
 
 		this._inputMap[eventKeyCode] = isKeyDownEventType;
-		console.log('this._inputMap: ', eventKeyCode);
+		console.log(`this._inputMap [Key: "${eventKeyCode}" Event: "${kbInfo.type === KeyboardEventTypes.KEYDOWN ? 'KEYDOWN' : 'KEYUP'}"]`);
 	}
 
 	private _onUpdateToggleLogic(eventKeyCode: string, isKeyDownEventType: boolean) {
@@ -114,9 +129,31 @@ class KeyboardInputController extends BaseController {
 		}
 	}
 
+	private _onUpdateKeyActionLogic(eventKeyCode: string, kbInfo: KeyboardInfo): void {
+		const isKeyDownEventType = kbInfo.type === KeyboardEventTypes.KEYDOWN;
+		const isKeyUpEventType = kbInfo.type === KeyboardEventTypes.KEYUP;
+		const callbacks = this._keyActionCallbacks[eventKeyCode];
+		if (!callbacks) return;
+
+		const domEvent = kbInfo.event as KeyboardEvent;
+
+		// Ejecutar onKeyPressed solo si es una nueva pulsación y no repetida por mantener presionado
+		if (isKeyDownEventType && !domEvent.repeat && callbacks.onKeyPressed) {
+			callbacks.onKeyPressed();
+		}
+
+		// Ejecutar onKeyReleased solo si estaba presionada y ahora fue soltada
+		if (isKeyUpEventType && callbacks.onKeyReleased) {
+			callbacks.onKeyReleased();
+		}
+
+		// Actualizar estado
+		this._keyActionStates[eventKeyCode] = isKeyDownEventType;
+	}
+
 	private _renderToggleDebugStatus(): void {
 		// if (process.env.NODE_ENV === 'development') {
-		if (!this._toggleStatusElement) return;
+		if (!this._toggleStatusDebugInspectorElement) return;
 
 		const entries = Object.keys(this._toggleKeyValues).map((key) => {
 			const isOn = this._toggleKeyValues[key];
@@ -124,7 +161,7 @@ class KeyboardInputController extends BaseController {
 			return `<div><span class="yellow-color">[${key.toUpperCase()}]</span> ${label}: ${isOn ? '<span class="green-color">ON</span>' : '<span class="red-color">OFF</span>'}</div>`;
 		});
 
-		this._toggleStatusElement.innerHTML = `<div><b>[DEBUG] Toggle Values</b></div>` + entries.join('');
+		this._toggleStatusDebugInspectorElement.innerHTML = `<div><b>[DEBUG] Toggle Values</b></div>` + entries.join('');
 		// }
 	}
 }
