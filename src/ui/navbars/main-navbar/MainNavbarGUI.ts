@@ -2,9 +2,9 @@ import { Control } from '@babylonjs/gui';
 
 import { IMainNavbarGUIConstructorParams } from '@mmorpg/interfaces/ui/navbars/main-navbar/IMainNavbarGUI';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
+import { HealthPointsIndicator } from '@mmorpg/ui/navbars/main-navbar/HealthPointsIndicatorGUI';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
-import { HealthPointsIndicator } from './HealthPointsIndicatorGUI';
 import BaseNavbarGUI from '@mmorpg/ui/navbars/BaseNavbarGUI';
 
 class MainNavbarGUI extends BaseNavbarGUI implements IPlayerCharacterRelated {
