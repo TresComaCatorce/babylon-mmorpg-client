@@ -5,7 +5,7 @@ import IBaseControlUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseCont
 
 abstract class BaseRectangleUIElement extends Rectangle implements IBaseControlUIElement {
 	private _elementName: string;
-	private _guiTexture: AdvancedDynamicTexture;
+	protected _guiTexture: AdvancedDynamicTexture;
 
 	constructor(params: IBaseRectangleUIElementConstructorParams) {
 		super(params.elementName);
