@@ -15,6 +15,12 @@ abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
 	}
 
 	private _initializeDragEvents(): void {
+		this._initializeDragPointerDownEvent();
+		this._initializeDragPointerUpEvent();
+		this._initializeDragPointerMoveEvent();
+	}
+
+	private _initializeDragPointerDownEvent() {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		this.onPointerDownObservable.add((pointerInfo) => {
 			this._isDragging = true;
@@ -23,12 +29,18 @@ abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
 			console.log(`pointerDown | pointerInfo x=${pointerInfo.x} y=${pointerInfo.y}`);
 			currentScene?.activeCamera.turnOffMovementControls();
 		});
+	}
 
+	private _initializeDragPointerUpEvent() {
+		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		this.onPointerUpObservable.add(() => {
 			this._isDragging = false;
 			currentScene?.activeCamera.turnOnMovementControls();
 		});
+	}
 
+	private _initializeDragPointerMoveEvent() {
+		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		currentScene?.onPointerObservable.add((pointerInfo) => {
 			// Ignore all events except "POINTERMOVE" event type
 			if (!this._isDragging || pointerInfo.type !== PointerEventTypes.POINTERMOVE) return;
