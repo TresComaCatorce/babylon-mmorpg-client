@@ -1,5 +1,5 @@
-import { Scene } from '@babylonjs/core';
 import { AdvancedDynamicTexture, Rectangle, TextBlock, Button, Control, Container } from '@babylonjs/gui';
+import { Scene } from '@babylonjs/core';
 
 const createControlsInfoHelper = (scene: Scene) => {
 	const guiTexture = AdvancedDynamicTexture.CreateFullscreenUI('UI', true, scene);

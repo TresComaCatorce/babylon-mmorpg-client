@@ -3,6 +3,7 @@ import { ArcRotateCamera, AbstractMesh, Scalar, PointerEventTypes, TransformNode
 import { IFollowPlayerCameraConstructorParams } from '@mmorpg/interfaces/camera/IFollowPlayerCamera';
 
 class FollowPlayerCamera extends ArcRotateCamera {
+	private _movementActive: boolean = true;
 	private _minZoom: number = 3;
 	private _maxZoom: number = 15;
 	private _minY: number = 1;
@@ -46,6 +47,14 @@ class FollowPlayerCamera extends ArcRotateCamera {
 		super.dispose();
 	}
 
+	public turnOffMovementControls() {
+		this._movementActive = false;
+	}
+
+	public turnOnMovementControls() {
+		this._movementActive = true;
+	}
+
 	private _configureCamera() {
 		// Remove default inputs
 		this.inputs.clear();
@@ -69,6 +78,7 @@ class FollowPlayerCamera extends ArcRotateCamera {
 
 	private _setupPointerControls() {
 		this._pointerObserver = this._scene.onPointerObservable.add((pointerInfo) => {
+			if (!this._movementActive) return;
 			const event = pointerInfo.event;
 
 			switch (pointerInfo.type) {

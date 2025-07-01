@@ -2,6 +2,7 @@ import { Scene, Camera, GlowLayer } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
 import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
+import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 import GameController from '@mmorpg/controllers/GameController';
 
 /**
@@ -44,8 +45,8 @@ abstract class BaseScene extends Scene {
 				this.activeCamera.dispose();
 				this.removeCamera(this.activeCamera);
 			}
-			this.activeCamera = newCamera;
-			this.activeCamera?.attachControl(true);
+			super.activeCamera = newCamera;
+			super.activeCamera?.attachControl(true);
 		}
 	}
 
@@ -68,6 +69,14 @@ abstract class BaseScene extends Scene {
 
 	get sceneName(): string {
 		return this.metadata.sceneName;
+	}
+
+	get activeCamera(): FollowPlayerCamera {
+		return <FollowPlayerCamera>super.activeCamera;
+	}
+
+	set activeCamera(value: Camera) {
+		super.activeCamera = value;
 	}
 }
 
