@@ -1,7 +1,7 @@
+import BaseDraggableRectangleUIElement from '@mmorpg/ui/base-elements/BaseDraggableRectangleUIElement';
 import { IBaseMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/IBaseMainPanelGUI';
-import BaseContainerUIElement from '@mmorpg/ui/base-elements/BaseContainerUIElement';
 
-abstract class BaseMainPanelGUI extends BaseContainerUIElement {
+abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 	constructor(params: IBaseMainPanelGUIConstructorParams) {
 		super(params);
 	}

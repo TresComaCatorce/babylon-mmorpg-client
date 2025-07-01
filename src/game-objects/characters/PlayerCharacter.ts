@@ -1,9 +1,9 @@
 import { AbstractMesh, Color3, Nullable, PBRMaterial } from '@babylonjs/core';
 
 import PlayerCharacterAnimationsController from '@mmorpg/controllers/player/PlayerCharacterAnimationsController';
-import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
 import { IPlayerCharacterConstructorParams } from '@mmorpg/interfaces/game-objects/characters/IPlayerCharacter';
 import PlayerCharacterInventoryController from '@mmorpg/controllers/player/PlayerCharacterInventoryController';
+import PlayerCharacterMovementController from '@mmorpg/controllers/player/PlayerCharacterMovementController';
 import PlayerCharacterGUIController from '@mmorpg/controllers/player/PlayerCharacterGUIController';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
@@ -17,7 +17,7 @@ class PlayerCharacter extends BaseCharacter {
 	private _runAcceleration: number = 0.1;
 
 	private _kbInputController: Nullable<KeyboardInputController> = null;
-	private _uiController: Nullable<PlayerCharacterGUIController> = null;
+	private _guiController: Nullable<PlayerCharacterGUIController> = null;
 	private _movementController: Nullable<PlayerCharacterMovementController> = null;
 	private _animationController: Nullable<PlayerCharacterAnimationsController> = null;
 	private _inventoryController: Nullable<PlayerCharacterInventoryController> = null;
@@ -31,7 +31,7 @@ class PlayerCharacter extends BaseCharacter {
 		this._movementController?.update();
 		currentScene?.activeCamera?.update();
 		this._animationController?.update();
-		this._uiController?.update();
+		this._guiController?.update();
 	}
 
 	protected _onMeshLoaded() {
@@ -79,7 +79,7 @@ class PlayerCharacter extends BaseCharacter {
 	}
 
 	private _createUiController() {
-		this._uiController = new PlayerCharacterGUIController({ characterInstance: this });
+		this._guiController = new PlayerCharacterGUIController({ characterInstance: this });
 	}
 
 	public addGlow() {

@@ -125,6 +125,17 @@ class PlayerCharacterMovementController extends CharacterMovementController {
 		});
 	}
 
+	private _addGlowSwitch() {
+		this._kbInputController?.addToggleKey(
+			KEY_CODES.G,
+			{
+				onSwitchON: () => this._characterInstance.addGlow(),
+				onSwitchOFF: () => this._characterInstance.removeGlow(),
+			},
+			'Glow',
+		);
+	}
+
 	private _addRunningSwitch() {
 		this._kbInputController?.addToggleKey(
 			KEY_CODES.BLOCK_MAYUS,
@@ -137,17 +148,6 @@ class PlayerCharacterMovementController extends CharacterMovementController {
 				},
 			},
 			'Running',
-		);
-	}
-
-	private _addGlowSwitch() {
-		this._kbInputController?.addToggleKey(
-			KEY_CODES.G,
-			{
-				onSwitchON: () => this._characterInstance.addGlow(),
-				onSwitchOFF: () => this._characterInstance.removeGlow(),
-			},
-			'Glow',
 		);
 	}
 

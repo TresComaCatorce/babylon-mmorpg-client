@@ -3,16 +3,18 @@ import { Nullable } from '@babylonjs/core';
 
 import { IPlayerCharacterGUIControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IPlayerCharacterGUIController';
 import BasePlayerCharacterController from '@mmorpg/controllers/player/BasePlayerCharacterController';
+import InventoryMainPanelGUI from '@mmorpg/ui/panels/inventory-main-panel/InventoryMainPanelGUI';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import MainNavbarGUI from '@mmorpg/ui/navbars/main-navbar/MainNavbarGUI';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class PlayerCharacterGUIController extends BasePlayerCharacterController {
+	private _guiTexture: AdvancedDynamicTexture;
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _isInventoryOpen: boolean = false;
 	private _mainNavbarInstance: Nullable<MainNavbarGUI> = null;
-	private _guiTexture: AdvancedDynamicTexture;
+	private _inventoryMainPanelIntance: Nullable<InventoryMainPanelGUI> = null;
 
 	constructor(params: IPlayerCharacterGUIControllerConstructorParams) {
 		super(params);
@@ -20,6 +22,7 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 		this._kbInputController = this._characterInstance.keyboardInputController;
 		this._addToggleKeys();
 		this._createMainNavBar();
+		this._createInventoryMainPanel();
 	}
 
 	public update() {
@@ -43,6 +46,12 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 		this._addElementToGUITexture(this._mainNavbarInstance);
 	}
 
+	private _createInventoryMainPanel() {
+		this._inventoryMainPanelIntance = new InventoryMainPanelGUI({ characterInstance: this.characterInstance });
+		this._inventoryMainPanelIntance.isVisible = false;
+		this._addElementToGUITexture(this._inventoryMainPanelIntance);
+	}
+
 	private _addToggleKeys() {
 		this._addInventoryToggleKey();
 	}
@@ -59,11 +68,17 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 	}
 
 	private _openInventoryPanel() {
-		this._isInventoryOpen = true;
+		if (this._inventoryMainPanelIntance) {
+			this._isInventoryOpen = true;
+			this._inventoryMainPanelIntance.isVisible = true;
+		}
 	}
 
 	private _closeInventoryPanel() {
-		this._isInventoryOpen = false;
+		if (this._inventoryMainPanelIntance) {
+			this._isInventoryOpen = false;
+			this._inventoryMainPanelIntance.isVisible = false;
+		}
 	}
 }
 
