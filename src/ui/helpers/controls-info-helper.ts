@@ -1,9 +1,6 @@
-import { AdvancedDynamicTexture, Rectangle, TextBlock, Button, Control, Container } from '@babylonjs/gui';
-import { Scene } from '@babylonjs/core';
+import { Rectangle, TextBlock, Button, Control, Container } from '@babylonjs/gui';
 
-const createControlsInfoHelper = (scene: Scene) => {
-	const guiTexture = AdvancedDynamicTexture.CreateFullscreenUI('UI', true, scene);
-
+const createControlsInfoHelper = () => {
 	const infoBox = new Rectangle('InfoBox');
 	infoBox.widthInPixels = 270;
 	infoBox.heightInPixels = 190;
@@ -61,12 +58,11 @@ const createControlsInfoHelper = (scene: Scene) => {
 	infoText.textWrapping = true;
 
 	titleContainer.addControl(titleText);
-	titleContainer.addControl(closeButton);
-	stackPanel.addControl(titleContainer);
 	textContainer.addControl(infoText);
 	stackPanel.addControl(textContainer);
 	infoBox.addControl(stackPanel);
-	guiTexture.addControl(infoBox);
+	titleContainer.addControl(closeButton);
+	stackPanel.addControl(titleContainer);
 
 	return infoBox;
 };

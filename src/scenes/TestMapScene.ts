@@ -1,6 +1,5 @@
 import { Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Texture, FreeCamera, Nullable } from '@babylonjs/core';
 
-import { createControlsInfoHelper } from '@mmorpg/ui/helpers/controls-info-helper';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
 import MapScene from '@mmorpg/scenes/MapScene';
@@ -20,7 +19,6 @@ class TestMapScene extends MapScene {
 	public loaded() {
 		console.log(`TestMapScene.ts | "loaded" method execution`);
 		this._createTestMapSceneContent();
-		createControlsInfoHelper(this);
 	}
 	public update() {
 		// console.log(`TestMapScene.ts | "update" method execution`);

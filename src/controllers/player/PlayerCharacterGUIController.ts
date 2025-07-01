@@ -5,6 +5,7 @@ import { IPlayerCharacterGUIControllerConstructorParams } from '@mmorpg/interfac
 import BasePlayerCharacterController from '@mmorpg/controllers/player/BasePlayerCharacterController';
 import InventoryMainPanelGUI from '@mmorpg/ui/panels/inventory-main-panel/InventoryMainPanelGUI';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
+import { createControlsInfoHelper } from '@mmorpg/ui/helpers/controls-info-helper';
 import MainNavbarGUI from '@mmorpg/ui/navbars/main-navbar/MainNavbarGUI';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
@@ -23,6 +24,7 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 		this._addToggleKeys();
 		this._createMainNavBar();
 		this._createInventoryMainPanel();
+		this._addElementToGUITexture(createControlsInfoHelper());
 	}
 
 	public update() {
