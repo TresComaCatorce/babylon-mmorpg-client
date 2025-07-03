@@ -7,6 +7,7 @@ import {
 	percentageArea2D,
 } from '@mmorpg/interfaces/ui/base-elements/IBaseDraggableRectangleUIElement';
 import ScenesController from '@mmorpg/controllers/ScenesController';
+import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 import GameController from '@mmorpg/controllers/GameController';
 
 abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
@@ -39,10 +40,10 @@ abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
 
 	private _setupDragControlAreaMousePointer() {
 		this._dragControlArea.onPointerEnterObservable.add(() => {
-			document.body.style.cursor = 'move';
+			document.body.style.cursor = MOUSE_CURSORS.MOVE;
 		});
 		this._dragControlArea.onPointerOutObservable.add(() => {
-			document.body.style.cursor = 'default';
+			document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
 		});
 	}
 

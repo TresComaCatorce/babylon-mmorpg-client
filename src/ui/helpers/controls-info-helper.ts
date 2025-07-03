@@ -1,5 +1,7 @@
 import { Rectangle, TextBlock, Button, Control, Container } from '@babylonjs/gui';
 
+import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
+
 const createControlsInfoHelper = () => {
 	const infoBox = new Rectangle('InfoBox');
 	infoBox.widthInPixels = 270;
@@ -39,10 +41,10 @@ const createControlsInfoHelper = () => {
 	});
 	closeButton.isHitTestVisible = true;
 	closeButton.onPointerEnterObservable.add(() => {
-		document.body.style.cursor = 'pointer';
+		document.body.style.cursor = MOUSE_CURSORS.POINTER;
 	});
 	closeButton.onPointerOutObservable.add(() => {
-		document.body.style.cursor = 'default';
+		document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
 	});
 
 	const textContainer = new Container('TextContainer');
