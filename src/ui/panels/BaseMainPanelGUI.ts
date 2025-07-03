@@ -3,9 +3,18 @@ import { Control } from '@babylonjs/gui';
 import BaseDraggableRectangleUIElement from '@mmorpg/ui/base-elements/BaseDraggableRectangleUIElement';
 import { IBaseMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/IBaseMainPanelGUI';
 
+const DRAG_CONTROL_AREA_HORIZONTAL_PERCENTAGE = 86;
+const DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE = 3;
+
 abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 	constructor(params: IBaseMainPanelGUIConstructorParams) {
-		super(params);
+		super({
+			...params,
+			dragControlAreaPercentage: {
+				horizontalPercentage: DRAG_CONTROL_AREA_HORIZONTAL_PERCENTAGE,
+				verticalPercentage: DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE,
+			},
+		});
 		this._setAlignments();
 		this._setSize();
 		this._setDefaultPosition();
