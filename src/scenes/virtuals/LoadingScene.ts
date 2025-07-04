@@ -1,16 +1,16 @@
 import { Vector3, ArcRotateCamera, HemisphericLight } from '@babylonjs/core';
 
 import ScenesController from '@mmorpg/controllers/ScenesController';
+import BaseVirtualScene from '@mmorpg/scenes/base/BaseVirtualScene';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
-import VirtualScene from '@mmorpg/scenes/VirtualScene';
-import LoginScene from '@mmorpg/scenes/LoginScene';
+import LoginScene from '@mmorpg/scenes/virtuals/LoginScene';
 
 /**
  * @class LoadingScene
  * @description Scene responsible for displaying the loading screen, including camera and lighting setup.
- * @extends VirtualScene
+ * @extends BaseVirtualScene
  */
-class LoadingScene extends VirtualScene {
+class LoadingScene extends BaseVirtualScene {
 	/**
 	 * @description Constructs a new LoadingScene, initializes the base scene, and creates the loading environment.
 	 * @access public

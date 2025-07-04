@@ -2,7 +2,7 @@ import { Engine } from '@babylonjs/core';
 
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import BaseController from '@mmorpg/controllers/BaseController';
-import LoadingScene from '@mmorpg/scenes/LoadingScene';
+import LoadingScene from '@mmorpg/scenes/virtuals/LoadingScene';
 
 /**
  * @class GameController

@@ -2,9 +2,9 @@ import { Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Texture, Free
 
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
-import MapScene from '@mmorpg/scenes/MapScene';
+import MapScene from '@mmorpg/scenes/base/BaseMapScene';
 
-class TestMapScene extends MapScene {
+class GrassMapScene extends MapScene {
 	private _playerCharacter: Nullable<PlayerCharacter> = null;
 
 	constructor() {
@@ -12,20 +12,20 @@ class TestMapScene extends MapScene {
 	}
 
 	public preload(): void {
-		console.log(`TestMapScene.ts | "preload" method execution`);
+		console.log(`GrassMapScene.ts | "preload" method execution`);
 		this._createTempCamera();
 	}
 
 	public loaded() {
-		console.log(`TestMapScene.ts | "loaded" method execution`);
-		this._createTestMapSceneContent();
+		console.log(`GrassMapScene.ts | "loaded" method execution`);
+		this._createGrassMapSceneContent();
 	}
 	public update() {
-		// console.log(`TestMapScene.ts | "update" method execution`);
+		// console.log(`GrassMapScene.ts | "update" method execution`);
 		this._playerCharacter?.update();
 	}
 
-	private _createTestMapSceneContent() {
+	private _createGrassMapSceneContent() {
 		// Add light
 		new HemisphericLight('light', new Vector3(0, 1, 0), this);
 
@@ -60,4 +60,4 @@ class TestMapScene extends MapScene {
 	}
 }
 
-export default TestMapScene;
+export default GrassMapScene;

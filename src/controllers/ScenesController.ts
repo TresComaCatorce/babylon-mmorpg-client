@@ -2,7 +2,7 @@ import { Nullable } from '@babylonjs/core';
 
 import GameController from '@mmorpg/controllers/GameController';
 import BaseController from '@mmorpg/controllers/BaseController';
-import BaseScene from '@mmorpg/scenes/BaseScene';
+import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 /**
  * @class ScenesController

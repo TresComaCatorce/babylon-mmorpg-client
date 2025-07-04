@@ -11,17 +11,17 @@ import {
 } from '@babylonjs/core';
 
 import ScenesController from '@mmorpg/controllers/ScenesController';
+import BaseVirtualScene from '@mmorpg/scenes/base/BaseVirtualScene';
 import GameController from '@mmorpg/controllers/GameController';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
-import VirtualScene from '@mmorpg/scenes/VirtualScene';
-import TestMapScene from '@mmorpg/scenes/TestMapScene';
+import GrassMapScene from '@mmorpg/scenes/maps/GrassMapScene';
 
 /**
  * @class LoginScene
  * @description Scene responsible for displaying and managing the login interface.
- * @extends VirtualScene
+ * @extends BaseVirtualScene
  */
-class LoginScene extends VirtualScene {
+class LoginScene extends BaseVirtualScene {
 	constructor() {
 		super({ sceneName: SCENE_NAMES.LOGIN });
 	}
@@ -73,7 +73,7 @@ class LoginScene extends VirtualScene {
 		this.onPointerObservable.add((pointerInfo: PointerInfo) => {
 			if (pointerInfo.type === PointerEventTypes.POINTERDOWN) {
 				if (pointerInfo?.pickInfo?.hit && pointerInfo.pickInfo.pickedMesh === ground) {
-					ScenesController.getInstance().switchToScene(new TestMapScene());
+					ScenesController.getInstance().switchToScene(new GrassMapScene());
 				}
 			}
 		});

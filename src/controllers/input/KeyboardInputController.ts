@@ -7,7 +7,7 @@ import {
 	IActionCallbacks,
 } from '@mmorpg/interfaces/controllers/input/IKeyboardInputController';
 import BaseController from '@mmorpg/controllers/BaseController';
-import BaseScene from '@mmorpg/scenes/BaseScene';
+import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 /**
  * TODO: Implement singleton on this controller.

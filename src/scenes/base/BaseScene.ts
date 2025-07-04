@@ -1,7 +1,7 @@
 import { Scene, Camera, GlowLayer } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
-import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/IBaseScene';
+import { IBaseSceneConstructorParams } from '@mmorpg/interfaces/scenes/base/IBaseScene';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 import GameController from '@mmorpg/controllers/GameController';
 
