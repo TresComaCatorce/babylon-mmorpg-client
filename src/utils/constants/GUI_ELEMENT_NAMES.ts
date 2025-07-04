@@ -1,8 +1,11 @@
 enum GUI_ELEMENT_NAMES {
-	MAIN_BAR = 'MainBarUIElement',
-	CHARACTER_NAME = 'CharacterNameUIElement',
-	INVENTORY_PANEL = 'InventoryPanelUIElement',
+	MAIN_BAR = 'MainBar',
+	CHARACTER_NAME = 'CharacterName',
+	INVENTORY_PANEL = 'InventoryPanel',
 	PLAYER_HP_INDICATOR = 'PlayerHPIndicator',
+	DRAGGABLE_CONTROL = '-DragControl',
+	CLOSE_BUTTON = '-CloseButton',
+	BUTTON_TEXT = '-Text',
 }
 
 export default GUI_ELEMENT_NAMES;

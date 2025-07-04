@@ -6,6 +6,7 @@ import {
 	IBaseDraggableRectangleUIElementConstructorParams,
 	percentageArea2D,
 } from '@mmorpg/interfaces/ui/base-elements/IBaseDraggableRectangleUIElement';
+import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 import GameController from '@mmorpg/controllers/GameController';
@@ -13,7 +14,7 @@ import GameController from '@mmorpg/controllers/GameController';
 abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
 	private _isDragging: boolean = false;
 	private _pointerPositionWhenStartDragging: Vector2 = new Vector2();
-	private _dragControlArea: Rectangle = new Rectangle();
+	private _dragControlArea: Rectangle = new Rectangle(`${this.elementName}${GUI_ELEMENT_NAMES.DRAGGABLE_CONTROL}`);
 
 	constructor(params: IBaseDraggableRectangleUIElementConstructorParams) {
 		super(params);
