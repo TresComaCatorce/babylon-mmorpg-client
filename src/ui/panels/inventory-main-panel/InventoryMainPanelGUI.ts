@@ -1,4 +1,4 @@
-import { InventoryMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/inventory-main-panel/IInventoryMainPanelGUI';
+import { IInventoryMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/inventory-main-panel/IInventoryMainPanelGUI';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
@@ -9,7 +9,7 @@ import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterRelated {
 	private _characterInstance: PlayerCharacter;
 
-	constructor(params: InventoryMainPanelGUIConstructorParams) {
+	constructor(params: IInventoryMainPanelGUIConstructorParams) {
 		super({
 			elementName: GUI_ELEMENT_NAMES.INVENTORY_PANEL,
 			closePanel: () => {
