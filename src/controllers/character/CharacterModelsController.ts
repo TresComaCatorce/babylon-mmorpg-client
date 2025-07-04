@@ -10,7 +10,7 @@ import {
 	PBRMaterial,
 } from '@babylonjs/core';
 
-import BaseCharacterController from '@mmorpg/controllers/character/BaseCharacterController';
+import BaseCharacterController from '@mmorpg/controllers/base/BaseCharacterController';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import {
 	ICharacterModelsControllerConstructorParams,

@@ -1,5 +1,5 @@
-import BaseCharacterController from '@mmorpg/controllers/character/BaseCharacterController';
 import { ICharacterAnimationsControllerConstructorParams } from '@mmorpg/interfaces/controllers/character/ICharacterAnimationsController';
+import BaseCharacterController from '@mmorpg/controllers/base/BaseCharacterController';
 
 abstract class CharacterAnimationsController extends BaseCharacterController {
 	constructor(params: ICharacterAnimationsControllerConstructorParams) {

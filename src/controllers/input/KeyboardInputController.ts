@@ -6,7 +6,7 @@ import {
 	IToggleCallbacks,
 	IActionCallbacks,
 } from '@mmorpg/interfaces/controllers/input/IKeyboardInputController';
-import BaseController from '@mmorpg/controllers/BaseController';
+import BaseController from '@mmorpg/controllers/base/BaseController';
 import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 /**

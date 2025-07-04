@@ -1,7 +1,7 @@
 import { Nullable } from '@babylonjs/core';
 
+import BaseController from '@mmorpg/controllers/base/BaseController';
 import GameController from '@mmorpg/controllers/GameController';
-import BaseController from '@mmorpg/controllers/BaseController';
 import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 /**
