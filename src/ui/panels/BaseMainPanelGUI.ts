@@ -11,6 +11,7 @@ const DRAG_CONTROL_AREA_HORIZONTAL_PERCENTAGE = 86;
 const DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE = 4;
 
 abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
+	private static _panelInstances: BaseMainPanelGUI[] = [];
 	private _titleText: string;
 	private _titleElement: Nullable<TextBlock> = null;
 	private _closeButton!: CloseButtonUIElement;
@@ -23,12 +24,15 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 				verticalPercentage: DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE,
 			},
 		});
+		BaseMainPanelGUI._panelInstances.push(this);
+		this.zIndex = 1;
 		this._titleText = params.title ?? '';
+		this._addTitle();
 		this._setAlignments();
 		this._setSize();
 		this._setDefaultPosition();
 		this._setLookAndFeel();
-		this._addTitle();
+		this._setPanelOverlapBehaviour();
 		this._addCloseButton(params.closePanel);
 	}
 
@@ -38,11 +42,6 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 
 	protected abstract _setLookAndFeel(): void;
 
-	private _setAlignments() {
-		this.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-		this.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-	}
-
 	private _addTitle() {
 		if (!isEmptyString(this._titleText)) {
 			this._titleElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TITLE}`, this._titleText);
@@ -50,6 +49,17 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 			this._titleElement.fontSizeInPixels = 15;
 			this._dragControlArea.addControl(this._titleElement);
 		}
+	}
+
+	private _setAlignments() {
+		this.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+		this.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+	}
+
+	private _setPanelOverlapBehaviour() {
+		this.onPointerDownObservable.add(() => {
+			this._bringThisPanelToFront();
+		});
 	}
 
 	private _addCloseButton(closePanel?: () => void) {
@@ -62,6 +72,11 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 		this._closeButton.leftInPixels = -3;
 		this._closeButton.topInPixels = 3;
 		this.addControl(this._closeButton);
+	}
+
+	private _bringThisPanelToFront() {
+		const maxZIndex = Math.max(...BaseMainPanelGUI._panelInstances.map((p) => p.zIndex ?? 0));
+		this.zIndex = maxZIndex + 1;
 	}
 }
 
