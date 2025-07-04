@@ -14,7 +14,7 @@ import GameController from '@mmorpg/controllers/GameController';
 abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
 	private _isDragging: boolean = false;
 	private _pointerPositionWhenStartDragging: Vector2 = new Vector2();
-	private _dragControlArea: Rectangle = new Rectangle(`${this.elementName}${GUI_ELEMENT_NAMES.DRAGGABLE_CONTROL}`);
+	protected _dragControlArea: Rectangle = new Rectangle(`${this.elementName}${GUI_ELEMENT_NAMES.DRAGGABLE_CONTROL}`);
 
 	constructor(params: IBaseDraggableRectangleUIElementConstructorParams) {
 		super(params);
@@ -26,7 +26,6 @@ abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
 		this._setupDragControlResizeEvent(dragControlAreaPercentage);
 		this._setupDragControlAreaMousePointer();
 		this._setupDragControlAreaAlignments();
-		this._dragControlArea.background = 'blue';
 		this.addControl(this._dragControlArea);
 	}
 

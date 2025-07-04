@@ -6,6 +6,7 @@ enum GUI_ELEMENT_NAMES {
 	DRAGGABLE_CONTROL = '-DragControl',
 	CLOSE_BUTTON = '-CloseButton',
 	BUTTON_TEXT = '-Text',
+	TITLE = '-Title',
 }
 
 export default GUI_ELEMENT_NAMES;

@@ -2,7 +2,7 @@ import { AdvancedDynamicTexture, Control } from '@babylonjs/gui';
 import { Nullable } from '@babylonjs/core';
 
 import { IPlayerCharacterGUIControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IPlayerCharacterGUIController';
-import BasePlayerCharacterController from '@mmorpg/controllers/player/BasePlayerCharacterController';
+import BasePlayerCharacterController from '@mmorpg/controllers/base/BasePlayerCharacterController';
 import InventoryMainPanelGUI from '@mmorpg/ui/panels/inventory-main-panel/InventoryMainPanelGUI';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import { createControlsInfoHelper } from '@mmorpg/ui/helpers/controls-info-helper';

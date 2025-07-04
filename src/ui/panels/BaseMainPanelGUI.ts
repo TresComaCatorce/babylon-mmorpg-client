@@ -1,14 +1,18 @@
-import { Control } from '@babylonjs/gui';
+import { Control, TextBlock } from '@babylonjs/gui';
+import { Nullable } from '@babylonjs/core';
 
 import BaseDraggableRectangleUIElement from '@mmorpg/ui/base-elements/BaseDraggableRectangleUIElement';
 import { IBaseMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/IBaseMainPanelGUI';
 import CloseButtonUIElement from '@mmorpg/ui/common-elements/buttons/CloseButtonUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
+import { isEmptyString } from '@mmorpg/utils/strings';
 
 const DRAG_CONTROL_AREA_HORIZONTAL_PERCENTAGE = 86;
 const DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE = 4;
 
 abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
+	private _titleText: string;
+	private _titleElement: Nullable<TextBlock> = null;
 	private _closeButton!: CloseButtonUIElement;
 
 	constructor(params: IBaseMainPanelGUIConstructorParams) {
@@ -19,22 +23,33 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
 				verticalPercentage: DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE,
 			},
 		});
+		this._titleText = params.title ?? '';
 		this._setAlignments();
 		this._setSize();
 		this._setDefaultPosition();
 		this._setLookAndFeel();
+		this._addTitle();
 		this._addCloseButton(params.closePanel);
 	}
 
-	protected abstract _setDefaultPosition(): void;
-
 	protected abstract _setSize(): void;
+
+	protected abstract _setDefaultPosition(): void;
 
 	protected abstract _setLookAndFeel(): void;
 
 	private _setAlignments() {
 		this.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
 		this.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+	}
+
+	private _addTitle() {
+		if (!isEmptyString(this._titleText)) {
+			this._titleElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TITLE}`, this._titleText);
+			this._titleElement.color = 'white';
+			this._titleElement.fontSizeInPixels = 15;
+			this._dragControlArea.addControl(this._titleElement);
+		}
 	}
 
 	private _addCloseButton(closePanel?: () => void) {

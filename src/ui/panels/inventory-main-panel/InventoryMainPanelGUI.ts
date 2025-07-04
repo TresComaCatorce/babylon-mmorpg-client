@@ -15,6 +15,7 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 			closePanel: () => {
 				this._characterInstance.keyboardInputController?.simulateToggleKeyPressed(KEY_CODES.V);
 			},
+			title: `Inventory [${params.characterInstance.name}]`,
 		});
 		this._characterInstance = params.characterInstance;
 	}
