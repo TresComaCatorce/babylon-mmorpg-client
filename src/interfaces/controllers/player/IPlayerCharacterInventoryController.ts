@@ -1,4 +1,4 @@
-import { IBasePlayerCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IBasePlayerCharacterController';
+import { IBasePlayerCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/base/IBasePlayerCharacterController';
 
 type IPlayerCharacterInventoryControllerConstructorParams = IBasePlayerCharacterControllerConstructorParams;
 

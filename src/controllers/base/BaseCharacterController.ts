@@ -1,6 +1,6 @@
 import { AbstractMesh, Nullable } from '@babylonjs/core';
 
-import { IBaseCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/character/IBaseCharacterController';
+import { IBaseCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/base/IBaseCharacterController';
 import ICharacterRelated from '@mmorpg/interfaces/common-interfaces/ICharacterRelated';
 import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 import BaseController from '@mmorpg/controllers/base/BaseController';
