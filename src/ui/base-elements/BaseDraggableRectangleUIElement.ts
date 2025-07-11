@@ -1,7 +1,7 @@
 import { PointerEventTypes, Vector2 } from '@babylonjs/core';
 import { Control, Rectangle } from '@babylonjs/gui';
 
-import BaseRectangleUIElement from '@mmorpg/ui/base-elements/BaseRectangleUIElement';
+import BaseRectangleGUIElement from '@mmorpg/ui/base-elements/BaseRectangleGUIElement';
 import {
 	IBaseDraggableRectangleUIElementConstructorParams,
 	percentageArea2D,
@@ -11,7 +11,7 @@ import ScenesController from '@mmorpg/controllers/ScenesController';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 import GameController from '@mmorpg/controllers/GameController';
 
-abstract class BaseDraggableRectangleUIElement extends BaseRectangleUIElement {
+abstract class BaseDraggableRectangleUIElement extends BaseRectangleGUIElement {
 	private _isDragging: boolean = false;
 	private _pointerPositionWhenStartDragging: Vector2 = new Vector2();
 	protected _dragControlArea: Rectangle = new Rectangle(`${this.elementName}${GUI_ELEMENT_NAMES.DRAGGABLE_CONTROL}`);

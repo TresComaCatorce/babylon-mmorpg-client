@@ -1,10 +1,10 @@
-import { IBaseRectangleUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseRectangleUIElement';
+import { IBaseRectangleGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseRectangleGUIElement';
 
 interface percentageArea2D {
 	horizontalPercentage: number;
 	verticalPercentage: number;
 }
-interface IBaseDraggableRectangleUIElementConstructorParams extends IBaseRectangleUIElementConstructorParams {
+interface IBaseDraggableRectangleUIElementConstructorParams extends IBaseRectangleGUIElementConstructorParams {
 	dragControlAreaPercentage?: percentageArea2D;
 }
 
