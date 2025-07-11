@@ -1,15 +1,15 @@
 import { Rectangle, TextBlock } from '@babylonjs/gui';
 import { Nullable } from '@babylonjs/core';
 
-import { ICharacterNameUIElementConstructorParams } from '@mmorpg/interfaces/ui/ICharacterNameUIElement';
+import { ICharacterNameGUIElementConstructorParams } from '@mmorpg/interfaces/ui/ICharacterNameGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import BaseCharacter from '@mmorpg/game-objects/characters/BaseCharacter';
 
-class CharacterNameUIElement extends Rectangle {
+class CharacterNameGUIElement extends Rectangle {
 	private _characterInstance: BaseCharacter;
 	private _characterNameTextElement: Nullable<TextBlock> = null;
 
-	constructor(params: ICharacterNameUIElementConstructorParams) {
+	constructor(params: ICharacterNameGUIElementConstructorParams) {
 		super(GUI_ELEMENT_NAMES.CHARACTER_NAME);
 		this._characterInstance = params.characterInstance;
 		this._setStyles();
@@ -40,4 +40,4 @@ class CharacterNameUIElement extends Rectangle {
 	}
 }
 
-export default CharacterNameUIElement;
+export default CharacterNameGUIElement;
