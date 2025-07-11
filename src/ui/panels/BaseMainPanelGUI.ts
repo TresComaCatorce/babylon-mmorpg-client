@@ -3,7 +3,7 @@ import { Nullable } from '@babylonjs/core';
 
 import BaseDraggableRectangleGUIElement from '@mmorpg/ui/base-elements/BaseDraggableRectangleGUIElement';
 import { IBaseMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/IBaseMainPanelGUI';
-import CloseButtonUIElement from '@mmorpg/ui/common-elements/buttons/CloseButtonUIElement';
+import CloseButtonGUIElement from '@mmorpg/ui/common-elements/buttons/CloseButtonGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import { isEmptyString } from '@mmorpg/utils/strings';
 
@@ -14,7 +14,7 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 	private static _panelInstances: BaseMainPanelGUI[] = [];
 	private _titleText: string;
 	private _titleElement: Nullable<TextBlock> = null;
-	private _closeButton!: CloseButtonUIElement;
+	private _closeButton!: CloseButtonGUIElement;
 
 	constructor(params: IBaseMainPanelGUIConstructorParams) {
 		super({
@@ -63,7 +63,7 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 	}
 
 	private _addCloseButton(closePanel?: () => void) {
-		this._closeButton = new CloseButtonUIElement({
+		this._closeButton = new CloseButtonGUIElement({
 			elementName: `${this.elementName}${GUI_ELEMENT_NAMES.CLOSE_BUTTON}`,
 			onClick: closePanel,
 		});

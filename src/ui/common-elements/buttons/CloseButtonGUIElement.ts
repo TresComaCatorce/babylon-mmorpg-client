@@ -1,9 +1,9 @@
-import { ICloseButtonUIElementConstructorParams } from '@mmorpg/interfaces/ui/common-elements/buttons/ICloseButtonUIElement';
+import { ICloseButtonGUIElementConstructorParams } from '@mmorpg/interfaces/ui/common-elements/buttons/ICloseButtonGUIElement';
 import BaseButtonGUIElement from '@mmorpg/ui/base-elements/BaseButtonGUIElement';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
-class CloseButtonUIElement extends BaseButtonGUIElement {
-	constructor(params: ICloseButtonUIElementConstructorParams) {
+class CloseButtonGUIElement extends BaseButtonGUIElement {
+	constructor(params: ICloseButtonGUIElementConstructorParams) {
 		super({ ...params, buttonText: '✕', onHoverCursor: MOUSE_CURSORS.POINTER });
 		this._setupStyle();
 	}
@@ -18,4 +18,4 @@ class CloseButtonUIElement extends BaseButtonGUIElement {
 	}
 }
 
-export default CloseButtonUIElement;
+export default CloseButtonGUIElement;
