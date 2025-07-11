@@ -6,6 +6,7 @@ enum GUI_ELEMENT_NAMES {
 	PLAYER_HP_INDICATOR = 'PlayerHPIndicator',
 	DRAGGABLE_CONTROL = '-DragControl',
 	CLOSE_BUTTON = '-CloseButton',
+	STACK_PANEL = '-StackPanel',
 	BUTTON_TEXT = '-Text',
 	TITLE = '-Title',
 }
