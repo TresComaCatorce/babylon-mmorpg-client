@@ -2,9 +2,9 @@ import { Observable, ICanvasRenderingContext } from '@babylonjs/core';
 import { Measure, Rectangle } from '@babylonjs/gui';
 
 import { IBaseRectangleGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseRectangleGUIElement';
-import IBaseControlUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlUIElement';
+import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 
-abstract class BaseRectangleGUIElement extends Rectangle implements IBaseControlUIElement {
+abstract class BaseRectangleGUIElement extends Rectangle implements IBaseControlGUIElement {
 	public onResizeObservable = new Observable<{ width: number; height: number }>();
 	private _elementName: string;
 	private _prevWidth = 0;

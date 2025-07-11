@@ -1,6 +1,6 @@
-import { IBaseControlUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseControlUIElement';
+import { IBaseControlGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 
-interface ICloseButtonUIElementConstructorParams extends IBaseControlUIElementConstructorParams {
+interface ICloseButtonUIElementConstructorParams extends IBaseControlGUIElementConstructorParams {
 	onClick?: () => void;
 }
 

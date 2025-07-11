@@ -1,5 +1,5 @@
-import { IBaseControlUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseControlUIElement';
+import { IBaseControlGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 
-type IBaseContainerGUIElementConstructorParams = IBaseControlUIElementConstructorParams;
+type IBaseContainerGUIElementConstructorParams = IBaseControlGUIElementConstructorParams;
 
 export { IBaseContainerGUIElementConstructorParams };

@@ -1,11 +1,11 @@
 import { Button, Control, TextBlock } from '@babylonjs/gui';
 
 import { IBaseButtonGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseButtonGUIElement';
-import IBaseControlUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlUIElement';
+import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
-abstract class BaseButtonGUIElement extends Button implements IBaseControlUIElement {
+abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIElement {
 	private _elementName: string;
 	private _onHoverCursor?: string;
 	private _onClickHandler?: () => void;
