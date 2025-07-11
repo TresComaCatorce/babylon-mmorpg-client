@@ -4,8 +4,8 @@ interface percentageArea2D {
 	horizontalPercentage: number;
 	verticalPercentage: number;
 }
-interface IBaseDraggableRectangleUIElementConstructorParams extends IBaseRectangleGUIElementConstructorParams {
+interface IBaseDraggableRectangleGUIElementConstructorParams extends IBaseRectangleGUIElementConstructorParams {
 	dragControlAreaPercentage?: percentageArea2D;
 }
 
-export { IBaseDraggableRectangleUIElementConstructorParams, percentageArea2D };
+export { IBaseDraggableRectangleGUIElementConstructorParams, percentageArea2D };

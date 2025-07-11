@@ -1,7 +1,7 @@
 import { Control, TextBlock } from '@babylonjs/gui';
 import { Nullable } from '@babylonjs/core';
 
-import BaseDraggableRectangleUIElement from '@mmorpg/ui/base-elements/BaseDraggableRectangleUIElement';
+import BaseDraggableRectangleGUIElement from '@mmorpg/ui/base-elements/BaseDraggableRectangleGUIElement';
 import { IBaseMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/IBaseMainPanelGUI';
 import CloseButtonUIElement from '@mmorpg/ui/common-elements/buttons/CloseButtonUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
@@ -10,7 +10,7 @@ import { isEmptyString } from '@mmorpg/utils/strings';
 const DRAG_CONTROL_AREA_HORIZONTAL_PERCENTAGE = 86;
 const DRAG_CONTROL_AREA_VERTICAL_PERCENTAGE = 4;
 
-abstract class BaseMainPanelGUI extends BaseDraggableRectangleUIElement {
+abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 	private static _panelInstances: BaseMainPanelGUI[] = [];
 	private _titleText: string;
 	private _titleElement: Nullable<TextBlock> = null;

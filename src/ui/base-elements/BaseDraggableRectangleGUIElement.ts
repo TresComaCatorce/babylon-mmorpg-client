@@ -3,20 +3,20 @@ import { Control, Rectangle } from '@babylonjs/gui';
 
 import BaseRectangleGUIElement from '@mmorpg/ui/base-elements/BaseRectangleGUIElement';
 import {
-	IBaseDraggableRectangleUIElementConstructorParams,
+	IBaseDraggableRectangleGUIElementConstructorParams,
 	percentageArea2D,
-} from '@mmorpg/interfaces/ui/base-elements/IBaseDraggableRectangleUIElement';
+} from '@mmorpg/interfaces/ui/base-elements/IBaseDraggableRectangleGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 import GameController from '@mmorpg/controllers/GameController';
 
-abstract class BaseDraggableRectangleUIElement extends BaseRectangleGUIElement {
+abstract class BaseDraggableRectangleGUIElement extends BaseRectangleGUIElement {
 	private _isDragging: boolean = false;
 	private _pointerPositionWhenStartDragging: Vector2 = new Vector2();
 	protected _dragControlArea: Rectangle = new Rectangle(`${this.elementName}${GUI_ELEMENT_NAMES.DRAGGABLE_CONTROL}`);
 
-	constructor(params: IBaseDraggableRectangleUIElementConstructorParams) {
+	constructor(params: IBaseDraggableRectangleGUIElementConstructorParams) {
 		super(params);
 		this._configureDragControlArea(params.dragControlAreaPercentage);
 		this._initializeDragEvents();
@@ -92,4 +92,4 @@ abstract class BaseDraggableRectangleUIElement extends BaseRectangleGUIElement {
 	}
 }
 
-export default BaseDraggableRectangleUIElement;
+export default BaseDraggableRectangleGUIElement;
