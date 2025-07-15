@@ -29,7 +29,7 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 	protected _setSize() {
 		const canvasElement = GameController.getInstance().canvasElement;
 		this.widthInPixels = canvasElement.width * 0.27;
-		this.heightInPixels = canvasElement.height * 0.7;
+		this.heightInPixels = canvasElement.height * 0.8;
 	}
 
 	protected _setLookAndFeel() {

@@ -4,6 +4,8 @@ enum GUI_ELEMENT_NAMES {
 	INVENTORY_PANEL = 'InventoryPanel',
 	WARP_MAPS_PANEL = 'WarpMapsPanel',
 	PLAYER_HP_INDICATOR = 'PlayerHPIndicator',
+	LIST = '-List',
+	MAIN_CONTENT_CONTAINER = '-MainContentContainer',
 	DRAGGABLE_CONTROL = '-DragControl',
 	CLOSE_BUTTON = '-CloseButton',
 	STACK_PANEL = '-StackPanel',

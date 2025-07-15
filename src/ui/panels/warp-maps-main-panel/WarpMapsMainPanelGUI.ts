@@ -1,4 +1,6 @@
 import { IWarpMapsMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/warp-maps-main-panel/IWarpMapsMainPanelGUI';
+import WarpMapsMainPanelGUIItemButton from '@mmorpg/ui/panels/warp-maps-main-panel/WarpMapsMainPanelGUIItemButton';
+import WarpMapsMainPanelGUIList from '@mmorpg/ui/panels/warp-maps-main-panel/WarpMapsMainPanelGUIList';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
@@ -8,6 +10,7 @@ import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterRelated {
 	private _characterInstance: PlayerCharacter;
+	private _mapsList: WarpMapsMainPanelGUIList;
 
 	constructor(params: IWarpMapsMainPanelGUIConstructorParams) {
 		super({
@@ -18,6 +21,10 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 			title: 'Warp Maps List',
 		});
 		this._characterInstance = params.characterInstance;
+		this._mapsList = new WarpMapsMainPanelGUIList();
+		this._configureMapList();
+		this._addAllMapsOptions();
+		this._mainContentContainer.addControl(this._mapsList);
 	}
 
 	protected _setDefaultPosition() {
@@ -29,11 +36,34 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 	protected _setSize() {
 		const canvasElement = GameController.getInstance().canvasElement;
 		this.widthInPixels = canvasElement.width * 0.27;
-		this.heightInPixels = canvasElement.height * 0.7;
+		this.heightInPixels = canvasElement.height * 0.8;
 	}
 
 	protected _setLookAndFeel() {
 		this.background = 'black';
+	}
+
+	private _configureMapList() {
+		// this._mapsList.background = 'red';
+	}
+
+	private _addAllMapsOptions() {
+		const itemToAdd = new WarpMapsMainPanelGUIItemButton({
+			elementName: 'MAP_GRASS',
+			buttonText: 'Grass',
+			onClick: () => {
+				console.log('Move to grass map');
+			},
+		});
+		const itemToAdd2 = new WarpMapsMainPanelGUIItemButton({
+			elementName: 'MAP_STONE',
+			buttonText: 'Stone',
+			onClick: () => {
+				console.log('Move to stone map');
+			},
+		});
+		this._mapsList.addItem(itemToAdd);
+		this._mapsList.addItem(itemToAdd2);
 	}
 
 	get characterInstance(): PlayerCharacter {

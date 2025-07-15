@@ -2,9 +2,4 @@ import { IBaseScrollViewerGUIElementConstructorParams } from '@mmorpg/interfaces
 
 type IBaseScrollableVerticalListGUIElementConstructorParams = IBaseScrollViewerGUIElementConstructorParams;
 
-interface ListItemConfig {
-	label: string;
-	onClick: () => void;
-}
-
-export { IBaseScrollableVerticalListGUIElementConstructorParams, ListItemConfig };
+export { IBaseScrollableVerticalListGUIElementConstructorParams };
