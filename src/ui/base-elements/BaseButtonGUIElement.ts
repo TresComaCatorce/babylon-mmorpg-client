@@ -5,6 +5,14 @@ import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseCon
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
+/**
+ * @abstract
+ * @class BaseButtonGUIElement
+ * @description Base class used to create a button.
+ * @param {string | undefined} buttonText - Text to show in the button.
+ * @param {MOUSE_CURSORS | undefined} onHoverCursor - Cursor to show in the "onHover" of the button.
+ * @param {() => void | undefined} onClick - Callback to execute when the user clicks in the button.
+ */
 abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIElement {
 	private _elementName: string;
 	private _onHoverCursor?: string;
