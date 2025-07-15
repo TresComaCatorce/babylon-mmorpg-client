@@ -9,6 +9,7 @@ import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
  * @abstract
  * @class BaseButtonGUIElement
  * @description Base class used to create a button.
+ * @param {string} elementName - Name of the button element.
  * @param {string | undefined} buttonText - Text to show in the button.
  * @param {MOUSE_CURSORS | undefined} onHoverCursor - Cursor to show in the "onHover" of the button.
  * @param {() => void | undefined} onClick - Callback to execute when the user clicks in the button.
