@@ -5,6 +5,8 @@ interface IBaseButtonGUIElementConstructorParams extends IBaseControlGUIElementC
 	buttonText?: string;
 	onHoverCursor?: MOUSE_CURSORS;
 	onClick?: () => void;
+	onHover?: () => void;
+	onPointerOut?: () => void;
 }
 
 export { IBaseButtonGUIElementConstructorParams };

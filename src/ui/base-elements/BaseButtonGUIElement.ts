@@ -18,6 +18,8 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	private _elementName: string;
 	private _onHoverCursor?: string;
 	private _onClickHandler?: () => void;
+	private _onHoverHandler?: () => void;
+	private _onPointerOutHandler?: () => void;
 	protected _text!: TextBlock;
 
 	constructor(params: IBaseButtonGUIElementConstructorParams) {
@@ -25,6 +27,8 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 		this._elementName = params.elementName;
 		this._onHoverCursor = params.onHoverCursor;
 		this._onClickHandler = params.onClick;
+		this._onHoverHandler = params.onHover;
+		this._onPointerOutHandler = params.onPointerOut;
 		this._setupButtonTextElement(params.buttonText);
 		this._setupButtonHoverPointer();
 		this._setupOnClickHandler();
@@ -39,14 +43,18 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	}
 
 	private _setupButtonHoverPointer() {
-		if (this._onHoverCursor) {
-			this.onPointerEnterObservable.add(() => {
-				document.body.style.cursor = this._onHoverCursor ?? MOUSE_CURSORS.DEFAULT;
-			});
-			this.onPointerOutObservable.add(() => {
-				document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
-			});
-		}
+		this.onPointerEnterObservable.add(() => {
+			document.body.style.cursor = this._onHoverCursor ?? MOUSE_CURSORS.DEFAULT;
+			if (this._onHoverHandler) {
+				this._onHoverHandler();
+			}
+		});
+		this.onPointerOutObservable.add(() => {
+			document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
+			if (this._onPointerOutHandler) {
+				this._onPointerOutHandler();
+			}
+		});
 	}
 
 	private _setupOnClickHandler() {
@@ -58,6 +66,10 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 
 	get elementName(): string {
 		return this._elementName;
+	}
+
+	set fontSize(value: string) {
+		this._text.fontSize = value;
 	}
 }
 
