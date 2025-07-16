@@ -9,7 +9,7 @@ class CloseButtonGUIElement extends BaseButtonGUIElement {
 	}
 
 	private _setupStyle() {
-		this._text.fontSize = 13;
+		this.text.fontSize = 13;
 		this.widthInPixels = 20;
 		this.heightInPixels = 20;
 		this.color = 'white';

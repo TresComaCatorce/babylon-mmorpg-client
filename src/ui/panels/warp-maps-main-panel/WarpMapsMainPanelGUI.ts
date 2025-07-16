@@ -51,11 +51,17 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 	private _addAllMapsOptions() {
 		for (let i = 0; MAPS_LIST.length > i; i++) {
 			const rawItemToAdd = MAPS_LIST[i];
+			const unmetRequirements = this._characterInstance.level < rawItemToAdd.levelRequired;
 			const itemToAdd = new WarpMapsMainPanelGUIItemButton({
 				elementName: rawItemToAdd.mapId,
 				buttonText: rawItemToAdd.displayName,
+				toolTipText: rawItemToAdd.disabledReason
+					? rawItemToAdd.disabledReason
+					: unmetRequirements
+						? 'You do not meet the requirements to move to this location.'
+						: undefined,
 				enabled: rawItemToAdd.enabled,
-				unmetRequirements: this._characterInstance.level < rawItemToAdd.levelRequired,
+				unmetRequirements,
 				onClick: () => {
 					console.log('Move to grass map');
 				},

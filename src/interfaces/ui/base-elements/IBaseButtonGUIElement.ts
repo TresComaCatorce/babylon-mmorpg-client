@@ -3,6 +3,7 @@ import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
 interface IBaseButtonGUIElementConstructorParams extends IBaseControlGUIElementConstructorParams {
 	buttonText?: string;
+	toolTipText?: string;
 	enabled?: boolean;
 	onHoverCursor?: MOUSE_CURSORS;
 	onClick?: () => void;

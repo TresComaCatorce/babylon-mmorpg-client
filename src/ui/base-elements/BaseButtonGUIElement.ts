@@ -4,6 +4,7 @@ import { IBaseButtonGUIElementConstructorParams } from '@mmorpg/interfaces/ui/ba
 import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
+import ToolTipManager from '../managers/ToolTipManager';
 
 const DEFAULT_HEIGHT = 22;
 const DEFAULT_COLOR = 'white';
@@ -29,7 +30,7 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	private _onClickHandler?: () => void;
 	private _onHoverHandler?: () => void;
 	private _onPointerOutHandler?: () => void;
-	protected _text!: TextBlock;
+	private _textElement!: TextBlock;
 
 	constructor(params: IBaseButtonGUIElementConstructorParams) {
 		super(params.elementName);
@@ -40,6 +41,7 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 		this._onHoverHandler = params.onHover;
 		this._onPointerOutHandler = params.onPointerOut;
 		this._setupButtonTextElement(params.buttonText);
+		this._setupToolTipElement(params.toolTipText);
 		this._setupButtonHoverPointer();
 		this._setupOnClickHandler();
 		this._configureLookAndFeel();
@@ -54,11 +56,17 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	}
 
 	private _setupButtonTextElement(buttonText: string = '') {
-		this._text = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.BUTTON_TEXT}`);
-		this._text.text = buttonText;
-		this._text.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-		this._text.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-		this.addControl(this._text);
+		this._textElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TEXT}`);
+		this._textElement.text = buttonText;
+		this._textElement.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+		this._textElement.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+		this.addControl(this._textElement);
+	}
+
+	private _setupToolTipElement(toolTipText?: string) {
+		if (toolTipText) {
+			ToolTipManager.attach(this, toolTipText);
+		}
 	}
 
 	private _setupButtonHoverPointer() {
@@ -97,8 +105,12 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 		return this._enabled;
 	}
 
+	get text(): TextBlock {
+		return this._textElement;
+	}
+
 	set fontSize(value: string) {
-		this._text.fontSize = value;
+		this._textElement.fontSize = value;
 	}
 }
 

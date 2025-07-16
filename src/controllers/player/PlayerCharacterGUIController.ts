@@ -4,12 +4,13 @@ import { Nullable } from '@babylonjs/core';
 import { IPlayerCharacterGUIControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IPlayerCharacterGUIController';
 import BasePlayerCharacterController from '@mmorpg/controllers/base/BasePlayerCharacterController';
 import InventoryMainPanelGUI from '@mmorpg/ui/panels/inventory-main-panel/InventoryMainPanelGUI';
+import WarpMapsMainPanelGUI from '@mmorpg/ui/panels/warp-maps-main-panel/WarpMapsMainPanelGUI';
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import { createControlsInfoHelper } from '@mmorpg/ui/helpers/controls-info-helper';
 import MainNavbarGUI from '@mmorpg/ui/navbars/main-navbar/MainNavbarGUI';
 import ScenesController from '@mmorpg/controllers/ScenesController';
+import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
-import WarpMapsMainPanelGUI from '@mmorpg/ui/panels/warp-maps-main-panel/WarpMapsMainPanelGUI';
 
 class PlayerCharacterGUIController extends BasePlayerCharacterController {
 	private _guiTexture: AdvancedDynamicTexture;
@@ -44,7 +45,15 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 	}
 
 	private _createGUITextureInstance(): AdvancedDynamicTexture {
-		return AdvancedDynamicTexture.CreateFullscreenUI('Player Character GUI Texture', true, ScenesController.getInstance().currentSceneInstance);
+		const guiInstanceCreated = AdvancedDynamicTexture.CreateFullscreenUI(
+			'Player Character GUI Texture',
+			true,
+			ScenesController.getInstance().currentSceneInstance,
+		);
+
+		ToolTipManager.initialize(guiInstanceCreated);
+
+		return guiInstanceCreated;
 	}
 
 	private _addElementToGUITexture(elementToAdd: Control) {
