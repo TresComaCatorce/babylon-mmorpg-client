@@ -53,11 +53,22 @@ class ScenesController extends BaseController {
 	 * @param {BaseScene} newScene - The new scene to switch to.
 	 * @returns {void}
 	 */
-	public switchToScene(newScene: BaseScene): void {
+	public async switchToScene(newScene: BaseScene): Promise<void> {
+		// Clears the previous scene if it exists
 		if (this._currentScene) {
 			this._currentScene.disposeScene();
 		}
+
+		// Switch the current scene
 		this._currentScene = newScene;
+
+		// Show Inspector if in development mode
+		if (process.env.NODE_ENV === 'development') {
+			await import('@babylonjs/inspector');
+			await newScene.debugLayer.show();
+		}
+
+		// Execute the "loaded" method of the current scene
 		this._currentScene.loaded();
 	}
 

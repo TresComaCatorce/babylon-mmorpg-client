@@ -21,7 +21,6 @@ abstract class BaseScene extends Scene {
 		super(GameController.getInstance().engine);
 		this.metadata = { sceneName: params.sceneName };
 		this.preload();
-		this._showInspectorInDevelopmentMode();
 		this._createGlowLayer();
 	}
 
@@ -52,19 +51,6 @@ abstract class BaseScene extends Scene {
 
 	private _createGlowLayer() {
 		this._glowLayer = new GlowLayer('glow', this);
-	}
-
-	/**
-	 * @description Shows the Babylon.js inspector if running in development mode.
-	 * @access private
-	 * @returns {void}
-	 */
-	private _showInspectorInDevelopmentMode(): void {
-		if (process.env.NODE_ENV === 'development') {
-			import('@babylonjs/inspector').then(() => {
-				this.debugLayer.show();
-			});
-		}
 	}
 
 	get sceneName(): string {
