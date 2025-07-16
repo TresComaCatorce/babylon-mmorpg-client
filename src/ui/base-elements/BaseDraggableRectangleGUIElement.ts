@@ -40,7 +40,7 @@ abstract class BaseDraggableRectangleGUIElement extends BaseRectangleGUIElement 
 
 	private _setupDragControlAreaMousePointer() {
 		this._dragControlArea.onPointerEnterObservable.add(() => {
-			document.body.style.cursor = MOUSE_CURSORS.MOVE;
+			document.body.style.cursor = MOUSE_CURSORS.GRAB;
 		});
 		this._dragControlArea.onPointerOutObservable.add(() => {
 			document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
