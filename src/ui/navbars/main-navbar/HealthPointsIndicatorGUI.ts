@@ -2,7 +2,7 @@ import { Ellipse, Rectangle, Control, TextBlock } from '@babylonjs/gui';
 
 import { IHealthPointsIndicatorGUIConstructorParams } from '@mmorpg/interfaces/ui/navbars/main-navbar/IHealthPointsIndicatorGUI';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
-import BaseContainerUIElement from '@mmorpg/ui/base-elements/BaseContainerUIElement';
+import BaseContainerGUIElement from '@mmorpg/ui/base-elements/BaseContainerGUIElement';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 
@@ -15,7 +15,7 @@ const BORDER_THICKNESS = 5;
 const BACKGROUND_CIRCLE_COLOR = 'gray';
 const FILL_CIRCLE_COLOR = 'red';
 
-export class HealthPointsIndicator extends BaseContainerUIElement implements IPlayerCharacterRelated {
+export class HealthPointsIndicator extends BaseContainerGUIElement implements IPlayerCharacterRelated {
 	private _playerInstance: PlayerCharacter;
 	private _backgroundCircle!: Ellipse;
 	private _fillContainer!: Rectangle;

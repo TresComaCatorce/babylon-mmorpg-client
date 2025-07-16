@@ -1,26 +1,39 @@
-import { Control } from '@babylonjs/gui';
-
-import { InventoryMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/inventory-main-panel/IInventoryMainPanelGUI';
+import { IInventoryMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/inventory-main-panel/IInventoryMainPanelGUI';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import BaseMainPanelGUI from '@mmorpg/ui/panels/BaseMainPanelGUI';
+import GameController from '@mmorpg/controllers/GameController';
+import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterRelated {
 	private _characterInstance: PlayerCharacter;
 
-	constructor(params: InventoryMainPanelGUIConstructorParams) {
-		super({ elementName: GUI_ELEMENT_NAMES.INVENTORY_PANEL });
+	constructor(params: IInventoryMainPanelGUIConstructorParams) {
+		super({
+			elementName: GUI_ELEMENT_NAMES.INVENTORY_PANEL,
+			closePanel: () => {
+				this._characterInstance.keyboardInputController?.simulateToggleKeyPressed(KEY_CODES.V);
+			},
+			title: `Inventory [${params.characterInstance.name}]`,
+		});
 		this._characterInstance = params.characterInstance;
-		this._configure();
 	}
 
-	private _configure() {
-		this.width = '200px';
-		this.height = '400px';
+	protected _setDefaultPosition() {
+		const canvasElement = GameController.getInstance().canvasElement;
+		this.leftInPixels = canvasElement.width - this.widthInPixels - canvasElement.width * 0.01;
+		this.topInPixels = canvasElement.height / 2 - this.heightInPixels / 2;
+	}
+
+	protected _setSize() {
+		const canvasElement = GameController.getInstance().canvasElement;
+		this.widthInPixels = canvasElement.width * 0.27;
+		this.heightInPixels = canvasElement.height * 0.8;
+	}
+
+	protected _setupLookAndFeel() {
 		this.background = 'black';
-		this.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-		this.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 	}
 
 	get characterInstance(): PlayerCharacter {

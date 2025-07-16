@@ -6,8 +6,8 @@ import {
 	IToggleCallbacks,
 	IActionCallbacks,
 } from '@mmorpg/interfaces/controllers/input/IKeyboardInputController';
-import BaseController from '@mmorpg/controllers/BaseController';
-import BaseScene from '@mmorpg/scenes/BaseScene';
+import BaseController from '@mmorpg/controllers/base/BaseController';
+import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 /**
  * TODO: Implement singleton on this controller.
@@ -40,7 +40,7 @@ class KeyboardInputController extends BaseController {
 		return !!this._inputMap[key.toLowerCase()];
 	}
 
-	public addToggleKey(key: string, callbacks: IToggleCallbacks, displayName?: string): void {
+	public addToggleKey(key: string, callbacks: IToggleCallbacks, displayName?: string) {
 		const k = key.toLowerCase();
 		this._toggleKeyCallbacks[k] = callbacks;
 
@@ -51,6 +51,24 @@ class KeyboardInputController extends BaseController {
 			this._toggleDisplayNames[k] = displayName;
 		}
 
+		this._renderToggleDebugStatus();
+	}
+
+	/**
+	 * @description
+	 * Simulates a key press for a registered toggle key, executing the same logic as if the user
+	 * had physically pressed the key. This is useful when you want to trigger the toggle behavior
+	 * (e.g., opening or closing a menu) from somewhere else in the code, such as when clicking a UI button.
+	 *
+	 * The toggle state is inverted, and the corresponding callback (onSwitchON or onSwitchOFF) is executed.
+	 * It also updates the debug UI if enabled.
+	 *
+	 * @param {string} key The toggle key to simulate (e.g., 'v'). Case-insensitive.
+	 * @returns {void}
+	 */
+	public simulateToggleKeyPressed(key: string): void {
+		this._onUpdateToggleLogic(key, true);
+		this._onUpdateToggleLogic(key, false);
 		this._renderToggleDebugStatus();
 	}
 
@@ -65,10 +83,6 @@ class KeyboardInputController extends BaseController {
 		delete this._toggleKeyCallbacks[k];
 		delete this._toggleKeyStates[k];
 		delete this._toggleKeyValues[k];
-	}
-
-	public isToggleOn(key: string): boolean {
-		return !!this._toggleKeyValues[key.toLowerCase()];
 	}
 
 	public dispose(): void {
@@ -92,6 +106,7 @@ class KeyboardInputController extends BaseController {
 	}
 
 	private _onKeyPressedCallback(kbInfo: KeyboardInfo): void {
+		console.table(this._toggleKeyStates);
 		const eventKeyCode = kbInfo.event.key.toLowerCase();
 		const isKeyDownEventType = kbInfo.type === KeyboardEventTypes.KEYDOWN;
 		this._onUpdateKeyPressedLogic(kbInfo, eventKeyCode, isKeyDownEventType);

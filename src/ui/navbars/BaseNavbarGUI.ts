@@ -1,7 +1,7 @@
 import { IBaseNavbarGUIConstructorParams } from '@mmorpg/interfaces/ui/navbars/IBaseNavbarGUI';
-import BaseContainerUIElement from '@mmorpg/ui/base-elements/BaseContainerUIElement';
+import BaseContainerGUIElement from '@mmorpg/ui/base-elements/BaseContainerGUIElement';
 
-abstract class BaseNavbarGUI extends BaseContainerUIElement {
+abstract class BaseNavbarGUI extends BaseContainerGUIElement {
 	constructor(params: IBaseNavbarGUIConstructorParams) {
 		super(params);
 	}

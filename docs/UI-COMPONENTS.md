@@ -1,8 +1,8 @@
-# UI Components list
+# GUI Components list
 
 ## Panel
 
-Base UI component, can contain al other types of components
+Base GUI component, can contain al other types of components
 
 ## Helper
 

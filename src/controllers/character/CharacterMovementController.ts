@@ -1,7 +1,7 @@
 import { Vector3 } from '@babylonjs/core';
 
 import { ICharacterMovementControllerConstructorParams } from '@mmorpg/interfaces/controllers/character/ICharacterMovementController';
-import BaseCharacterController from '@mmorpg/controllers/character/BaseCharacterController';
+import BaseCharacterController from '@mmorpg/controllers/base/BaseCharacterController';
 import MOVEMENT_STATES from '@mmorpg/utils/constants/MOVEMENT_STATES';
 
 abstract class CharacterMovementController extends BaseCharacterController {

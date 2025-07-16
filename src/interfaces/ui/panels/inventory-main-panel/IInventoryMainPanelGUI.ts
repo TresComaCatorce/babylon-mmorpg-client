@@ -1,5 +1,5 @@
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 
-type InventoryMainPanelGUIConstructorParams = IPlayerCharacterRelated;
+type IInventoryMainPanelGUIConstructorParams = IPlayerCharacterRelated;
 
-export { InventoryMainPanelGUIConstructorParams };
+export { IInventoryMainPanelGUIConstructorParams };

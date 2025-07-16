@@ -11,16 +11,17 @@ import ScenesController from '@mmorpg/controllers/ScenesController';
 import FollowPlayerCamera from '@mmorpg/camera/FollowPlayerCamera';
 
 class PlayerCharacter extends BaseCharacter {
-	private _walkSpeed: number = 0.08;
-	private _walkAcceleration: number = 0.1;
-	private _runSpeed: number = 0.16;
-	private _runAcceleration: number = 0.1;
-
 	private _kbInputController: Nullable<KeyboardInputController> = null;
 	private _guiController: Nullable<PlayerCharacterGUIController> = null;
 	private _movementController: Nullable<PlayerCharacterMovementController> = null;
 	private _animationController: Nullable<PlayerCharacterAnimationsController> = null;
 	private _inventoryController: Nullable<PlayerCharacterInventoryController> = null;
+
+	private _level: number = 10;
+	private _walkSpeed: number = 0.08;
+	private _walkAcceleration: number = 0.1;
+	private _runSpeed: number = 0.16;
+	private _runAcceleration: number = 0.1;
 
 	constructor(params: IPlayerCharacterConstructorParams) {
 		super(params);
@@ -109,6 +110,10 @@ class PlayerCharacter extends BaseCharacter {
 
 	get movementController(): Nullable<PlayerCharacterMovementController> {
 		return this._movementController;
+	}
+
+	get level(): number {
+		return this._level;
 	}
 
 	get walkSpeed(): number {

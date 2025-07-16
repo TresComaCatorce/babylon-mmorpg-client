@@ -1,5 +1,5 @@
-import { IBaseContainerUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseContainerUIElement';
+import { IBaseContainerGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseContainerGUIElement';
 
-type IBasePanelGUIConstructorParams = IBaseContainerUIElementConstructorParams;
+type IBasePanelGUIConstructorParams = IBaseContainerGUIElementConstructorParams;
 
 export { IBasePanelGUIConstructorParams };

@@ -1,4 +1,4 @@
-import BaseScene from '@mmorpg/scenes/BaseScene';
+import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 interface IKeyboardInputControllerConstructorParams {
 	scene: BaseScene;

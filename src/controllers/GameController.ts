@@ -1,8 +1,8 @@
 import { Engine } from '@babylonjs/core';
 
+import BaseController from '@mmorpg/controllers/base/BaseController';
 import ScenesController from '@mmorpg/controllers/ScenesController';
-import BaseController from '@mmorpg/controllers/BaseController';
-import LoadingScene from '@mmorpg/scenes/LoadingScene';
+import LoadingScene from '@mmorpg/scenes/virtuals/LoadingScene';
 
 /**
  * @class GameController
@@ -66,8 +66,8 @@ class GameController extends BaseController {
 	 */
 	public startGame(): void {
 		if (!this._gameStarted) {
-			ScenesController.getInstance().switchToScene(new LoadingScene());
 			console.log('Game started');
+			ScenesController.getInstance().switchToScene(new LoadingScene());
 			this._gameStarted = true;
 		} else {
 			console.log('Game already started');

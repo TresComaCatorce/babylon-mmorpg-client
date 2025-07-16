@@ -1,5 +1,8 @@
 import { IBasePanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/IBasePanelGUI';
 
-type IBaseMainPanelGUIConstructorParams = IBasePanelGUIConstructorParams;
+interface IBaseMainPanelGUIConstructorParams extends IBasePanelGUIConstructorParams {
+	title?: string;
+	closePanel?: () => void;
+}
 
 export { IBaseMainPanelGUIConstructorParams };

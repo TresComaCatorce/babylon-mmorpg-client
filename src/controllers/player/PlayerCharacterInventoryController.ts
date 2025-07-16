@@ -1,5 +1,5 @@
 import { IPlayerCharacterInventoryControllerConstructorParams } from '@mmorpg/interfaces/controllers/player/IPlayerCharacterInventoryController';
-import BasePlayerCharacterController from '@mmorpg/controllers/player/BasePlayerCharacterController';
+import BasePlayerCharacterController from '@mmorpg/controllers/base/BasePlayerCharacterController';
 import Inventory from '@mmorpg/game-objects/inventory/Inventory';
 import BaseItem from '@mmorpg/game-objects/inventory/BaseItem';
 

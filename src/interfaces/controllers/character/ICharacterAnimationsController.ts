@@ -1,4 +1,4 @@
-import { IBaseCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/character/IBaseCharacterController';
+import { IBaseCharacterControllerConstructorParams } from '@mmorpg/interfaces/controllers/base/IBaseCharacterController';
 
 type ICharacterAnimationsControllerConstructorParams = IBaseCharacterControllerConstructorParams;
 
