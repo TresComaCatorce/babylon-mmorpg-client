@@ -3,6 +3,7 @@ import { IBaseControlGUIElementConstructorParams } from '@mmorpg/interfaces/ui/b
 interface IWarpMapsMainPanelGUIItemButtonConstructorParams extends IBaseControlGUIElementConstructorParams {
 	buttonText: string;
 	enabled: boolean;
+	unmetRequirements: boolean;
 	onClick: () => void;
 }
 

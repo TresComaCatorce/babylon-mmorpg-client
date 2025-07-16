@@ -55,6 +55,7 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 				elementName: rawItemToAdd.mapId,
 				buttonText: rawItemToAdd.displayName,
 				enabled: rawItemToAdd.enabled,
+				unmetRequirements: this._characterInstance.level < rawItemToAdd.levelRequired,
 				onClick: () => {
 					console.log('Move to grass map');
 				},

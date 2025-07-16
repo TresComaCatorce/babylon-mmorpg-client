@@ -7,7 +7,7 @@ import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
 const DEFAULT_HEIGHT = 22;
 const DEFAULT_COLOR = 'white';
-const DEFAULT_DISABLED_COLOR = 'red';
+const DEFAULT_DISABLED_COLOR = '#545454ff';
 const DEFAULT_BACKGROUND_COLOR = '#121111ff';
 const DEFAULT_HOVER_BACKGROUND_COLOR = '#353434ff';
 const DEFAULT_FONT_SIZE = '13px';
@@ -91,6 +91,10 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 
 	get elementName(): string {
 		return this._elementName;
+	}
+
+	get enabled(): boolean {
+		return this._enabled;
 	}
 
 	set fontSize(value: string) {

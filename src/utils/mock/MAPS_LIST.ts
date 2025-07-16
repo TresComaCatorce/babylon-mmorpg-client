@@ -10,7 +10,7 @@ export default [
 	{
 		mapId: 'STONE_MAP',
 		displayName: 'Stone',
-		enabled: false,
+		enabled: true,
 		disabledReason: 'This location is only available on Mondays.',
 		levelRequired: 10,
 		goldRequired: 750,
