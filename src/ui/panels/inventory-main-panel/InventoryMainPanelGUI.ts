@@ -32,7 +32,7 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 		this.heightInPixels = canvasElement.height * 0.8;
 	}
 
-	protected _setLookAndFeel() {
+	protected _setupLookAndFeel() {
 		this.background = 'black';
 	}
 

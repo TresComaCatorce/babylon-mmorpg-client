@@ -34,7 +34,7 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 		this._setCornerRadius();
 		this._setSize();
 		this._setDefaultPosition();
-		this._setLookAndFeel();
+		this._setupLookAndFeel();
 		this._setPanelOverlapBehaviour();
 		this._addCloseButton(params.closePanel);
 		this._createMainContentContainer();
@@ -44,7 +44,7 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 
 	protected abstract _setDefaultPosition(): void;
 
-	protected abstract _setLookAndFeel(): void;
+	protected abstract _setupLookAndFeel(): void;
 
 	protected _addToPanelContentContainer(elementToAdd: IBaseControlGUIElement) {
 		this._mainContentContainer.addControl(elementToAdd);

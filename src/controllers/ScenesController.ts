@@ -70,6 +70,7 @@ class ScenesController extends BaseController {
 
 		// Execute the "loaded" method of the current scene
 		this._currentScene.loaded();
+		GameController.getInstance().canvasElement.focus();
 	}
 
 	get currentSceneInstance(): Nullable<BaseScene> {

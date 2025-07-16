@@ -44,10 +44,10 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 		this._setupToolTipElement(params.toolTipText);
 		this._setupButtonHoverPointer();
 		this._setupOnClickHandler();
-		this._configureLookAndFeel();
+		this._setupLookAndFeel();
 	}
 
-	private _configureLookAndFeel() {
+	private _setupLookAndFeel() {
 		this.heightInPixels = DEFAULT_HEIGHT;
 		this.fontSize = DEFAULT_FONT_SIZE;
 		this.color = this._enabled ? DEFAULT_COLOR : DEFAULT_DISABLED_COLOR;
@@ -83,6 +83,9 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 				this.background = DEFAULT_BACKGROUND_COLOR;
 				this._onPointerOutHandler();
 			}
+		});
+		this.onDisposeObservable.add(() => {
+			document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
 		});
 	}
 

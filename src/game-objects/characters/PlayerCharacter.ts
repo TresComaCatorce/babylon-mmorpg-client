@@ -17,7 +17,7 @@ class PlayerCharacter extends BaseCharacter {
 	private _animationController: Nullable<PlayerCharacterAnimationsController> = null;
 	private _inventoryController: Nullable<PlayerCharacterInventoryController> = null;
 
-	private _level: number = 1;
+	private _level: number = 10;
 	private _walkSpeed: number = 0.08;
 	private _walkAcceleration: number = 0.1;
 	private _runSpeed: number = 0.16;

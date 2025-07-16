@@ -4,8 +4,11 @@ import WarpMapsMainPanelGUIList from '@mmorpg/ui/panels/warp-maps-main-panel/War
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
+import ScenesController from '@mmorpg/controllers/ScenesController';
 import BaseMainPanelGUI from '@mmorpg/ui/panels/BaseMainPanelGUI';
 import GameController from '@mmorpg/controllers/GameController';
+import GrassMapScene from '@mmorpg/scenes/maps/GrassMapScene';
+import StoneMapScene from '@mmorpg/scenes/maps/StoneMapScene';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 import MAPS_LIST from '@mmorpg/utils/mock/MAPS_LIST';
 
@@ -40,7 +43,7 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 		this.heightInPixels = canvasElement.height * 0.8;
 	}
 
-	protected _setLookAndFeel() {
+	protected _setupLookAndFeel() {
 		this.background = 'black';
 	}
 
@@ -63,7 +66,14 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 				enabled: rawItemToAdd.enabled,
 				unmetRequirements,
 				onClick: () => {
-					console.log('Move to grass map');
+					switch (rawItemToAdd.mapId) {
+						case 'GRASS_MAP':
+							ScenesController.getInstance().switchToScene(new GrassMapScene());
+							break;
+						case 'STONE_MAP':
+							ScenesController.getInstance().switchToScene(new StoneMapScene());
+							break;
+					}
 				},
 			});
 			this._mapsList.addMapToList(itemToAdd);

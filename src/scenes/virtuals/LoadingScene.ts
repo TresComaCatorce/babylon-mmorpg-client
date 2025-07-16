@@ -1,14 +1,4 @@
-import {
-	PointerEventTypes,
-	PointerInfo,
-	Vector3,
-	ArcRotateCamera,
-	HemisphericLight,
-	DynamicTexture,
-	MeshBuilder,
-	StandardMaterial,
-	Color3,
-} from '@babylonjs/core';
+import { Vector3, ArcRotateCamera, HemisphericLight, DynamicTexture, MeshBuilder, StandardMaterial, Color3 } from '@babylonjs/core';
 
 import ScenesController from '@mmorpg/controllers/ScenesController';
 import BaseVirtualScene from '@mmorpg/scenes/base/BaseVirtualScene';
@@ -47,8 +37,8 @@ class LoadingScene extends BaseVirtualScene {
 
 		ground.rotation.y = Math.PI;
 
-		const textureWidth = 800;
-		const textureHeight = 300;
+		const textureWidth = 1000;
+		const textureHeight = 200;
 		const texture = new DynamicTexture('dynamic texture', { width: textureWidth, height: textureHeight }, this, false);
 		texture.hasAlpha = false;
 
@@ -56,21 +46,13 @@ class LoadingScene extends BaseVirtualScene {
 		ctx.fillStyle = '#696969';
 		ctx.fillRect(0, 0, textureWidth, textureHeight);
 
-		texture.drawText('Loading', null, textureHeight / 2, 'bold 110px Arial', 'black', '#f8f8ff', true);
+		texture.drawText('Loading resources...', null, textureHeight / 2, 'bold 90px Arial', 'black', '#f8f8ff', true);
 
 		const mat = new StandardMaterial('textMat', this);
 		mat.diffuseTexture = texture;
 		mat.backFaceCulling = false;
 		mat.specularColor = new Color3(0, 0, 0);
 		ground.material = mat;
-
-		this.onPointerObservable.add((pointerInfo: PointerInfo) => {
-			if (pointerInfo.type === PointerEventTypes.POINTERDOWN) {
-				if (pointerInfo?.pickInfo?.hit && pointerInfo.pickInfo.pickedMesh === ground) {
-					this._switchToLoginScene();
-				}
-			}
-		});
 	}
 
 	public loaded() {

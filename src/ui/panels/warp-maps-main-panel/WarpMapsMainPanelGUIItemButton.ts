@@ -9,6 +9,11 @@ class WarpMapsMainPanelGUIItemButton extends BaseButtonGUIElement {
 		super({
 			...params,
 			onHoverCursor: MOUSE_CURSORS.POINTER,
+			onClick: () => {
+				if (!params.unmetRequirements) {
+					params.onClick();
+				}
+			},
 		});
 		this._unmetRequirements = params.unmetRequirements;
 		this._setColorByUnmetRequirements();
