@@ -15,12 +15,12 @@ abstract class BaseScrollableVerticalListGUIElement extends BaseScrollViewerGUIE
 		this._configureStackPanel();
 	}
 
-	public addItem(itemToAdd: Control): void {
-		this._stackPanel.addControl(itemToAdd);
-	}
-
 	public clear(): void {
 		this._stackPanel.clearControls();
+	}
+
+	protected _addItem(itemToAdd: Control): void {
+		this._stackPanel.addControl(itemToAdd);
 	}
 
 	private _createStackPanel() {
@@ -39,6 +39,7 @@ abstract class BaseScrollableVerticalListGUIElement extends BaseScrollViewerGUIE
 		this._stackPanel.width = 1;
 		this._stackPanel.paddingLeftInPixels = 5;
 		this._stackPanel.paddingRightInPixels = 5;
+		this._stackPanel.paddingBottom = 5;
 		this.addControl(this._stackPanel);
 	}
 }

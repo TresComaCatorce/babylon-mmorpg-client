@@ -7,6 +7,7 @@ import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import BaseMainPanelGUI from '@mmorpg/ui/panels/BaseMainPanelGUI';
 import GameController from '@mmorpg/controllers/GameController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
+import MAPS_LIST from '@mmorpg/utils/mock/MAPS_LIST';
 
 class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterRelated {
 	private _characterInstance: PlayerCharacter;
@@ -48,22 +49,18 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 	}
 
 	private _addAllMapsOptions() {
-		const itemToAdd = new WarpMapsMainPanelGUIItemButton({
-			elementName: 'MAP_GRASS',
-			buttonText: 'Grass',
-			onClick: () => {
-				console.log('Move to grass map');
-			},
-		});
-		const itemToAdd2 = new WarpMapsMainPanelGUIItemButton({
-			elementName: 'MAP_STONE',
-			buttonText: 'Stone',
-			onClick: () => {
-				console.log('Move to stone map');
-			},
-		});
-		this._mapsList.addItem(itemToAdd);
-		this._mapsList.addItem(itemToAdd2);
+		for (let i = 0; MAPS_LIST.length > i; i++) {
+			const rawItemToAdd = MAPS_LIST[i];
+			const itemToAdd = new WarpMapsMainPanelGUIItemButton({
+				elementName: rawItemToAdd.mapId,
+				buttonText: rawItemToAdd.displayName,
+				enabled: rawItemToAdd.enabled,
+				onClick: () => {
+					console.log('Move to grass map');
+				},
+			});
+			this._mapsList.addMapToList(itemToAdd);
+		}
 	}
 
 	get characterInstance(): PlayerCharacter {

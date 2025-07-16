@@ -5,6 +5,14 @@ import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseCon
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
+const DEFAULT_HEIGHT = 22;
+const DEFAULT_COLOR = 'white';
+const DEFAULT_DISABLED_COLOR = 'red';
+const DEFAULT_BACKGROUND_COLOR = '#121111ff';
+const DEFAULT_HOVER_BACKGROUND_COLOR = '#353434ff';
+const DEFAULT_FONT_SIZE = '13px';
+const DEFAULT_CORNER_RADIUS = 5;
+
 /**
  * @abstract
  * @class BaseButtonGUIElement
@@ -16,6 +24,7 @@ import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
  */
 abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIElement {
 	private _elementName: string;
+	private _enabled: boolean;
 	private _onHoverCursor?: string;
 	private _onClickHandler?: () => void;
 	private _onHoverHandler?: () => void;
@@ -25,6 +34,7 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	constructor(params: IBaseButtonGUIElementConstructorParams) {
 		super(params.elementName);
 		this._elementName = params.elementName;
+		this._enabled = params.enabled === true || params.enabled === false ? params.enabled : true;
 		this._onHoverCursor = params.onHoverCursor;
 		this._onClickHandler = params.onClick;
 		this._onHoverHandler = params.onHover;
@@ -32,6 +42,15 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 		this._setupButtonTextElement(params.buttonText);
 		this._setupButtonHoverPointer();
 		this._setupOnClickHandler();
+		this._configureLookAndFeel();
+	}
+
+	private _configureLookAndFeel() {
+		this.heightInPixels = DEFAULT_HEIGHT;
+		this.fontSize = DEFAULT_FONT_SIZE;
+		this.color = this._enabled ? DEFAULT_COLOR : DEFAULT_DISABLED_COLOR;
+		this.background = DEFAULT_BACKGROUND_COLOR;
+		this.cornerRadius = DEFAULT_CORNER_RADIUS;
 	}
 
 	private _setupButtonTextElement(buttonText: string = '') {
@@ -44,24 +63,30 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 
 	private _setupButtonHoverPointer() {
 		this.onPointerEnterObservable.add(() => {
-			document.body.style.cursor = this._onHoverCursor ?? MOUSE_CURSORS.DEFAULT;
-			if (this._onHoverHandler) {
+			document.body.style.cursor = this._enabled ? (this._onHoverCursor ?? MOUSE_CURSORS.DEFAULT) : MOUSE_CURSORS.NOT_ALLOWED;
+			if (this._enabled && this._onHoverHandler) {
+				this.background = DEFAULT_HOVER_BACKGROUND_COLOR;
 				this._onHoverHandler();
 			}
 		});
 		this.onPointerOutObservable.add(() => {
 			document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
-			if (this._onPointerOutHandler) {
+			if (this._enabled && this._onPointerOutHandler) {
+				this.background = DEFAULT_BACKGROUND_COLOR;
 				this._onPointerOutHandler();
 			}
 		});
 	}
 
-	private _setupOnClickHandler() {
-		if (this._onClickHandler) {
-			this.isHitTestVisible = true;
-			this.onPointerUpObservable.add(this._onClickHandler.bind(this));
+	private _localClickHandler() {
+		if (this._enabled && this._onClickHandler) {
+			this._onClickHandler();
 		}
+	}
+
+	private _setupOnClickHandler() {
+		this.isHitTestVisible = true;
+		this.onPointerUpObservable.add(this._localClickHandler.bind(this));
 	}
 
 	get elementName(): string {
