@@ -1,31 +1,59 @@
 # Babylon MMORPG Client
 
-An MMORPG client built with [BabylonJS](https://www.babylonjs.com/) and [TypeScript](https://www.typescriptlang.org/), using [Webpack](https://webpack.js.org/) for bundling and [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) for code quality.
+An MMORPG client built with [BabylonJS](https://www.babylonjs.com/) and TypeScript, using Webpack for bundling and ESLint + Prettier for code quality.
 
 ---
 
-## 📚 Project Documentation
+## Available Scripts
 
-- 🚀 [Getting Started Guide](./docs/GETTING_STARTED.md)  
-  Step-by-step instructions to set up the project locally and run it.
+These scripts are defined in the `package.json` file and help with development, building, and maintaining the project.
 
-- 🧩 [Main Dependencies](./docs/MAIN_DEPENDENCIES.md)  
-  Overview of the main tools and dependencies used in this project.
-
-- 📜 [Available Scripts](./docs/SCRIPTS.md)  
-  List and explanation of npm scripts available in this project.
-
-- 📂 [Git Workflows Overview](./docs/GIT_WORKFLOWS.md)  
-  Overview of Git branching strategies including Feature, Release, and Hotfix workflows.
-
-- 🛠️ [Webpack Configuration](./docs/WEBPACK_CONFIG.md)  
-  Explanation and details of the Webpack setup, including common, development, and production configurations.
-
-<!-- Future docs can be listed here -->
+| Command                   | Description                                                                                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm start`               | Runs the development server with Webpack (`webpack-dev-server`) in development mode. Automatically opens the browser and enables hot reload.            |
+| `npm run build`           | Cleans the `dist` folder and creates an optimized production build.                                                                                     |
+| `npm run build:dev`       | Cleans the `dist` folder and creates a development build for faster testing without optimizations.                                                      |
+| `npm run lint`            | Runs ESLint on the TypeScript and JSON files and automatically fixes detected issues.                                                                   |
+| `npm run lint:check`      | Runs ESLint to check for code issues without applying fixes.                                                                                            |
+| `npm run format`          | Formats all TypeScript and JSON files using Prettier to maintain consistent code style.                                                                 |
+| `npm run clean`           | Removes the `dist` folder to clean up previous build files.                                                                                             |
+| `npm run deploy-gh-pages` | Build the project in `production` mode and deploy it in the branch `gh-pages` to expose using [GitHub Pages](https://docs.github.com/en/pages) feature. |
 
 ---
 
-### 👤 Author
+## Additional Details
+
+- **Environment variables:** Uses [`cross-env`](https://www.npmjs.com/package/cross-env) for cross-platform compatibility of the `NODE_ENV` environment variable in scripts.
+- **ESLint & Prettier:** The project uses ESLint for code validation and Prettier for automatic formatting to ensure clean and consistent code.
+- **Webpack:** Configured with separate files for development (`webpack.dev.js`) and production (`webpack.prod.js`), using `webpack-merge` to share common configuration.
+- **TypeScript:** Used for static typing and modern development benefits.
+
+---
+
+## Getting Started
+
+1. Clone the repository.
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Start the development server:
+
+    ```bash
+    npm start
+    ```
+
+4. Create an optimized production build:
+
+    ```bash
+    npm run build
+    ```
+
+---
+
+### Author
 
 Cristian Ferrero
 
