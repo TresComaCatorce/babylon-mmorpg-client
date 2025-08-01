@@ -13,6 +13,7 @@
 		"paths": {
 			"@mmorpg/assets/*": ["assets/*"],
 			"@mmorpg/controllers/*": ["controllers/*"],
+			"@mmorpg/factories/*": ["factories/*"],
 			"@mmorpg/interfaces/*": ["interfaces/*"],
 			"@mmorpg/scenes/*": ["scenes/*"],
 			"@mmorpg/utils/*": ["utils/*"],
