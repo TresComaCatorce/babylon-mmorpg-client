@@ -1,0 +1,308 @@
+{
+	"asset": {
+		"generator": "Khronos glTF Blender I/O v4.4.56",
+		"version": "2.0"
+	},
+	"extensionsUsed": ["KHR_materials_specular"],
+	"scene": 0,
+	"scenes": [
+		{
+			"name": "Scene",
+			"nodes": [3]
+		}
+	],
+	"nodes": [
+		{
+			"name": "Box03",
+			"rotation": [-0.9238795638084412, -0.38268333673477173, -5.2418918983221374e-8, 1.4516010082843422e-7],
+			"scale": [1, 0.9999998807907104, 1],
+			"translation": [-2.986591100692749, 3.1558547019958496, -0.11879399418830872]
+		},
+		{
+			"mesh": 0,
+			"name": "medicine1.jpg",
+			"skin": 0
+		},
+		{
+			"mesh": 1,
+			"name": "medicine2.jpg",
+			"skin": 0
+		},
+		{
+			"children": [1, 2, 0],
+			"name": "Armature",
+			"rotation": [0.7071068286895752, 0, 0, 0.7071068286895752],
+			"scale": [0.009999999776482582, 0.009999999776482582, 0.009999999776482582]
+		}
+	],
+	"materials": [
+		{
+			"doubleSided": true,
+			"extensions": {
+				"KHR_materials_specular": {
+					"specularColorFactor": [2.0, 2.0, 2.0]
+				}
+			},
+			"name": "medicine1.jpg.001",
+			"pbrMetallicRoughness": {
+				"baseColorTexture": {
+					"index": 0
+				},
+				"metallicFactor": 0.30000001192092896
+			}
+		},
+		{
+			"doubleSided": true,
+			"extensions": {
+				"KHR_materials_specular": {
+					"specularColorFactor": [2.0, 2.0, 2.0]
+				}
+			},
+			"name": "medicine2.jpg.001",
+			"pbrMetallicRoughness": {
+				"baseColorTexture": {
+					"index": 1
+				},
+				"metallicFactor": 0.30000001192092896
+			}
+		}
+	],
+	"meshes": [
+		{
+			"name": "Mesh.002",
+			"primitives": [
+				{
+					"attributes": {
+						"POSITION": 0,
+						"NORMAL": 1,
+						"TEXCOORD_0": 2,
+						"JOINTS_0": 3,
+						"WEIGHTS_0": 4
+					},
+					"indices": 5,
+					"material": 0
+				}
+			]
+		},
+		{
+			"name": "Mesh.003",
+			"primitives": [
+				{
+					"attributes": {
+						"POSITION": 7,
+						"NORMAL": 8,
+						"TEXCOORD_0": 9,
+						"JOINTS_0": 10,
+						"WEIGHTS_0": 11
+					},
+					"indices": 12,
+					"material": 1
+				}
+			]
+		}
+	],
+	"textures": [
+		{
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"sampler": 0,
+			"source": 1
+		}
+	],
+	"images": [
+		{
+			"mimeType": "image/jpeg",
+			"name": "medicine1.jpg",
+			"uri": "medicine1.jpg"
+		},
+		{
+			"mimeType": "image/jpeg",
+			"name": "medicine2.jpg",
+			"uri": "medicine2.jpg"
+		}
+	],
+	"skins": [
+		{
+			"inverseBindMatrices": 6,
+			"joints": [0],
+			"name": "Armature"
+		}
+	],
+	"accessors": [
+		{
+			"bufferView": 0,
+			"componentType": 5126,
+			"count": 15,
+			"max": [0.07405799627304077, 0.23227699100971222, 0.07425199449062347],
+			"min": [-0.07255899906158447, 0.0011879944941028953, -0.07236500829458237],
+			"type": "VEC3"
+		},
+		{
+			"bufferView": 1,
+			"componentType": 5126,
+			"count": 15,
+			"type": "VEC3"
+		},
+		{
+			"bufferView": 2,
+			"componentType": 5126,
+			"count": 15,
+			"type": "VEC2"
+		},
+		{
+			"bufferView": 3,
+			"componentType": 5121,
+			"count": 15,
+			"type": "VEC4"
+		},
+		{
+			"bufferView": 4,
+			"componentType": 5126,
+			"count": 15,
+			"type": "VEC4"
+		},
+		{
+			"bufferView": 5,
+			"componentType": 5123,
+			"count": 54,
+			"type": "SCALAR"
+		},
+		{
+			"bufferView": 6,
+			"componentType": 5126,
+			"count": 1,
+			"type": "MAT4"
+		},
+		{
+			"bufferView": 7,
+			"componentType": 5126,
+			"count": 10,
+			"max": [0.03500499576330185, 0.2742939889431, 0.035199981182813644],
+			"min": [-0.03350700065493584, 0.23227699100971222, -0.033313021063804626],
+			"type": "VEC3"
+		},
+		{
+			"bufferView": 8,
+			"componentType": 5126,
+			"count": 10,
+			"type": "VEC3"
+		},
+		{
+			"bufferView": 9,
+			"componentType": 5126,
+			"count": 10,
+			"type": "VEC2"
+		},
+		{
+			"bufferView": 10,
+			"componentType": 5121,
+			"count": 10,
+			"type": "VEC4"
+		},
+		{
+			"bufferView": 11,
+			"componentType": 5126,
+			"count": 10,
+			"type": "VEC4"
+		},
+		{
+			"bufferView": 12,
+			"componentType": 5123,
+			"count": 30,
+			"type": "SCALAR"
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 180,
+			"byteOffset": 0,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 180,
+			"byteOffset": 180,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 120,
+			"byteOffset": 360,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 60,
+			"byteOffset": 480,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 240,
+			"byteOffset": 540,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 108,
+			"byteOffset": 780,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 64,
+			"byteOffset": 888
+		},
+		{
+			"buffer": 0,
+			"byteLength": 120,
+			"byteOffset": 952,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 120,
+			"byteOffset": 1072,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 80,
+			"byteOffset": 1192,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 40,
+			"byteOffset": 1272,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 160,
+			"byteOffset": 1312,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 60,
+			"byteOffset": 1472,
+			"target": 34963
+		}
+	],
+	"samplers": [
+		{
+			"magFilter": 9729,
+			"minFilter": 9987
+		}
+	],
+	"buffers": [
+		{
+			"byteLength": 1532,
+			"uri": "hp_potion_small.bin"
+		}
+	]
+}
