@@ -1,5 +1,8 @@
+import { Nullable } from '@babylonjs/core';
+
 import { IInventoryMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels/inventory-main-panel/IInventoryMainPanelGUI';
 import IPlayerCharacterRelated from '@mmorpg/interfaces/common-interfaces/IPlayerCharacterRelated';
+import InventoryGridGUIElement from '@mmorpg/ui/common-elements/inventory/InventoryGridGUIElement';
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import BaseMainPanelGUI from '@mmorpg/ui/panels/BaseMainPanelGUI';
@@ -8,6 +11,7 @@ import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterRelated {
 	private _characterInstance: PlayerCharacter;
+	private _inventoryGridInstance: Nullable<InventoryGridGUIElement> = null;
 
 	constructor(params: IInventoryMainPanelGUIConstructorParams) {
 		super({
@@ -18,6 +22,7 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 			title: `Inventory [${params.characterInstance.name}]`,
 		});
 		this._characterInstance = params.characterInstance;
+		this._drawContent();
 	}
 
 	protected _setDefaultPosition() {
@@ -27,13 +32,36 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 	}
 
 	protected _setSize() {
-		const canvasElement = GameController.getInstance().canvasElement;
-		this.widthInPixels = canvasElement.width * 0.27;
-		this.heightInPixels = canvasElement.height * 0.8;
+		this.widthInPixels = 25 * 14 + 4; // 25px * 14 inventory slots + 4px of border (2px * 2)
+		this.heightInPixels = 25 * 28 + 35; // 25px * 28 inventory slots + height of panel title
 	}
 
 	protected _setupLookAndFeel() {
 		this.background = 'black';
+		this._dragControlArea.thickness = 0;
+	}
+
+	private _drawContent() {
+		const inventoryController = this._characterInstance.inventoryController;
+		if (inventoryController) {
+			const inventory = inventoryController.inventory;
+			if (inventory) {
+				const inventorySlotSize = Math.trunc(this.widthInPixels / 14);
+				this._inventoryGridInstance = new InventoryGridGUIElement({
+					elementName: `${GUI_ELEMENT_NAMES.INVENTORY_PANEL}${GUI_ELEMENT_NAMES.GRID}`,
+					associatedInventory: inventory,
+					slotSize: {
+						width: inventorySlotSize,
+						height: inventorySlotSize,
+					},
+				});
+				this._addToPanelContentContainer(this._inventoryGridInstance);
+			} else {
+				throw new Error('InventoryMainPanelGUI.ts | _drawContent | Error "inventory" doesn\'t exist');
+			}
+		} else {
+			throw new Error('InventoryMainPanelGUI.ts | _drawContent | Error "inventoryController" doesn\'t exist');
+		}
 	}
 
 	get characterInstance(): PlayerCharacter {

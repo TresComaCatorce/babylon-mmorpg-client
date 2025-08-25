@@ -92,7 +92,7 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 
 	private _createMainContentContainer() {
 		this.onResizeObservable.add(({ height }) => {
-			const topToApply = this._dragControlArea.heightInPixels * 1.2;
+			const topToApply = this._dragControlArea.heightInPixels;
 			this._mainContentContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
 			this._mainContentContainer.heightInPixels = height - topToApply;
 			this._mainContentContainer.topInPixels = topToApply;

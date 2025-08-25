@@ -112,6 +112,10 @@ class PlayerCharacter extends BaseCharacter {
 		return this._movementController;
 	}
 
+	get inventoryController(): Nullable<PlayerCharacterInventoryController> {
+		return this._inventoryController;
+	}
+
 	get level(): number {
 		return this._level;
 	}

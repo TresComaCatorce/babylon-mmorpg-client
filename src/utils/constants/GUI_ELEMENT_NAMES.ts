@@ -12,6 +12,8 @@ enum GUI_ELEMENT_NAMES {
 	STACK_PANEL = '-StackPanel',
 	TEXT = '-Text',
 	TITLE = '-Title',
+	GRID = '-Grid',
+	ICON = '-Icon',
 }
 
 export default GUI_ELEMENT_NAMES;
