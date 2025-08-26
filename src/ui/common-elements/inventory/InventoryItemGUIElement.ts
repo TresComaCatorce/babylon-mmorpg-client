@@ -4,6 +4,7 @@ import { IInventoryItemGUIElementConstructorParams } from '@mmorpg/interfaces/ui
 import BaseInventoryItem from '@mmorpg/game-objects/inventory/items/base/BaseInventoryItem';
 import BaseRectangleGUIElement from '@mmorpg/ui/base-elements/BaseRectangleGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
+import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 
 class InventoryItemGUIElement extends BaseRectangleGUIElement {
 	private _itemObjectData: BaseInventoryItem;
@@ -14,15 +15,29 @@ class InventoryItemGUIElement extends BaseRectangleGUIElement {
 		this._itemObjectData = params.itemObject;
 		this._setupLookAndFeel();
 		this._setupItemIcon();
+		this._setupMousePointer();
 	}
 
 	private _setupLookAndFeel() {
-		this.thickness = 0;
+		this.cornerRadius = 3;
+		this.thickness = 1;
+		this.color = 'transparent';
 	}
 
 	private _setupItemIcon() {
 		this._itemIcon.source = this._itemObjectData.iconUrl;
 		this.addControl(this._itemIcon);
+	}
+
+	private _setupMousePointer() {
+		this.onPointerEnterObservable.add(() => {
+			document.body.style.cursor = MOUSE_CURSORS.POINTER;
+			this.color = 'rgba(255,255,255,0.7)';
+		});
+		this.onPointerOutObservable.add(() => {
+			document.body.style.cursor = MOUSE_CURSORS.DEFAULT;
+			this.color = 'transparent';
+		});
 	}
 }
 
