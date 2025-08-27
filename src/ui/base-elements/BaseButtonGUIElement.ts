@@ -4,7 +4,7 @@ import { IBaseButtonGUIElementConstructorParams } from '@mmorpg/interfaces/ui/ba
 import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
-import ToolTipManager from '../managers/ToolTipManager';
+import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
 
 const DEFAULT_HEIGHT = 22;
 const DEFAULT_COLOR = 'white';

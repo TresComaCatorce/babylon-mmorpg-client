@@ -5,6 +5,7 @@ import BaseInventoryItem from '@mmorpg/game-objects/inventory/items/base/BaseInv
 import BaseRectangleGUIElement from '@mmorpg/ui/base-elements/BaseRectangleGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
+import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
 
 class InventoryItemGUIElement extends BaseRectangleGUIElement {
 	private _itemObjectData: BaseInventoryItem;
@@ -16,6 +17,7 @@ class InventoryItemGUIElement extends BaseRectangleGUIElement {
 		this._setupLookAndFeel();
 		this._setupItemIcon();
 		this._setupMousePointer();
+		ToolTipManager.attach(this, this._itemObjectData.name);
 	}
 
 	private _setupLookAndFeel() {
