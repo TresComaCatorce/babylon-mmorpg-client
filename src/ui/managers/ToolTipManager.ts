@@ -1,42 +1,40 @@
-import { AdvancedDynamicTexture, Rectangle, TextBlock, Control } from '@babylonjs/gui';
+import { AdvancedDynamicTexture, Rectangle, Control } from '@babylonjs/gui';
 
+import { IToolTipManagerAttachParams, IToolTipManagerInitializeParams } from '@mmorpg/interfaces/ui/managers/IToolTipManager';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import GameController from '@mmorpg/controllers/GameController';
 
-const DEFAULT_FONT_SIZE = 13;
-
 class ToolTipManager {
 	private static _toolTipContainer: Rectangle;
-	private static _toolTipText: TextBlock;
+	private static _toolTipContent: Control;
 	private static _guiLayer: AdvancedDynamicTexture;
 	private static _initialized = false;
 
 	private static _pointerX = 0;
 	private static _pointerY = 0;
 
-	public static initialize(ui: AdvancedDynamicTexture): void {
+	public static initialize(params: IToolTipManagerInitializeParams): void {
 		if (this._initialized) return;
-		this._guiLayer = ui;
+		this._guiLayer = params.guiTexture;
 		this._createToolTipContainer();
-		this._createToolTipText();
 		this._addToolTipToGUILayer();
 		this._initialized = true;
 		this._addToolTipMouseMoveEvent();
 	}
 
-	public static attach(control: Control, text: string): void {
-		control.onPointerEnterObservable.add(() => {
+	public static attach(params: IToolTipManagerAttachParams): void {
+		params.owner.onPointerEnterObservable.add(() => {
 			if (this._initialized) {
-				const characterWidth = DEFAULT_FONT_SIZE * 0.5;
-				this._toolTipText.text = text;
-				this._toolTipText.widthInPixels = characterWidth * text.length;
+				this._toolTipContent = params.content;
+				this._toolTipContainer.addControl(this._toolTipContent);
 				this._toolTipContainer.isVisible = true;
 			}
 		});
 
-		control.onPointerOutObservable.add(() => {
+		params.owner.onPointerOutObservable.add(() => {
 			if (this._initialized) {
 				this._toolTipContainer.isVisible = false;
+				this._toolTipContainer.removeControl(this._toolTipContent);
 			}
 		});
 	}
@@ -59,20 +57,7 @@ class ToolTipManager {
 		this._toolTipContainer.adaptHeightToChildren = true;
 	}
 
-	private static _createToolTipText() {
-		this._toolTipText = new TextBlock(`${GUI_ELEMENT_NAMES.TOOLTIP}${GUI_ELEMENT_NAMES.TEXT}`, '');
-		this._toolTipText.color = 'white';
-		this._toolTipText.fontSize = DEFAULT_FONT_SIZE;
-		this._toolTipText.textWrapping = true;
-		this._toolTipText.resizeToFit = true;
-		this._toolTipText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-		this._toolTipText.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-		this._toolTipText.paddingTopInPixels = 10;
-		this._toolTipText.paddingBottomInPixels = 10;
-	}
-
 	private static _addToolTipToGUILayer() {
-		this._toolTipContainer.addControl(this._toolTipText);
 		this._guiLayer.addControl(this._toolTipContainer);
 	}
 

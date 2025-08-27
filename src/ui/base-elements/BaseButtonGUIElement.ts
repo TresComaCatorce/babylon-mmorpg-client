@@ -11,7 +11,7 @@ const DEFAULT_COLOR = 'white';
 const DEFAULT_DISABLED_COLOR = '#545454ff';
 const DEFAULT_BACKGROUND_COLOR = '#121111ff';
 const DEFAULT_HOVER_BACKGROUND_COLOR = '#353434ff';
-const DEFAULT_FONT_SIZE = '13px';
+const DEFAULT_FONT_SIZE_IN_PX = 13;
 const DEFAULT_CORNER_RADIUS = 5;
 
 /**
@@ -31,6 +31,7 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	private _onHoverHandler?: () => void;
 	private _onPointerOutHandler?: () => void;
 	private _textElement!: TextBlock;
+	private _toolTipElement!: TextBlock;
 
 	constructor(params: IBaseButtonGUIElementConstructorParams) {
 		super(params.elementName);
@@ -49,7 +50,7 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 
 	private _setupLookAndFeel() {
 		this.heightInPixels = DEFAULT_HEIGHT;
-		this.fontSize = DEFAULT_FONT_SIZE;
+		this.fontSizeInPixels = DEFAULT_FONT_SIZE_IN_PX;
 		this.color = this._enabled ? DEFAULT_COLOR : DEFAULT_DISABLED_COLOR;
 		this.background = DEFAULT_BACKGROUND_COLOR;
 		this.cornerRadius = DEFAULT_CORNER_RADIUS;
@@ -65,7 +66,18 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 
 	private _setupToolTipElement(toolTipText?: string) {
 		if (toolTipText) {
-			ToolTipManager.attach(this, toolTipText);
+			this._toolTipElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TOOLTIP}`, toolTipText);
+			this._toolTipElement.color = 'white';
+			this._toolTipElement.fontSizeInPixels = DEFAULT_FONT_SIZE_IN_PX;
+			this._toolTipElement.textWrapping = true;
+			this._toolTipElement.resizeToFit = true;
+			this._toolTipElement.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+			this._toolTipElement.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+			this._toolTipElement.paddingTopInPixels = 10;
+			this._toolTipElement.paddingBottomInPixels = 10;
+			const characterWidth = DEFAULT_FONT_SIZE_IN_PX * 0.5;
+			this._toolTipElement.widthInPixels = characterWidth * toolTipText.length;
+			ToolTipManager.attach({ owner: this, content: this._toolTipElement });
 		}
 	}
 

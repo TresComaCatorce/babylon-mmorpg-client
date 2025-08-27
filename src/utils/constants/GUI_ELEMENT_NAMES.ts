@@ -14,6 +14,9 @@ enum GUI_ELEMENT_NAMES {
 	TITLE = '-Title',
 	GRID = '-Grid',
 	ICON = '-Icon',
+	TOOLTIP_CONTENT = '-ToolTipContent',
+	ITEM = '-Item',
+	BACKGROUND = '-Background',
 }
 
 export default GUI_ELEMENT_NAMES;

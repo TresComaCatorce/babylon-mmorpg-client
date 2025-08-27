@@ -10,6 +10,7 @@ import {
 	IInventorySlotGUIElementAddContentParams,
 	INVENTORY_SLOT_STATES,
 } from '@mmorpg/interfaces/ui/common-elements/inventory/IInventorySlotGUIElement';
+import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import IOffsetGUI from '@mmorpg/interfaces/ui/IOffsetGUI';
 
 const SLOT_IMAGES_URLS = {
@@ -35,7 +36,7 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 	private _content: Nullable<BaseInventoryItem> = null;
 	private _slotSizeInPixels: IInventorySize;
 	private _offset: IOffsetGUI;
-	private _inventorySlotImageGuiElement: Image = new Image('cbf-56', SLOT_IMAGES_URLS.EMPTY);
+	private _inventorySlotImageGuiElement: Image = new Image(`${this.elementName}${GUI_ELEMENT_NAMES.BACKGROUND}`, SLOT_IMAGES_URLS.EMPTY);
 	private _inventoryItemGuiElement: Nullable<InventoryItemGUIElement> = null;
 
 	public setContent(params: IInventorySlotGUIElementAddContentParams) {
@@ -67,7 +68,10 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 	private _createInventoryItemGUIElement(itemObjectToCreate: Nullable<BaseInventoryItem>) {
 		if (!itemObjectToCreate) return;
 
-		this._inventoryItemGuiElement = new InventoryItemGUIElement({ elementName: 'ajshbd', itemObject: itemObjectToCreate });
+		this._inventoryItemGuiElement = new InventoryItemGUIElement({
+			elementName: `${this.elementName}${GUI_ELEMENT_NAMES.ITEM}`,
+			itemObject: itemObjectToCreate,
+		});
 		this._inventoryItemGuiElement.widthInPixels = this._slotSizeInPixels.width;
 		this._inventoryItemGuiElement.heightInPixels = this._slotSizeInPixels.height;
 		this._inventoryItemGuiElement.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;

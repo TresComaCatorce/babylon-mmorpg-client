@@ -45,15 +45,15 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 	}
 
 	private _createGUITextureInstance(): AdvancedDynamicTexture {
-		const guiInstanceCreated = AdvancedDynamicTexture.CreateFullscreenUI(
+		const guiTextureInstanceCreated = AdvancedDynamicTexture.CreateFullscreenUI(
 			'Player Character GUI Texture',
 			true,
 			ScenesController.getInstance().currentSceneInstance,
 		);
 
-		ToolTipManager.initialize(guiInstanceCreated);
+		ToolTipManager.initialize({ guiTexture: guiTextureInstanceCreated });
 
-		return guiInstanceCreated;
+		return guiTextureInstanceCreated;
 	}
 
 	private _addElementToGUITexture(elementToAdd: Control) {
