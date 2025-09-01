@@ -1,18 +1,16 @@
-import { Button, Control, TextBlock } from '@babylonjs/gui';
+import { Button, Rectangle, TextBlock } from '@babylonjs/gui';
 
 import { IBaseButtonGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseButtonGUIElement';
 import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
+import GUI_DEFAULT_VALUES from '@mmorpg/utils/constants/GUI_DEFAULT_VALUES';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
 
-const DEFAULT_HEIGHT = 22;
-const DEFAULT_COLOR = 'white';
+const DEFAULT_COLOR = 'rgba(255,255,255,0.8)';
 const DEFAULT_DISABLED_COLOR = '#545454ff';
 const DEFAULT_BACKGROUND_COLOR = '#121111ff';
 const DEFAULT_HOVER_BACKGROUND_COLOR = '#353434ff';
-const DEFAULT_FONT_SIZE_IN_PX = 13;
-const DEFAULT_CORNER_RADIUS = 5;
 
 /**
  * @abstract
@@ -31,7 +29,7 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	private _onHoverHandler?: () => void;
 	private _onPointerOutHandler?: () => void;
 	private _textElement!: TextBlock;
-	private _toolTipElement!: TextBlock;
+	private _toolTipElement!: Rectangle;
 
 	constructor(params: IBaseButtonGUIElementConstructorParams) {
 		super(params.elementName);
@@ -49,35 +47,47 @@ abstract class BaseButtonGUIElement extends Button implements IBaseControlGUIEle
 	}
 
 	private _setupLookAndFeel() {
-		this.heightInPixels = DEFAULT_HEIGHT;
-		this.fontSizeInPixels = DEFAULT_FONT_SIZE_IN_PX;
 		this.color = this._enabled ? DEFAULT_COLOR : DEFAULT_DISABLED_COLOR;
 		this.background = DEFAULT_BACKGROUND_COLOR;
-		this.cornerRadius = DEFAULT_CORNER_RADIUS;
+		this.cornerRadius = GUI_DEFAULT_VALUES.DEFAULT_CORNER_RADIUS_SMALL;
+		this.fontSizeInPixels = GUI_DEFAULT_VALUES.DEFAULT_FONT_SIZE_IN_PX;
+		this.adaptWidthToChildren = true;
+		this.adaptHeightToChildren = true;
 	}
 
 	private _setupButtonTextElement(buttonText: string = '') {
 		this._textElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TEXT}`);
 		this._textElement.text = buttonText;
-		this._textElement.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-		this._textElement.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+		this._textElement.resizeToFit = true;
+		this._textElement.paddingTopInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_TOP_IN_PX;
+		this._textElement.paddingBottomInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_BOTTOM_IN_PX;
+		this._textElement.paddingLeftInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_LEFT_IN_PX;
+		this._textElement.paddingRightInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_RIGHT_IN_PX;
 		this.addControl(this._textElement);
 	}
 
 	private _setupToolTipElement(toolTipText?: string) {
 		if (toolTipText) {
-			this._toolTipElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TOOLTIP}`, toolTipText);
-			this._toolTipElement.color = 'white';
-			this._toolTipElement.fontSizeInPixels = DEFAULT_FONT_SIZE_IN_PX;
-			this._toolTipElement.textWrapping = true;
-			this._toolTipElement.resizeToFit = true;
-			this._toolTipElement.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-			this._toolTipElement.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-			this._toolTipElement.paddingTopInPixels = 10;
-			this._toolTipElement.paddingBottomInPixels = 10;
-			const characterWidth = DEFAULT_FONT_SIZE_IN_PX * 0.5;
-			this._toolTipElement.widthInPixels = characterWidth * toolTipText.length;
-			ToolTipManager.attach({ owner: this, content: this._toolTipElement });
+			this._toolTipElement = new Rectangle(`${this.elementName}${GUI_ELEMENT_NAMES.TOOLTIP}${GUI_ELEMENT_NAMES.CONTAINER}`);
+			this._toolTipElement.color = 'rgba(250,200,35,0.8)';
+			this._toolTipElement.background = 'black';
+			this._toolTipElement.thickness = 1;
+			this._toolTipElement.cornerRadius = GUI_DEFAULT_VALUES.DEFAULT_CORNER_RADIUS_SMALL;
+			this._toolTipElement.alpha = 0.8;
+			this._toolTipElement.adaptWidthToChildren = true;
+			this._toolTipElement.adaptHeightToChildren = true;
+
+			const toolTipTextElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TOOLTIP}${GUI_ELEMENT_NAMES.TEXT}`, toolTipText);
+			toolTipTextElement.color = 'rgba(255,255,255,0.8)';
+			toolTipTextElement.resizeToFit = true;
+			toolTipTextElement.fontSizeInPixels = GUI_DEFAULT_VALUES.DEFAULT_FONT_SIZE_IN_PX;
+			toolTipTextElement.paddingTopInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_TOP_IN_PX;
+			toolTipTextElement.paddingBottomInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_BOTTOM_IN_PX;
+			toolTipTextElement.paddingLeftInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_LEFT_IN_PX;
+			toolTipTextElement.paddingRightInPixels = GUI_DEFAULT_VALUES.DEFAULT_PADDING_RIGHT_IN_PX;
+
+			this._toolTipElement.addControl(toolTipTextElement);
+			ToolTipManager.getInstance().attach({ owner: this, content: this._toolTipElement });
 		}
 	}
 

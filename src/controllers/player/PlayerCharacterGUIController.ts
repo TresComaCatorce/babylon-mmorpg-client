@@ -8,8 +8,7 @@ import WarpMapsMainPanelGUI from '@mmorpg/ui/panels/warp-maps-main-panel/WarpMap
 import KeyboardInputController from '@mmorpg/controllers/input/KeyboardInputController';
 import { createControlsInfoHelper } from '@mmorpg/ui/helpers/controls-info-helper';
 import MainNavbarGUI from '@mmorpg/ui/navbars/main-navbar/MainNavbarGUI';
-import ScenesController from '@mmorpg/controllers/ScenesController';
-import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
+import GUIController from '@mmorpg/controllers/GUIController';
 import KEY_CODES from '@mmorpg/utils/constants/KEY_CODES';
 
 class PlayerCharacterGUIController extends BasePlayerCharacterController {
@@ -27,7 +26,7 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 
 	constructor(params: IPlayerCharacterGUIControllerConstructorParams) {
 		super(params);
-		this._guiTexture = this._createGUITextureInstance();
+		this._guiTexture = GUIController.getInstance().guiAdvanceDynamicTexture;
 		this._kbInputController = this._characterInstance.keyboardInputController;
 		this._addToggleKeys();
 		this._createMainNavBar();
@@ -42,18 +41,6 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 
 	public dispose() {
 		this._kbInputController = null;
-	}
-
-	private _createGUITextureInstance(): AdvancedDynamicTexture {
-		const guiTextureInstanceCreated = AdvancedDynamicTexture.CreateFullscreenUI(
-			'Player Character GUI Texture',
-			true,
-			ScenesController.getInstance().currentSceneInstance,
-		);
-
-		ToolTipManager.initialize({ guiTexture: guiTextureInstanceCreated });
-
-		return guiTextureInstanceCreated;
 	}
 
 	private _addElementToGUITexture(elementToAdd: Control) {
@@ -107,28 +94,28 @@ class PlayerCharacterGUIController extends BasePlayerCharacterController {
 	private _openInventoryPanel() {
 		if (this._inventoryMainPanelInstance) {
 			this._isInventoryMainPanelOpen = true;
-			this._inventoryMainPanelInstance.isVisible = true;
+			this._inventoryMainPanelInstance.show();
 		}
 	}
 
 	private _closeInventoryPanel() {
 		if (this._inventoryMainPanelInstance) {
 			this._isInventoryMainPanelOpen = false;
-			this._inventoryMainPanelInstance.isVisible = false;
+			this._inventoryMainPanelInstance.hide();
 		}
 	}
 
 	private _openWarpMapsPanel() {
 		if (this._warpMapsMainPanelInstance) {
 			this._isWarpMapsMainPanelOpen = true;
-			this._warpMapsMainPanelInstance.isVisible = true;
+			this._warpMapsMainPanelInstance.show();
 		}
 	}
 
 	private _closeWarpMapsPanel() {
 		if (this._warpMapsMainPanelInstance) {
 			this._isWarpMapsMainPanelOpen = false;
-			this._warpMapsMainPanelInstance.isVisible = false;
+			this._warpMapsMainPanelInstance.hide();
 		}
 	}
 }

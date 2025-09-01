@@ -2,6 +2,7 @@ import { Nullable } from '@babylonjs/core';
 
 import BaseController from '@mmorpg/controllers/base/BaseController';
 import GameController from '@mmorpg/controllers/GameController';
+import GUIController from '@mmorpg/controllers/GUIController';
 import BaseScene from '@mmorpg/scenes/base/BaseScene';
 
 /**
@@ -70,6 +71,11 @@ class ScenesController extends BaseController {
 
 		// Execute the "loaded" method of the current scene
 		this._currentScene.loaded();
+
+		// Assign the new "currentScene" to the "GUIController"
+		GUIController.getInstance().assignCurrentScene();
+
+		// Focus the game canvas
 		GameController.getInstance().canvasElement.focus();
 	}
 

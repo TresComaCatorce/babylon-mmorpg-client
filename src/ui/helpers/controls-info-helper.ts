@@ -7,7 +7,7 @@ const createControlsInfoHelper = () => {
 	infoBox.widthInPixels = 270;
 	infoBox.heightInPixels = 190;
 	infoBox.cornerRadius = 10;
-	infoBox.color = 'white';
+	infoBox.color = 'rgba(255,255,255,0.8)';
 	infoBox.thickness = 1;
 	infoBox.background = '#000000AA';
 	infoBox.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -29,7 +29,7 @@ const createControlsInfoHelper = () => {
 	const closeButton = Button.CreateSimpleButton('close', '✕');
 	closeButton.width = '30px';
 	closeButton.height = '30px';
-	closeButton.color = 'white';
+	closeButton.color = 'rgba(255,255,255,0.8)';
 	closeButton.background = '#AA0000';
 	closeButton.cornerRadius = 5;
 	closeButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
@@ -51,7 +51,7 @@ const createControlsInfoHelper = () => {
 	const infoText = new TextBlock('Texto');
 	infoText.text =
 		'\n• [W-A-S-D] Movement\n• [Hold mouse left-click] Rotate camera\n• [Mouse scroll] Zoom\n• [Shift] Run\n• [Caps Lock] Run lock/unlock\n• [G] Glow \n• [1-5] Equip/remove armor\n • [-] Decrease HP\n • [+] Add HP';
-	infoText.color = 'white';
+	infoText.color = 'rgba(255,255,255,0.8)';
 	infoText.fontSize = 13;
 	infoText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 	infoText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;

@@ -11,8 +11,8 @@ abstract class BaseScrollableVerticalListGUIElement extends BaseScrollViewerGUIE
 	constructor(params: IBaseScrollableVerticalListGUIElementConstructorParams) {
 		super(params);
 		this._createStackPanel();
-		this._configure();
-		this._configureStackPanel();
+		this._setupLookAndFeel();
+		this._setupStackPanel();
 	}
 
 	public clear(): void {
@@ -27,12 +27,12 @@ abstract class BaseScrollableVerticalListGUIElement extends BaseScrollViewerGUIE
 		this._stackPanel = new ScrollableVerticalListGUIElementStackPanel({ elementName: `${this.elementName}${GUI_ELEMENT_NAMES.STACK_PANEL}` });
 	}
 
-	private _configure() {
+	private _setupLookAndFeel() {
 		this.thickness = 0;
 		this.barSize = 10;
 	}
 
-	private _configureStackPanel() {
+	private _setupStackPanel() {
 		this._stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 		this._stackPanel.isVertical = true;
 		this._stackPanel.spacing = 5;

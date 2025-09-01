@@ -16,7 +16,13 @@ class WarpMapsMainPanelGUIItemButton extends BaseButtonGUIElement {
 			},
 		});
 		this._unmetRequirements = params.unmetRequirements;
+		this.__setupLookAndFeel();
 		this._setColorByUnmetRequirements();
+	}
+
+	private __setupLookAndFeel() {
+		this.adaptWidthToChildren = false;
+		this.width = '100%';
 	}
 
 	private _setColorByUnmetRequirements() {

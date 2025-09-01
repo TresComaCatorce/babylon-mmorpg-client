@@ -45,10 +45,12 @@ class WarpMapsMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacterR
 
 	protected _setupLookAndFeel() {
 		this.background = 'black';
+		this._dragControlArea.thickness = 0;
 	}
 
 	private _configureMapList() {
-		// this._mapsList.background = 'red';
+		this._mapsList.thickness = 1;
+		this._mapsList.color = 'rgba(255,255,255,0.8)';
 	}
 
 	private _addAllMapsOptions() {

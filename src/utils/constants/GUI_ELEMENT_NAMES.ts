@@ -17,6 +17,7 @@ enum GUI_ELEMENT_NAMES {
 	TOOLTIP_CONTENT = '-ToolTipContent',
 	ITEM = '-Item',
 	BACKGROUND = '-Background',
+	CONTAINER = '-Container',
 }
 
 export default GUI_ELEMENT_NAMES;

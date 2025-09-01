@@ -88,7 +88,7 @@ export class HealthPointsIndicator extends BaseContainerGUIElement implements IP
 
 	private _createHPValuesText() {
 		this._hpValuesText = new TextBlock('HP Text');
-		this._hpValuesText.color = 'white';
+		this._hpValuesText.color = 'rgba(255,255,255,0.8)';
 		this._hpValuesText.fontSize = '13px';
 		this._hpValuesText.fontFamily = 'Arial';
 		this._hpValuesText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;

@@ -46,7 +46,7 @@ class InventoryItemGUIElement extends BaseRectangleGUIElement {
 
 	private _setupToolTip() {
 		this._itemToolTipGuiElement = new InventoryItemToolTipGUIElement({ owner: this, inventoryItemObjectData: this._itemObjectData });
-		ToolTipManager.attach({ owner: this, content: this._itemToolTipGuiElement });
+		ToolTipManager.getInstance().attach({ owner: this, content: this._itemToolTipGuiElement });
 	}
 }
 

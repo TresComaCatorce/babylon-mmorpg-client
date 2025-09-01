@@ -6,6 +6,7 @@ import { IBaseMainPanelGUIConstructorParams } from '@mmorpg/interfaces/ui/panels
 import IBaseControlGUIElement from '@mmorpg/interfaces/ui/base-elements/IBaseControlGUIElement';
 import CloseButtonGUIElement from '@mmorpg/ui/common-elements/buttons/CloseButtonGUIElement';
 import GUI_ELEMENT_NAMES from '@mmorpg/utils/constants/GUI_ELEMENT_NAMES';
+import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
 import { isEmptyString } from '@mmorpg/utils/strings';
 
 const DRAG_CONTROL_AREA_HORIZONTAL_PERCENTAGE = 86;
@@ -40,6 +41,15 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 		this._createMainContentContainer();
 	}
 
+	public show() {
+		this.isVisible = true;
+	}
+
+	public hide() {
+		this.isVisible = false;
+		ToolTipManager.getInstance().hide();
+	}
+
 	protected abstract _setSize(): void;
 
 	protected abstract _setDefaultPosition(): void;
@@ -53,7 +63,7 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 	private _addTitle() {
 		if (!isEmptyString(this._titleText)) {
 			this._titleElement = new TextBlock(`${this.elementName}${GUI_ELEMENT_NAMES.TITLE}`, this._titleText);
-			this._titleElement.color = 'white';
+			this._titleElement.color = 'rgba(255,255,255,0.8)';
 			this._titleElement.fontSizeInPixels = 16;
 			this._dragControlArea.addControl(this._titleElement);
 		}
@@ -81,7 +91,12 @@ abstract class BaseMainPanelGUI extends BaseDraggableRectangleGUIElement {
 	private _addCloseButton(closePanel?: () => void) {
 		this._closeButton = new CloseButtonGUIElement({
 			elementName: `${this.elementName}${GUI_ELEMENT_NAMES.CLOSE_BUTTON}`,
-			onClick: closePanel,
+			onClick: () => {
+				ToolTipManager.getInstance().hide();
+				if (closePanel) {
+					closePanel();
+				}
+			},
 		});
 		this._closeButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
 		this._closeButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
