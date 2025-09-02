@@ -2,18 +2,18 @@ import IInventorySize from '@mmorpg/interfaces/game-objects/inventory/IInventory
 import ITEM_CATEGORIES from '@mmorpg/utils/constants/ITEM_CATEGORIES';
 
 interface IItemDefinition {
-	itemId: string;
-	itemCategory: ITEM_CATEGORIES;
-	itemDisplayNameText: string;
-	itemDescriptionText: string;
-	itemSize: IInventorySize;
-	itemStackable: boolean;
-	itemMaxStack?: number;
-	itemModelUrl: string;
-	itemIconUrl: string;
-	itemVendibleForGold: boolean;
-	itemGoldBuyPrice?: number;
-	itemGoldSellPrice?: number;
+	id: string;
+	category: ITEM_CATEGORIES;
+	displayNameText: string;
+	descriptionText: string;
+	modelUrl: string;
+	iconUrl: string;
+	size: IInventorySize;
+	stackable: boolean;
+	maxStack?: number;
+	vendibleForGold: boolean;
+	goldBuyPrice?: number;
+	goldSellPrice?: number;
 }
 
 export default IItemDefinition;

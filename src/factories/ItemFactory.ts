@@ -14,7 +14,7 @@ class ItemFactory extends BaseFactory {
 	private constructor() {
 		super();
 		for (const def of itemsDefinition) {
-			this._definitionsMap.set(def.itemId, def);
+			this._definitionsMap.set(def.id, def);
 		}
 	}
 
@@ -46,22 +46,22 @@ class ItemFactory extends BaseFactory {
 			throw new Error(`Item ID '${params.itemId}' not found in definitions.`);
 		}
 
-		switch (def.itemCategory) {
+		switch (def.category) {
 			case ITEM_CATEGORIES.POTION:
 				if (params.currentStackQuantity) {
 					returnValue = new PotionItem({
-						itemId: def.itemId,
-						displayNameText: def.itemDisplayNameText,
-						descriptionText: def.itemDescriptionText,
-						itemSize: def.itemSize,
-						stackable: def.itemStackable,
+						id: def.id,
+						displayNameText: def.displayNameText,
+						descriptionText: def.descriptionText,
+						size: def.size,
+						stackable: def.stackable,
 						currentStackQuantity: params.currentStackQuantity,
-						maxStackQuantity: def.itemMaxStack,
-						modelUrl: def.itemModelUrl,
-						iconUrl: def.itemIconUrl,
-						itemVendibleForGold: def.itemVendibleForGold,
-						itemGoldBuyPrice: def.itemGoldBuyPrice,
-						itemGoldSellPrice: def.itemGoldSellPrice,
+						maxStack: def.maxStack,
+						modelUrl: def.modelUrl,
+						iconUrl: def.iconUrl,
+						vendibleForGold: def.vendibleForGold,
+						goldBuyPrice: def.goldBuyPrice,
+						goldSellPrice: def.goldSellPrice,
 					});
 				}
 				break;

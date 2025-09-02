@@ -4,7 +4,6 @@ import { IBaseItemConstructorParams } from '@mmorpg/interfaces/game-objects/inve
 import Entity from '@mmorpg/game-objects/Entity';
 
 abstract class BaseItem extends Entity {
-	private _itemId: string;
 	private _displayNameText: string;
 	private _descriptionText: string;
 	private _vendibleForGold: boolean = false;
@@ -17,24 +16,19 @@ abstract class BaseItem extends Entity {
 	private _iconUrl: string = '';
 
 	constructor(params: IBaseItemConstructorParams) {
-		super();
-		this._itemId = params.itemId;
+		super({ id: params.id });
 		this._displayNameText = params.displayNameText;
 		this._descriptionText = params.descriptionText;
 		this._modelUrl = params.modelUrl;
 		this._iconUrl = params.iconUrl;
-		this._vendibleForGold = params.itemVendibleForGold;
-		this._sellPrice = params.itemGoldSellPrice ? params.itemGoldSellPrice : null;
-		this._buyPrice = params.itemGoldBuyPrice ? params.itemGoldBuyPrice : null;
+		this._vendibleForGold = params.vendibleForGold;
+		this._sellPrice = params.goldSellPrice ? params.goldSellPrice : null;
+		this._buyPrice = params.goldBuyPrice ? params.goldBuyPrice : null;
 		if (params.stackable === true) {
 			this._stackable = true;
 			this._currentStackQuantity = params.currentStackQuantity ? params.currentStackQuantity : 0;
-			this._maxStackQuantity = params.maxStackQuantity ? params.maxStackQuantity : -1;
+			this._maxStackQuantity = params.maxStack ? params.maxStack : -1;
 		}
-	}
-
-	get id(): string {
-		return this._itemId;
 	}
 
 	get name(): string {

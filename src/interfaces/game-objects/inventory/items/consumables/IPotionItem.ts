@@ -1,5 +1,5 @@
 import { IBaseConsumableItemConstructorParams } from '@mmorpg/interfaces/game-objects/inventory/items/base/IBaseConsumableItem';
 
-type IPotionItemConstructorParams = IBaseConsumableItemConstructorParams;
+type IPotionItemConstructorParams = Omit<IBaseConsumableItemConstructorParams, 'category'>;
 
 export { IPotionItemConstructorParams };

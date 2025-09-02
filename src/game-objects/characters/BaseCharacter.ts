@@ -15,7 +15,7 @@ abstract class BaseCharacter extends Entity implements IHealthPointsBehaviour, I
 	private _maxMP: number;
 
 	constructor(params: IBaseCharacterConstructorParams) {
-		super();
+		super({ id: `character-id-${Entity.instanceNumber}` });
 		this._name = params.characterName;
 		this._currentHP = params.currentHP;
 		this._maxHP = params.maxHP;

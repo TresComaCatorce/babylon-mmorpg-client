@@ -6,12 +6,12 @@ import BaseItem from '@mmorpg/game-objects/inventory/items/base/BaseItem';
 
 abstract class BaseInventoryItem extends BaseItem {
 	private _serialNumber: string;
-	private _itemSize: IInventorySize;
+	private _size: IInventorySize;
 
 	constructor(params: IBaseInventoryItemConstructorParams) {
 		super(params);
 		this._serialNumber = uuidv4();
-		this._itemSize = params.itemSize;
+		this._size = params.size;
 	}
 
 	get serialNumber(): string {
@@ -19,7 +19,7 @@ abstract class BaseInventoryItem extends BaseItem {
 	}
 
 	get size(): IInventorySize {
-		return this._itemSize;
+		return this._size;
 	}
 }
 

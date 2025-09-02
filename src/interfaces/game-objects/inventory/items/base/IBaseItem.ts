@@ -1,18 +1,7 @@
-// Item Types
-// 1 -> Consumables
+import IItemDefinition from '@mmorpg/interfaces/game-objects/inventory/items/IItemDefinition';
 
-interface IBaseItemConstructorParams {
-	itemId: string;
-	displayNameText: string;
-	descriptionText: string;
-	modelUrl: string;
-	iconUrl: string;
-	stackable?: boolean;
+interface IBaseItemConstructorParams extends IItemDefinition {
 	currentStackQuantity?: number;
-	maxStackQuantity?: number;
-	itemVendibleForGold: boolean;
-	itemGoldBuyPrice?: number;
-	itemGoldSellPrice?: number;
 }
 
 export { IBaseItemConstructorParams };

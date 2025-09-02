@@ -1,15 +1,23 @@
+import { IEntityConstructorParams } from '@mmorpg/interfaces/game-objects/IEntity';
+
 abstract class Entity {
 	private static _instancesCounter: number = 0;
 
-	private static _getEntityId(): string {
+	private static _getInstanceNumber(): string {
 		Entity._instancesCounter++;
 		return Entity._instancesCounter.toString();
 	}
 
-	private _id: string;
+	static get instanceNumber(): number {
+		return Entity._instancesCounter;
+	}
 
-	constructor() {
-		this._id = Entity._getEntityId();
+	private _id: string;
+	private _instanceNumber: string;
+
+	constructor(params: IEntityConstructorParams) {
+		this._instanceNumber = Entity._getInstanceNumber();
+		this._id = params.id;
 	}
 
 	public abstract update(): void;
@@ -17,6 +25,10 @@ abstract class Entity {
 
 	get id(): string {
 		return this._id;
+	}
+
+	get instanceNumber(): string {
+		return this._instanceNumber;
 	}
 }
 

@@ -63,9 +63,9 @@ class ToolTipManager {
 
 	public hide(): void {
 		this._toolTipContainer.isVisible = false;
-		// if (this._toolTipContent) {
-		// 	this._toolTipContainer.removeControl(this._toolTipContent);
-		// }
+		if (this._toolTipContent) {
+			this._toolTipContainer.removeControl(this._toolTipContent);
+		}
 	}
 
 	private _createToolTipContainer() {
