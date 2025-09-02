@@ -10,6 +10,9 @@ interface IBaseItemConstructorParams {
 	stackable?: boolean;
 	currentStackQuantity?: number;
 	maxStackQuantity?: number;
+	itemVendibleForGold: boolean;
+	itemGoldBuyPrice?: number;
+	itemGoldSellPrice?: number;
 }
 
 export { IBaseItemConstructorParams };

@@ -59,6 +59,9 @@ class ItemFactory extends BaseFactory {
 						maxStackQuantity: def.itemMaxStack,
 						modelUrl: def.itemModelUrl,
 						iconUrl: def.itemIconUrl,
+						itemVendibleForGold: def.itemVendibleForGold,
+						itemGoldBuyPrice: def.itemGoldBuyPrice,
+						itemGoldSellPrice: def.itemGoldSellPrice,
 					});
 				}
 				break;

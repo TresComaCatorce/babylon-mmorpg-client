@@ -8,9 +8,12 @@ interface IItemDefinition {
 	itemDescriptionText: string;
 	itemSize: IInventorySize;
 	itemStackable: boolean;
+	itemMaxStack?: number;
 	itemModelUrl: string;
 	itemIconUrl: string;
-	itemMaxStack?: number;
+	itemVendibleForGold: boolean;
+	itemGoldBuyPrice?: number;
+	itemGoldSellPrice?: number;
 }
 
 export default IItemDefinition;

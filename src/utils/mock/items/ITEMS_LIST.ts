@@ -15,6 +15,9 @@ const itemsDefinition: IItemDefinition[] = [
 		},
 		itemIconUrl: 'assets/icons/items/hp_potion_small_icon.png',
 		itemModelUrl: 'assets/models/items/potions/hp_potion_small.gltf',
+		itemVendibleForGold: true,
+		itemGoldBuyPrice: 10,
+		itemGoldSellPrice: 5,
 	},
 ];
 

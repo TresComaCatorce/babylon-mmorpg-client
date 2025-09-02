@@ -1,3 +1,5 @@
+import { Nullable } from '@babylonjs/core';
+
 import { IBaseItemConstructorParams } from '@mmorpg/interfaces/game-objects/inventory/items/base/IBaseItem';
 import Entity from '@mmorpg/game-objects/Entity';
 
@@ -5,6 +7,9 @@ abstract class BaseItem extends Entity {
 	private _itemId: string;
 	private _displayNameText: string;
 	private _descriptionText: string;
+	private _vendibleForGold: boolean = false;
+	private _sellPrice: Nullable<number> = null;
+	private _buyPrice: Nullable<number> = null;
 	private _stackable: boolean = false;
 	private _currentStackQuantity: number = 0;
 	private _maxStackQuantity: number = -1;
@@ -18,6 +23,9 @@ abstract class BaseItem extends Entity {
 		this._descriptionText = params.descriptionText;
 		this._modelUrl = params.modelUrl;
 		this._iconUrl = params.iconUrl;
+		this._vendibleForGold = params.itemVendibleForGold;
+		this._sellPrice = params.itemGoldSellPrice ? params.itemGoldSellPrice : null;
+		this._buyPrice = params.itemGoldBuyPrice ? params.itemGoldBuyPrice : null;
 		if (params.stackable === true) {
 			this._stackable = true;
 			this._currentStackQuantity = params.currentStackQuantity ? params.currentStackQuantity : 0;
@@ -55,6 +63,18 @@ abstract class BaseItem extends Entity {
 
 	get iconUrl(): string {
 		return this._iconUrl;
+	}
+
+	get vendibleForGold(): boolean {
+		return this._vendibleForGold;
+	}
+
+	get sellPrice(): Nullable<number> {
+		return this._sellPrice;
+	}
+
+	get buyPrice(): Nullable<number> {
+		return this._buyPrice;
 	}
 }
 
