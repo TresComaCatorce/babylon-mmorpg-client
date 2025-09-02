@@ -87,44 +87,42 @@ abstract class BaseDraggableRectangleGUIElement extends BaseRectangleGUIElement 
 			const canvasPosition = GameController.getInstance().canvasElement.getBoundingClientRect();
 
 			// Move the draggable element
-			const isValidPosition = this._panelIsOnScreen({ leftInPixels: this.leftInPixels, topInPixels: this.topInPixels }, canvasPosition);
-			if (isValidPosition) {
-				this._lastValidPosition.x = Math.trunc(this.leftInPixels);
-				this._lastValidPosition.y = Math.trunc(this.topInPixels);
-				const auxLeftInPixels = pointerInfo.event.clientX - canvasPosition.left - this._pointerPositionWhenStartDragging.x;
-				const auxTopInPixels = pointerInfo.event.clientY - canvasPosition.top - this._pointerPositionWhenStartDragging.y;
-				if (this._panelIsOnScreen({ leftInPixels: auxLeftInPixels, topInPixels: auxTopInPixels }, canvasPosition)) {
-					this.leftInPixels = pointerInfo.event.clientX - canvasPosition.left - this._pointerPositionWhenStartDragging.x;
-					this.topInPixels = pointerInfo.event.clientY - canvasPosition.top - this._pointerPositionWhenStartDragging.y;
-				}
+			const auxLeftInPixels = pointerInfo.event.clientX - canvasPosition.left - this._pointerPositionWhenStartDragging.x;
+			const auxTopInPixels = pointerInfo.event.clientY - canvasPosition.top - this._pointerPositionWhenStartDragging.y;
+
+			const validation = this._panelIsOnScreen({ leftInPixels: auxLeftInPixels, topInPixels: auxTopInPixels }, canvasPosition);
+
+			// Update X axis only if is valid
+			if (validation.xIsValid) {
+				this.leftInPixels = auxLeftInPixels;
+				this._lastValidPosition.x = Math.trunc(auxLeftInPixels);
 			} else {
 				this.leftInPixels = this._lastValidPosition.x;
+			}
+
+			// Update Y axis only if valid
+			if (validation.yIsValid) {
+				this.topInPixels = auxTopInPixels;
+				this._lastValidPosition.y = Math.trunc(auxTopInPixels);
+			} else {
 				this.topInPixels = this._lastValidPosition.y;
 			}
 		});
 	}
 
 	private _panelIsOnScreen(positionToCheck: { leftInPixels: number; topInPixels: number }, canvasPosition: DOMRect) {
-		const panelCornerTopLeft = { x: Math.trunc(positionToCheck.leftInPixels), y: Math.trunc(positionToCheck.topInPixels) };
-		const panelCornerTopRight = { x: Math.trunc(positionToCheck.leftInPixels + this.widthInPixels), y: Math.trunc(positionToCheck.topInPixels) };
-		const panelCornerBottomLeft = {
-			x: Math.trunc(positionToCheck.leftInPixels),
-			y: Math.trunc(positionToCheck.topInPixels + this.heightInPixels),
-		};
-		const panelCornerBottomRight = {
-			x: Math.trunc(positionToCheck.leftInPixels + this.widthInPixels),
-			y: Math.trunc(positionToCheck.topInPixels + this.heightInPixels),
-		};
+		const panelLeft = Math.trunc(positionToCheck.leftInPixels);
+		const panelTop = Math.trunc(positionToCheck.topInPixels);
+		const panelRight = Math.trunc(positionToCheck.leftInPixels + this.widthInPixels);
+		const panelBottom = Math.trunc(positionToCheck.topInPixels + this.heightInPixels);
 
 		const canvasMaxX = canvasPosition.width;
 		const canvasMaxY = canvasPosition.height;
 
-		const topLeftCornerIsOnScreen = panelCornerTopLeft.x >= 0 && panelCornerTopLeft.y >= 0;
-		const topRightCornerIsOnScreen = panelCornerTopRight.x <= canvasMaxX && panelCornerTopRight.y >= 0;
-		const bottomLeftCornerIsOnScreen = panelCornerBottomLeft.x >= 0 && panelCornerBottomLeft.y <= canvasMaxY;
-		const bottomRightCornerIsOnScreen = panelCornerBottomRight.x <= canvasMaxX && panelCornerBottomRight.y <= canvasMaxY;
+		const xIsValid = panelLeft >= 0 && panelRight <= canvasMaxX;
+		const yIsValid = panelTop >= 0 && panelBottom <= canvasMaxY;
 
-		return topLeftCornerIsOnScreen && topRightCornerIsOnScreen && bottomLeftCornerIsOnScreen && bottomRightCornerIsOnScreen;
+		return { xIsValid, yIsValid };
 	}
 }
 
