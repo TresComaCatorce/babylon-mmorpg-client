@@ -97,7 +97,6 @@ class ToolTipManager {
 			this._pointerY = event.clientY;
 
 			if (this._toolTipContainer.isVisible) {
-				console.log(`Pointer x:${this._pointerX} y:${this._pointerY} | canvas: `, canvasElementPosition);
 				this._toolTipContainer.leftInPixels = this._pointerX - canvasElementPosition.left + 15;
 				this._toolTipContainer.topInPixels = this._pointerY - canvasElementPosition.top + 15;
 			}

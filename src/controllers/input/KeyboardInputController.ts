@@ -106,7 +106,7 @@ class KeyboardInputController extends BaseController {
 	}
 
 	private _onKeyPressedCallback(kbInfo: KeyboardInfo): void {
-		console.table(this._toggleKeyStates);
+		// console.table(this._toggleKeyStates);
 		const eventKeyCode = kbInfo.event.key.toLowerCase();
 		const isKeyDownEventType = kbInfo.type === KeyboardEventTypes.KEYDOWN;
 		this._onUpdateKeyPressedLogic(kbInfo, eventKeyCode, isKeyDownEventType);
@@ -121,7 +121,6 @@ class KeyboardInputController extends BaseController {
 		}
 
 		this._inputMap[eventKeyCode] = isKeyDownEventType;
-		console.log(`this._inputMap [Key: "${eventKeyCode}" Event: "${kbInfo.type === KeyboardEventTypes.KEYDOWN ? 'KEYDOWN' : 'KEYUP'}"]`);
 	}
 
 	private _onUpdateToggleLogic(eventKeyCode: string, isKeyDownEventType: boolean) {
@@ -167,17 +166,17 @@ class KeyboardInputController extends BaseController {
 	}
 
 	private _renderToggleDebugStatus(): void {
-		// if (process.env.NODE_ENV === 'development') {
-		if (!this._toggleStatusDebugInspectorElement) return;
+		if (process.env.NODE_ENV === 'development') {
+			if (!this._toggleStatusDebugInspectorElement) return;
 
-		const entries = Object.keys(this._toggleKeyValues).map((key) => {
-			const isOn = this._toggleKeyValues[key];
-			const label = this._toggleDisplayNames[key] || key.toUpperCase();
-			return `<div><span class="yellow-color">[${key.toUpperCase()}]</span> ${label}: ${isOn ? '<span class="green-color">ON</span>' : '<span class="red-color">OFF</span>'}</div>`;
-		});
+			const entries = Object.keys(this._toggleKeyValues).map((key) => {
+				const isOn = this._toggleKeyValues[key];
+				const label = this._toggleDisplayNames[key] || key.toUpperCase();
+				return `<div><span class="yellow-color">[${key.toUpperCase()}]</span> ${label}: ${isOn ? '<span class="green-color">ON</span>' : '<span class="red-color">OFF</span>'}</div>`;
+			});
 
-		this._toggleStatusDebugInspectorElement.innerHTML = `<div><b>[DEBUG] Toggle Values</b></div>` + entries.join('');
-		// }
+			this._toggleStatusDebugInspectorElement.innerHTML = `<div><b>[DEBUG] Toggle Values</b></div>` + entries.join('');
+		}
 	}
 }
 

@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Nullable } from '@babylonjs/core';
-import { Rectangle, StackPanel, TextBlock, Image, Control } from '@babylonjs/gui';
+import { Rectangle, StackPanel, TextBlock, Image } from '@babylonjs/gui';
 import BaseInventoryItem from '@mmorpg/game-objects/inventory/items/base/BaseInventoryItem';
 
 import { InventoryItemToolTipGUIElementConstructorParams } from '@mmorpg/interfaces/ui/common-elements/inventory/IInventoryItemToolTipGUIElement';
