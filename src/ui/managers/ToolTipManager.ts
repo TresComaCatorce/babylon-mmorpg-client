@@ -61,6 +61,13 @@ class ToolTipManager {
 		});
 	}
 
+	public show(): void {
+		if (this._initialized) {
+			this._toolTipContainer.isVisible = true;
+			this._toolTipContainer.addControl(this._toolTipContent);
+		}
+	}
+
 	public hide(): void {
 		this._toolTipContainer.isVisible = false;
 		if (this._toolTipContent) {
