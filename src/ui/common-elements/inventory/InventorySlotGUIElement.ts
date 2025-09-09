@@ -57,6 +57,16 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 		this._setupImageGuiElement();
 	}
 
+	private _setupLookAndFeel() {
+		this.thickness = 0;
+		this.widthInPixels = this._slotSizeInPixels.width;
+		this.heightInPixels = this._slotSizeInPixels.height;
+		this.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+		this.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+		this.leftInPixels = this._offset.x;
+		this.topInPixels = this._offset.y;
+	}
+
 	private _setupImageGuiElement() {
 		this._inventorySlotImageGuiElement.widthInPixels = this._slotSizeInPixels.width;
 		this._inventorySlotImageGuiElement.heightInPixels = this._slotSizeInPixels.height;
@@ -77,16 +87,6 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 		this._inventoryItemGuiElement.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 		this._inventoryItemGuiElement.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
 		this.addControl(this._inventoryItemGuiElement);
-	}
-
-	private _setupLookAndFeel() {
-		this.thickness = 0;
-		this.widthInPixels = this._slotSizeInPixels.width;
-		this.heightInPixels = this._slotSizeInPixels.height;
-		this.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-		this.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-		this.leftInPixels = this._offset.x;
-		this.topInPixels = this._offset.y;
 	}
 
 	private _setState(newValue: INVENTORY_SLOT_STATES) {
