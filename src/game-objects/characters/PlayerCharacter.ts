@@ -108,6 +108,10 @@ class PlayerCharacter extends BaseCharacter {
 		return this._kbInputController;
 	}
 
+	get guiController(): Nullable<PlayerCharacterGUIController> {
+		return this._guiController;
+	}
+
 	get movementController(): Nullable<PlayerCharacterMovementController> {
 		return this._movementController;
 	}

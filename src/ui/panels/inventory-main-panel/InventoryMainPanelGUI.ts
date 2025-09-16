@@ -46,14 +46,9 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 		if (inventoryController) {
 			const inventory = inventoryController.inventory;
 			if (inventory) {
-				const inventorySlotSize = Math.trunc(this.widthInPixels / 14);
 				this._inventoryGridInstance = new InventoryGridGUIElement({
 					elementName: `${GUI_ELEMENT_NAMES.INVENTORY_PANEL}${GUI_ELEMENT_NAMES.GRID}`,
 					associatedInventory: inventory,
-					slotSize: {
-						width: inventorySlotSize,
-						height: inventorySlotSize,
-					},
 				});
 				this._addToPanelContentContainer(this._inventoryGridInstance);
 			} else {
@@ -66,6 +61,10 @@ class InventoryMainPanelGUI extends BaseMainPanelGUI implements IPlayerCharacter
 
 	get characterInstance(): PlayerCharacter {
 		return this._characterInstance;
+	}
+
+	get inventoryGridInstance(): Nullable<InventoryGridGUIElement> {
+		return this._inventoryGridInstance;
 	}
 }
 

@@ -80,8 +80,8 @@ abstract class BaseDraggableRectangleGUIElement extends BaseRectangleGUIElement 
 	private _initializeDragPointerMoveEvent() {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		currentScene?.onPointerObservable.add((pointerInfo) => {
-			// Ignore all events except "POINTERMOVE" event type
-			if (!this._isDragging || pointerInfo.type !== PointerEventTypes.POINTERMOVE) return;
+			// Ignore if element is not being dragged
+			if (!this._isDragging) return;
 
 			// Get canvas position to calculate correct movement
 			const canvasPosition = GameController.getInstance().canvasElement.getBoundingClientRect();
@@ -107,7 +107,7 @@ abstract class BaseDraggableRectangleGUIElement extends BaseRectangleGUIElement 
 			} else {
 				this.topInPixels = this._lastValidPosition.y;
 			}
-		});
+		}, PointerEventTypes.POINTERMOVE);
 	}
 
 	private _panelIsOnScreen(positionToCheck: { leftInPixels: number; topInPixels: number }, canvasPosition: DOMRect) {

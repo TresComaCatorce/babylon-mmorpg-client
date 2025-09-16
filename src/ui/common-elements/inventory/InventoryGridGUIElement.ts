@@ -18,7 +18,7 @@ class InventoryGridGUIElement extends BaseRectangleGUIElement {
 	constructor(params: IInventoryGridGUIElementConstructorParams) {
 		super(params);
 		this._asociatedInventory = params.associatedInventory;
-		this._slotSize = params.slotSize ? params.slotSize : DEFAULT_SLOT_SIZE_IN_PIXELS;
+		this._slotSize = DEFAULT_SLOT_SIZE_IN_PIXELS;
 		this._createInventorySlots();
 	}
 
@@ -31,7 +31,6 @@ class InventoryGridGUIElement extends BaseRectangleGUIElement {
 				const slotPositionInRow = j + 1;
 				const slotCreated = new InventorySlotGUIElement({
 					elementName: `InventorySlot-${rowNumber}-${slotPositionInRow}`,
-					size: this._slotSize,
 					offSet: { x: j * this._slotSize.width, y: i * this._slotSize.height },
 				});
 				if (rowNumber === 2 && slotPositionInRow === 2) {
@@ -42,6 +41,10 @@ class InventoryGridGUIElement extends BaseRectangleGUIElement {
 			}
 			this._slotsGrid.push(row);
 		}
+	}
+
+	get slots(): InventorySlotGUIElement[][] {
+		return this._slotsGrid;
 	}
 }
 

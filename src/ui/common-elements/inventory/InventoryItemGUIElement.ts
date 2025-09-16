@@ -10,6 +10,7 @@ import ScenesController from '@mmorpg/controllers/ScenesController';
 import MOUSE_CURSORS from '@mmorpg/utils/constants/MOUSE_CURSORS';
 import ToolTipManager from '@mmorpg/ui/managers/ToolTipManager';
 import GUIController from '@mmorpg/controllers/GUIController';
+import BaseMapScene from '@mmorpg/scenes/base/BaseMapScene';
 
 class InventoryItemGUIElement extends BaseRectangleGUIElement {
 	private _itemObjectData: BaseInventoryItem;
@@ -83,9 +84,10 @@ class InventoryItemGUIElement extends BaseRectangleGUIElement {
 		const currentScene = ScenesController.getInstance().currentSceneInstance;
 		// Handle the pointer down event to drop the item if it's picked up
 		this.onPointerDownObservable.add(() => {
-			if (currentScene && this._isPickedUp) {
+			if (currentScene && this._isPickedUp && currentScene instanceof BaseMapScene) {
 				// Reset picked up state
 				this._isPickedUp = false;
+				currentScene.playerCharacter?.guiController?.setPickedUpItem(null);
 				this._justDropped = true;
 
 				// Reset item scale and zIndex
@@ -112,9 +114,10 @@ class InventoryItemGUIElement extends BaseRectangleGUIElement {
 		// Handle the pointer up event to pick up the item or finalize dropping it
 		this.onPointerUpObservable.add(() => {
 			// If the item is not picked up and is not a "pointer up" after dropping it
-			if (currentScene && !this._justDropped && !this._isPickedUp) {
+			if (currentScene && !this._justDropped && !this._isPickedUp && currentScene instanceof BaseMapScene) {
 				// Set picked up state
 				this._isPickedUp = true;
+				currentScene.playerCharacter?.guiController?.setPickedUpItem(this);
 
 				// Add a zoom & zIndex to the picked up item
 				this.scaleX = 1.5;

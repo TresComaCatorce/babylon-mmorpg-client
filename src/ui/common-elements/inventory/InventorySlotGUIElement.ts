@@ -39,6 +39,14 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 	private _inventorySlotImageGuiElement: Image = new Image(`${this.elementName}${GUI_ELEMENT_NAMES.BACKGROUND}`, SLOT_IMAGES_URLS.EMPTY);
 	private _inventoryItemGuiElement: Nullable<InventoryItemGUIElement> = null;
 
+	constructor(params: IInventorySlotGUIElementConstructorParams) {
+		super(params);
+		this._slotSizeInPixels = DEFAULT_SLOT_SIZE_IN_PIXELS;
+		this._offset = params.offSet ? params.offSet : DEFAULT_OFFSET_IN_PIXELS;
+		this._setupLookAndFeel();
+		this._setupImageGuiElement();
+	}
+
 	public setContent(params: IInventorySlotGUIElementAddContentParams) {
 		if (params.contentToAdd === null) {
 			this._setState(INVENTORY_SLOT_STATES.EMPTY);
@@ -49,12 +57,12 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 		this._createInventoryItemGUIElement(params.contentToAdd);
 	}
 
-	constructor(params: IInventorySlotGUIElementConstructorParams) {
-		super(params);
-		this._slotSizeInPixels = params.size ? params.size : DEFAULT_SLOT_SIZE_IN_PIXELS;
-		this._offset = params.offSet ? params.offSet : DEFAULT_OFFSET_IN_PIXELS;
-		this._setupLookAndFeel();
-		this._setupImageGuiElement();
+	public setAsEmpty() {
+		this._setState(INVENTORY_SLOT_STATES.EMPTY);
+	}
+
+	public setAsPreview() {
+		this._setState(INVENTORY_SLOT_STATES.PREVIEW);
 	}
 
 	private _setupLookAndFeel() {
@@ -118,19 +126,11 @@ class InventorySlotGUIElement extends BaseRectangleGUIElement {
 	}
 
 	get isEmpty(): boolean {
-		return this._state === INVENTORY_SLOT_STATES.EMPTY;
+		return this._state === INVENTORY_SLOT_STATES.EMPTY || this._state === INVENTORY_SLOT_STATES.PREVIEW;
 	}
 
 	get isNotEmpty(): boolean {
-		return this._state === INVENTORY_SLOT_STATES.NOT_EMPTY;
-	}
-
-	get isPreEmpty(): boolean {
-		return this._state === INVENTORY_SLOT_STATES.DRAGGING_ITEM;
-	}
-
-	get isPreNotEmpty(): boolean {
-		return this._state === INVENTORY_SLOT_STATES.PREVIEW;
+		return this._state === INVENTORY_SLOT_STATES.NOT_EMPTY || this._state === INVENTORY_SLOT_STATES.DRAGGING_ITEM;
 	}
 
 	get isBlocked(): boolean {

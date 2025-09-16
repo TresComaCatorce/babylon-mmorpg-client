@@ -2,11 +2,9 @@ import { Nullable } from '@babylonjs/core';
 
 import { IBaseRectangleGUIElementConstructorParams } from '@mmorpg/interfaces/ui/base-elements/IBaseRectangleGUIElement';
 import BaseInventoryItem from '@mmorpg/game-objects/inventory/items/base/BaseInventoryItem';
-import IInventorySize from '@mmorpg/interfaces/game-objects/inventory/IInventorySize';
 import IOffsetGUI from '@mmorpg/interfaces/ui/IOffsetGUI';
 
 interface IInventorySlotGUIElementConstructorParams extends IBaseRectangleGUIElementConstructorParams {
-	size?: IInventorySize;
 	offSet?: IOffsetGUI;
 }
 

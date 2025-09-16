@@ -1,12 +1,10 @@
-import { Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Texture, FreeCamera, Nullable } from '@babylonjs/core';
+import { Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Texture, FreeCamera } from '@babylonjs/core';
 
 import PlayerCharacter from '@mmorpg/game-objects/characters/PlayerCharacter';
 import SCENE_NAMES from '@mmorpg/utils/constants/SCENE_NAMES';
 import MapScene from '@mmorpg/scenes/base/BaseMapScene';
 
 class StoneMapScene extends MapScene {
-	private _playerCharacter: Nullable<PlayerCharacter> = null;
-
 	constructor() {
 		super({ sceneName: SCENE_NAMES.STONE_MAP });
 	}
